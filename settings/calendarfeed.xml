@@ -1,0 +1,3 @@
+<settings>
+    <boolean key="/apps/ControlPanel/CalendarFeed/EnableFeed" title="Publish to Feed"></boolean>
+</settings>
