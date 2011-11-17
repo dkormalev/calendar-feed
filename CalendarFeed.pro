@@ -2,8 +2,6 @@ TEMPLATE = lib
 TARGET = calendarfeed-client
 VERSION = 0.1.0
 
-DEFINES += CALFEEDSYNCFWPLUGIN_LIBRARY
-
 DEPENDPATH += .
 INCLUDEPATH += . \
                 /usr/include/libsynccommon \
@@ -24,8 +22,7 @@ SOURCES += \
     calendarfeedplugin.cpp
 
 HEADERS +=\
-    calendarfeedplugin.h \
-    calendarfeedplugin_global.h
+    calendarfeedplugin.h
 
 QMAKE_CXXFLAGS = -Wall \
     -g \
