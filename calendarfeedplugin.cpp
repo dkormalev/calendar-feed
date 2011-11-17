@@ -76,8 +76,8 @@ bool CalendarFeedPlugin::uninit()
 
 bool CalendarFeedPlugin::startSync()
 {
-    GConfItem enabledLastId("/apps/ControlPanel/CalendarFeed/EnableFeed");
-    QVariant enabledVariant = enabledLastId.value();
+    GConfItem enabledConfItem("/apps/ControlPanel/CalendarFeed/EnableFeed");
+    QVariant enabledVariant = enabledConfItem.value();
     if (enabledVariant.isValid()) {
         bool enabled = enabledVariant.toBool();
         if (!enabled) {
@@ -142,12 +142,25 @@ void CalendarFeedPlugin::updateFeed()
     endDateTime.setTime(QTime(23, 59, 59));
 
     QList<QOrganizerItem> events = manager.items(startDateTime, endDateTime);
-    if (events.isEmpty()) {
+    bool fillWithFuture = false;
+    GConfItem fillConfItem("/apps/ControlPanel/CalendarFeed/FillWithFuture");
+    QVariant fillVariant = fillConfItem.value();
+    if (fillVariant.isValid())
+        fillWithFuture = fillVariant.toBool();
+    if (fillWithFuture || events.isEmpty()) {
         events = manager.items(startDateTime, QDateTime());
     }
 
     QList<QOrganizerItem> displayableEvents;
-    for (int i = 0; i < 3 && i < events.size(); ++i)
+    int displayableCount = 3;
+    GConfItem displayableConfItem("/apps/ControlPanel/CalendarFeed/FeedSize");
+    QVariant displayableVariant = displayableConfItem.value();
+    if (displayableVariant.isValid())
+        displayableCount = displayableVariant.toInt();
+    if (displayableCount < 1)
+        displayableCount = 3;
+
+    for (int i = 0; i < displayableCount && i < events.size(); ++i)
         displayableEvents << events[i];
 
     QStringList descriptions;

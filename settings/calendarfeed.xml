@@ -1,3 +1,5 @@
 <settings>
     <boolean key="/apps/ControlPanel/CalendarFeed/EnableFeed" title="Publish to Feed"></boolean>
+    <integer key="/apps/ControlPanel/CalendarFeed/FeedSize" title="Events Shown" min="1" max="15"></integer>
+    <boolean key="/apps/ControlPanel/CalendarFeed/FillWithFuture" title="Fill with Future Events"></boolean>
 </settings>

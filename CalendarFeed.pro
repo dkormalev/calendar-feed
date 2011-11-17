@@ -1,5 +1,6 @@
 TEMPLATE = lib
 TARGET = calendarfeed-client
+VERSION = 0.1.0
 
 DEFINES += CALFEEDSYNCFWPLUGIN_LIBRARY
 
@@ -16,7 +17,6 @@ CONFIG += debug plugin meegotouchevents
 CONFIG += mobility
 MOBILITY += organizer
 
-QT += dbus network
 QT -= gui
 
 #input
