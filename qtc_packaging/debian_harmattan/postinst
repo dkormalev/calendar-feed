@@ -3,9 +3,9 @@
 # Dynamic installation of sync-fw plugins is not supported in PR1.0
 # but it can be tried out in any case
 /usr/bin/aegis-exec -s -u user dbus-send --dest=com.meego.msyncd --print-reply /synchronizer com.meego.msyncd.installPlugin string:'calendarfeed'
+/usr/bin/aegis-exec -s -u user dbus-send --dest=com.nokia.home.EventFeed --print-reply /eventfeed com.nokia.home.EventFeed.addRefreshAction string:'com.meego.msyncd /synchronizer com.meego.msyncd startSync AAAACgAAAAAYAGMAYQBsAGUAbgBkAGEAcgBmAGUAZQBk'
+
 gconftool -s /apps/ControlPanel/CalendarFeed/EnableFeed -t bool true
-#gconftool -s /apps/ControlPanel/CalendarFeed/FeedSize -t int 4
-#gconftool -s /apps/ControlPanel/CalendarFeed/FillWithFuture -t bool false
 
 # Make sure the installation is always considered successful
 exit 0
