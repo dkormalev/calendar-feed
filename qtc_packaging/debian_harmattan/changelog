@@ -1,8 +1,10 @@
-calendarfeed (0.2.0) unstable; urgency=low
+calendarfeed (0.2.4) unstable; urgency=low
 
-  * Item addition moved to dbus
   * Refresh button support
   * Click on item opens calendar
   * Offline refresh
+  * Time limit fo future events added
+  * Setings actualized
+  * Bugfixes
 
- -- Denis Kormalev <kormalev.denis@gmail.com>  Wed, 23 Nov 2011 20:00:00 +0400
+ -- Denis Kormalev <kormalev.denis@gmail.com>  Wed, 22 Nov 2011 23:00:00 +0400

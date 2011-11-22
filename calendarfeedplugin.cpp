@@ -146,7 +146,20 @@ void CalendarFeedPlugin::updateFeed()
     if (fillVariant.isValid())
         fillWithFuture = fillVariant.toBool();
     if (fillWithFuture || events.isEmpty()) {
-        events = manager.items(startDateTime, QDateTime());
+        endDateTime = QDateTime();
+        GConfItem limitFutureConfItem("/apps/ControlPanel/CalendarFeed/LimitFuture");
+        QVariant limitFutureVariant = limitFutureConfItem.value();
+        if (limitFutureVariant.isValid() && limitFutureVariant.toBool()) {
+            GConfItem limitSizeConfItem("/apps/ControlPanel/CalendarFeed/LimitDaysSize");
+            QVariant limitSizeVariant = limitSizeConfItem.value();
+            int limitSize = (limitSizeVariant.isValid()) ? limitSizeVariant.toInt() : 7;
+            if (limitSize < 1)
+                limitSize = 7;
+            endDateTime = QDateTime::currentDateTime().addDays(limitSize);
+            endDateTime.setTime(QTime(23, 59, 59));
+        }
+
+        events = manager.items(startDateTime, endDateTime);
     }
 
     QList<QOrganizerItem> displayableEvents;
@@ -174,7 +187,7 @@ void CalendarFeedPlugin::updateFeed()
             isAllDay = true;
         } else {
             QOrganizerEventTime eventTimeDetail = event.detail<QOrganizerEventTime>();
-            bool isAllDay = eventTimeDetail.isAllDay();
+            isAllDay = eventTimeDetail.isAllDay();
             startDateTime = eventTimeDetail.startDateTime();
             QDateTime endDateTime = eventTimeDetail.endDateTime();
             if (!isAllDay &&
@@ -212,7 +225,7 @@ void CalendarFeedPlugin::updateFeed()
     else
         body = descriptions.join("<br />");
     if (icon.isEmpty())
-        icon = "icon-l-calendar";
+        icon = QString("icon-l-calendar-%1").arg(QDate::currentDate().toString("dd"));
 
     MEventFeed::instance()->removeItemsBySourceName("SyncFW-calendarfeed");
 
