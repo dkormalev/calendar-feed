@@ -38,12 +38,14 @@
 #include <QOrganizerEventTime>
 #include <QTime>
 #include <QDate>
+#include <QDBusConnection>
+#include <QDataStream>
 
 QTM_USE_NAMESPACE
 
 extern "C" CalendarFeedPlugin *createPlugin(const QString& pluginName,
-                                             const Buteo::SyncProfile &profile,
-                                             Buteo::PluginCbInterface *cbInterface)
+                                            const Buteo::SyncProfile &profile,
+                                            Buteo::PluginCbInterface *cbInterface)
 {
     return new CalendarFeedPlugin(pluginName, profile, cbInterface);
 }
@@ -54,8 +56,8 @@ extern "C" void destroyPlugin(CalendarFeedPlugin *client)
 }
 
 CalendarFeedPlugin::CalendarFeedPlugin(const QString &pluginName,
-                                         const Buteo::SyncProfile &profile,
-                                         Buteo::PluginCbInterface *cbInterface) :
+                                       const Buteo::SyncProfile &profile,
+                                       Buteo::PluginCbInterface *cbInterface) :
     ClientPlugin(pluginName, profile, cbInterface)
 {
 }
@@ -106,7 +108,7 @@ Buteo::SyncResults CalendarFeedPlugin::getSyncResults() const
 }
 
 void CalendarFeedPlugin::connectivityStateChanged(Sync::ConnectivityType type,
-                                                   bool state)
+                                                  bool state)
 {
     Q_UNUSED(type);
     Q_UNUSED(state);
@@ -125,16 +127,11 @@ void CalendarFeedPlugin::syncFailed()
     emit error(getProfileName(), "Error!!", Buteo::SyncResults::SYNC_RESULT_FAILED);
 }
 
-void CalendarFeedPlugin::updateResults(const Buteo::SyncResults &results)
-{
-    m_results = results;
-    m_results.setScheduled(true);
-}
-
 void CalendarFeedPlugin::updateFeed()
 {
     QString body;
     QString icon;
+    QDate firstEventDate = QDate::currentDate();
 
     QOrganizerManager manager;
     QDateTime startDateTime = QDateTime::currentDateTime();
@@ -164,6 +161,7 @@ void CalendarFeedPlugin::updateFeed()
         displayableEvents << events[i];
 
     QStringList descriptions;
+    bool isFirstDate = true;
     foreach (QOrganizerItem event, displayableEvents) {
         QString eventDescription;
         QOrganizerEventTime eventTimeDetail = event.detail<QOrganizerEventTime>();
@@ -178,6 +176,10 @@ void CalendarFeedPlugin::updateFeed()
                 startDateTime.date().addDays(1) == endDateTime.date())
             isAllDay = true;
         QDate startDate = startDateTime.date();
+        if (isFirstDate) {
+            isFirstDate = false;
+            firstEventDate = startDate;
+        }
         if (startDate != QDate::currentDate())
             eventDescription += startDate.toString("MMM, d ");
         if (!isAllDay)
@@ -198,24 +200,60 @@ void CalendarFeedPlugin::updateFeed()
     if (icon.isEmpty())
         icon = "icon-l-calendar";
 
-    bool success = false;
-    //Ok assuming that we now have the data that needs to be updated to event feed
     MEventFeed::instance()->removeItemsBySourceName("SyncFW-calendarfeed");
-    qlonglong id  = MEventFeed::instance()->addItem(icon,
-                                                    QString("Calendar"),
-                                                    body,
-                                                    QStringList(),
-                                                    QDateTime::currentDateTime().addSecs(3600),
-                                                    QString(),
-                                                    false,
-                                                    QUrl(),
-                                                    QString("SyncFW-calendarfeed"),
-                                                    QString("Calendar Feed"));
-    if (id != -1) {
-        success = true;
-    }
-    if(success)
-        syncSuccess();
-    else
+
+    QDBusMessage message = QDBusMessage::createMethodCall(
+            "com.nokia.home.EventFeed",
+            "/eventfeed",
+            "com.nokia.home.EventFeed",
+            "addItem");
+
+    QList<QVariant> args;
+    QVariantMap itemArgs;
+    itemArgs.insert("title", "Calendar");
+    itemArgs.insert("icon", icon);
+    itemArgs.insert("body", body);
+    itemArgs.insert("timestamp", QDateTime::currentDateTime().addDays(1).toString("yyyy-MM-dd hh:mm:ss"));
+    itemArgs.insert("sourceName", "SyncFW-calendarfeed");
+    itemArgs.insert("sourceDisplayName", "Calendar Feed");
+    itemArgs.insert("action", QString("com.nokia.Calendar / com.nokia.maemo.meegotouch.CalendarInterface showMonthView %1 %2 %3")
+                    .arg(base64SerializedVariant(firstEventDate.year()))
+                    .arg(base64SerializedVariant(firstEventDate.month()))
+                    .arg(base64SerializedVariant(firstEventDate.day())));
+
+    QDBusConnection bus = QDBusConnection::sessionBus();
+
+    args.append(itemArgs);
+    message.setArguments(args);
+    bus.callWithCallback(message, this, SLOT(dbusRequestCompleted(QDBusMessage)));
+}
+
+void CalendarFeedPlugin::dbusRequestCompleted(const QDBusMessage &reply)
+{
+    int replyId = reply.arguments().first().toInt();
+    if(replyId < 0)
         syncFailed();
+    else
+        syncSuccess();
+}
+
+void CalendarFeedPlugin::dbusErrorOccured(const QDBusError &error, const QDBusMessage &message)
+{
+    Q_UNUSED(error);
+    Q_UNUSED(message);
+    syncFailed();
+}
+
+void CalendarFeedPlugin::updateResults(const Buteo::SyncResults &results)
+{
+    m_results = results;
+    m_results.setScheduled(true);
+}
+
+QString CalendarFeedPlugin::base64SerializedVariant(const QVariant &value) const
+{
+    QByteArray ba;
+    QDataStream stream(&ba, QIODevice::WriteOnly);
+    stream << value;
+    return ba.toBase64();
 }

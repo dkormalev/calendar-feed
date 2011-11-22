@@ -27,6 +27,7 @@
 
 #include <libsyncpluginmgr/ClientPlugin.h>
 #include <libsyncprofile/SyncResults.h>
+#include <QDBusMessage>
 
 class CalendarFeedPlugin : public Buteo::ClientPlugin
 {
@@ -52,9 +53,13 @@ protected slots:
     void syncSuccess();
     void syncFailed();
     void updateFeed();
+    void dbusRequestCompleted(const QDBusMessage &reply);
+    void dbusErrorOccured(const QDBusError &error, const QDBusMessage &message);
 
 private:
     void updateResults(const Buteo::SyncResults &results);
+    QString base64SerializedVariant(const QVariant &value) const;
+
     Buteo::SyncResults m_results;
 };
 

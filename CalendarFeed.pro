@@ -1,6 +1,6 @@
 TEMPLATE = lib
 TARGET = calendarfeed-client
-VERSION = 0.1.0
+VERSION = 0.2.0
 
 DEPENDPATH += .
 INCLUDEPATH += . \
@@ -15,6 +15,7 @@ CONFIG += debug plugin meegotouchevents
 CONFIG += mobility
 MOBILITY += organizer
 
+QT += dbus
 QT -= gui
 
 #input
