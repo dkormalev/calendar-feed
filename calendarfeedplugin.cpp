@@ -36,6 +36,7 @@
 #include <QOrganizerManager>
 #include <QOrganizerItem>
 #include <QOrganizerEventTime>
+#include <QOrganizerTodoTime>
 #include <QTime>
 #include <QDate>
 #include <QDBusConnection>
@@ -164,29 +165,42 @@ void CalendarFeedPlugin::updateFeed()
     bool isFirstDate = true;
     foreach (QOrganizerItem event, displayableEvents) {
         QString eventDescription;
-        QOrganizerEventTime eventTimeDetail = event.detail<QOrganizerEventTime>();
-        bool isAllDay = eventTimeDetail.isAllDay();
-        QDateTime startDateTime = eventTimeDetail.startDateTime();
-        QDateTime endDateTime = eventTimeDetail.endDateTime();
-        if (!isAllDay &&
-                startDateTime.time().hour() == 0 &&
-                startDateTime.time().minute() == 0 &&
-                endDateTime.time().hour() == 0 &&
-                endDateTime.time().minute() == 0 &&
-                startDateTime.date().addDays(1) == endDateTime.date())
+        bool isAllDay = false;
+        QDateTime startDateTime = QDateTime::currentDateTime();
+
+        if (event.type().toLower() == "todo") {
+            QOrganizerTodoTime todoTimeDetail = event.detail<QOrganizerTodoTime>();
+            startDateTime = todoTimeDetail.dueDateTime();
             isAllDay = true;
+        } else {
+            QOrganizerEventTime eventTimeDetail = event.detail<QOrganizerEventTime>();
+            bool isAllDay = eventTimeDetail.isAllDay();
+            startDateTime = eventTimeDetail.startDateTime();
+            QDateTime endDateTime = eventTimeDetail.endDateTime();
+            if (!isAllDay &&
+                    startDateTime.time().hour() == 0 &&
+                    startDateTime.time().minute() == 0 &&
+                    endDateTime.time().hour() == 0 &&
+                    endDateTime.time().minute() == 0 &&
+                    startDateTime.date().addDays(1) == endDateTime.date())
+                isAllDay = true;
+        }
+
         QDate startDate = startDateTime.date();
+        if (startDate.isNull())
+            startDate = QDate::currentDate();
         if (isFirstDate) {
             isFirstDate = false;
             firstEventDate = startDate;
         }
         if (startDate != QDate::currentDate())
-            eventDescription += startDate.toString("MMM, d ");
+            eventDescription += QString("%1").arg(startDate.toString("MMM, d "));
         if (!isAllDay)
-            eventDescription += startDateTime.time().toString("hh:mm ");
+            eventDescription += QString("%1").arg(startDateTime.time().toString("hh:mm "));
         eventDescription += event.displayLabel();
         if (eventDescription.length() > 32)
             eventDescription = eventDescription.left(29)+"...";
+
         descriptions << eventDescription;
         if (icon.isEmpty()) {
             icon = QString("icon-l-calendar-%1").arg(startDate.toString("dd"));
