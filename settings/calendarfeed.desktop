@@ -1,8 +1,8 @@
 [Desktop Entry]
 Type=ControlPanelApplet
 Name=Calendar Feed
-X-logical-id=calendarfeed
-X-translation-catalog=calendarfeedcatalog
+X-logical-id=calendar_feed_title
+X-translation-catalog=calendarfeed
 Icon=
 X-Maemo-Service=com.nokia.DuiControlPanel
 X-Maemo-Method=com.nokia.DuiControlPanelIf.appletPage
@@ -17,3 +17,5 @@ X-DUIApplet-Applet=libdeclarative.so
 Category=Events Feed
 Order=100
 Part=calendarfeed.xml
+Text2=Calendar events at Feed screen
+Text2-logical-id=calendar_feed_subtitle

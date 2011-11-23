@@ -1,6 +1,6 @@
 TEMPLATE = lib
 TARGET = calendarfeed-client
-VERSION = 0.2.4
+VERSION = 0.3.0
 
 DEPENDPATH += .
 INCLUDEPATH += . \
@@ -33,6 +33,8 @@ QMAKE_CXXFLAGS = -Wall \
 #install
 target.path = /usr/lib/sync/
 
+system ("cd translations && lrelease -markuntranslated '' -idbased *.ts")
+
 client.path = /etc/sync/profiles/client
 client.files = xml/calendarfeed.xml
 
@@ -48,7 +50,10 @@ settingsdesktop.files = settings/calendarfeed.desktop
 settingsxml.path = /usr/share/duicontrolpanel/uidescriptions
 settingsxml.files = settings/calendarfeed.xml
 
-INSTALLS += target client sync service settingsdesktop settingsxml
+translations.path = /usr/share/l10n/meegotouch
+translations.files += translations/*qm
+
+INSTALLS += target client sync service settingsdesktop settingsxml translations
 
 OTHER_FILES += \
     qtc_packaging/debian_harmattan/rules \

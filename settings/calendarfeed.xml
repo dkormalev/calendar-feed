@@ -1,7 +1,7 @@
 <settings>
-    <boolean key="/apps/ControlPanel/CalendarFeed/EnableFeed" title="Publish to Feed"></boolean>
-    <integer key="/apps/ControlPanel/CalendarFeed/FeedSize" title="Events Shown" min="1" max="5"></integer>
-    <boolean key="/apps/ControlPanel/CalendarFeed/FillWithFuture" title="Fill with Future Events"></boolean>
-    <boolean key="/apps/ControlPanel/CalendarFeed/LimitFuture" title="Limit Future Events"></boolean>
-    <integer key="/apps/ControlPanel/CalendarFeed/LimitDaysSize" title="Limit Size (days)" min="1" max="31"></integer>
+    <boolean key="/apps/ControlPanel/CalendarFeed/EnableFeed" title="calendar_feed_setting_publish_to_feed"></boolean>
+    <integer key="/apps/ControlPanel/CalendarFeed/FeedSize" title="calendar_feed_setting_events_number" min="1" max="5"></integer>
+    <boolean key="/apps/ControlPanel/CalendarFeed/FillWithFuture" title="calendar_feed_setting_fill_with_future"></boolean>
+    <boolean key="/apps/ControlPanel/CalendarFeed/LimitFuture" title="calendar_feed_setting_limit_future"></boolean>
+    <integer key="/apps/ControlPanel/CalendarFeed/LimitDaysSize" title="calendar_feed_setting_future_limit_size" min="1" max="31"></integer>
 </settings>
