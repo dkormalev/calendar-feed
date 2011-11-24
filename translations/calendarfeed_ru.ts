@@ -21,11 +21,11 @@
     </message> 
     <message id="calendar_feed_setting_fill_with_future">
         <source>Fill with Future Events</source>
-        <translation type="unfinished"></translation>
+        <translation>Включить будущие события</translation>
     </message> 
     <message id="calendar_feed_setting_limit_future">
         <source>Limit Future Events</source>
-        <translation type="unfinished"></translation>
+        <translation>Ограничить днями</translation>
     </message> 
     <message id="calendar_feed_setting_future_limit_size">
         <source>Limit Size (days)</source>

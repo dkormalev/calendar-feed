@@ -227,8 +227,6 @@ void CalendarFeedPlugin::updateFeed()
     if (icon.isEmpty())
         icon = QString("icon-l-calendar-%1").arg(QDate::currentDate().toString("dd"));
 
-    MEventFeed::instance()->removeItemsBySourceName("SyncFW-calendarfeed");
-
     QDBusMessage message = QDBusMessage::createMethodCall(
             "com.nokia.home.EventFeed",
             "/eventfeed",
@@ -252,7 +250,8 @@ void CalendarFeedPlugin::updateFeed()
 
     args.append(itemArgs);
     message.setArguments(args);
-    bus.callWithCallback(message, this, SLOT(dbusRequestCompleted(QDBusMessage)));
+    MEventFeed::instance()->removeItemsBySourceName("SyncFW-calendarfeed");
+    bus.callWithCallback(message, this, SLOT(dbusRequestCompleted(QDBusMessage)), SLOT(dbusErrorOccured(QDBusError,QDBusMessage)));
 }
 
 void CalendarFeedPlugin::dbusRequestCompleted(const QDBusMessage &reply)
