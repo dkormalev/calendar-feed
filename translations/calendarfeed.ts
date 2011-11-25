@@ -43,6 +43,18 @@
         <source>No events in your calendar.</source>
         <translation type="unfinished"></translation>
     </message> 
+    <message id="calendar_feed_setting_group_behavior">
+        <source>Behavior</source>
+        <translation type="unfinished"></translation>
+    </message> 
+    <message id="calendar_feed_setting_group_display">
+        <source>Appearance</source>
+        <translation type="unfinished"></translation>
+    </message> 
+    <message id="calendar_feed_setting_date_format">
+        <source>Date Format</source>
+        <translation type="unfinished"></translation>
+    </message> 
 </context>
 </TS>
 

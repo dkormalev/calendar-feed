@@ -92,6 +92,8 @@ bool CalendarFeedPlugin::startSync()
             MEventFeed::instance()->removeItemsBySourceName("SyncFW-calendarfeed");
             return false;
         }
+    } else {
+        enabledConfItem.set(true);
     }
     QTimer::singleShot(1, this, SLOT(updateFeed()));
 
@@ -143,12 +145,25 @@ void CalendarFeedPlugin::updateFeed()
     QVariant fillVariant = fillConfItem.value();
     if (fillVariant.isValid())
         fillWithFuture = fillVariant.toBool();
+    else
+        fillConfItem.set(false);
 
     bool showCalendarBar = false;
     GConfItem calBarConfItem("/apps/ControlPanel/CalendarFeed/ShowCalendarBar");
     QVariant calBarVariant = calBarConfItem.value();
     if (calBarVariant.isValid())
         showCalendarBar = calBarVariant.toBool();
+    else
+        calBarConfItem.set(false);
+
+    QString dateFormat = "MMM, d";
+    GConfItem dateFormatConfItem("/apps/ControlPanel/CalendarFeed/DateFormat");
+    QVariant dateFormatVariant = dateFormatConfItem.value();
+    if (dateFormatVariant.isValid())
+        dateFormat = dateFormatVariant.toString();
+    else
+        dateFormatConfItem.set(dateFormat);
+    dateFormat += " ";
 
     QString body;
     QString icon;
@@ -162,6 +177,7 @@ void CalendarFeedPlugin::updateFeed()
     QDateTime endDateTime = QDateTime::currentDateTime();
     endDateTime.setTime(QTime(23, 59, 59));
 
+    //TODO: need to think more about it. Maybe full switch to mkcal will work better here
     mKCal::ExtendedCalendar::Ptr calendarBackend = mKCal::ExtendedCalendar::Ptr(new mKCal::ExtendedCalendar(KDateTime::Spec::LocalZone()));
 
     mKCal::ExtendedStorage::Ptr calendarStorage =
@@ -203,6 +219,8 @@ void CalendarFeedPlugin::updateFeed()
                 limitSize = 7;
             endDateTime = QDateTime::currentDateTime().addDays(limitSize);
             endDateTime.setTime(QTime(23, 59, 59));
+        } else {
+            limitFutureConfItem.set(false);
         }
 
         events = manager.items(startDateTime, endDateTime);
@@ -214,6 +232,8 @@ void CalendarFeedPlugin::updateFeed()
     QVariant displayableVariant = displayableConfItem.value();
     if (displayableVariant.isValid())
         displayableCount = displayableVariant.toInt();
+    else
+        displayableConfItem.set(3);
     if (displayableCount < 1)
         displayableCount = 3;
 
@@ -269,7 +289,7 @@ void CalendarFeedPlugin::updateFeed()
         }
 
         if (startDate != QDate::currentDate())
-            eventDescription += QString("%1").arg(startDate.toString("MMM, d "));
+            eventDescription += QString("%1").arg(startDate.toString(dateFormat));
         if (!isAllDay)
             eventDescription += QString("%1").arg(startDateTime.time().toString("hh:mm "));
         eventDescription += event.displayLabel();
