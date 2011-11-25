@@ -7,5 +7,7 @@
 
 gconftool -s /apps/ControlPanel/CalendarFeed/EnableFeed -t bool true
 
+/usr/bin/aegis-exec -s -u user dbus-send --dest=com.meego.msyncd --print-reply /synchronizer com.meego.msyncd.startSync string:'calendarfeed'
+
 # Make sure the installation is always considered successful
 exit 0

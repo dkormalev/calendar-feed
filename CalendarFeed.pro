@@ -6,9 +6,11 @@ DEPENDPATH += .
 INCLUDEPATH += . \
                 /usr/include/libsynccommon \
                 /usr/include/libsyncprofile \
-                /usr/include/gq
+                /usr/include/gq \
+                /usr/include/mkcal \
+                /usr/include/kcalcoren
 
-LIBS += -lsyncpluginmgr -lsyncprofile -lgq-gconf
+LIBS += -lsyncpluginmgr -lsyncprofile -lgq-gconf -lmkcal
 
 CONFIG += debug plugin meegotouchevents meegotouch
 

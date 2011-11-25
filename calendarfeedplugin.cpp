@@ -42,6 +42,10 @@
 #include <QDBusConnection>
 #include <QDataStream>
 #include <MLocale>
+#include <mkcal/extendedcalendar.h>
+#include <mkcal/extendedstorage.h>
+#include <kcalcoren/ksystemtimezone.h>
+#include <kcalcoren/event.h>
 
 QTM_USE_NAMESPACE
 
@@ -150,10 +154,40 @@ void CalendarFeedPlugin::updateFeed()
     QString icon;
     QDate firstEventDate = QDate::currentDate();
 
+    QHash<QString, QList<QDateTime> > correctStartDateTimes;
+    QHash<QString, bool> allDaysFromKCal;
+
     QOrganizerManager manager;
     QDateTime startDateTime = QDateTime::currentDateTime();
     QDateTime endDateTime = QDateTime::currentDateTime();
     endDateTime.setTime(QTime(23, 59, 59));
+
+    mKCal::ExtendedCalendar::Ptr calendarBackend = mKCal::ExtendedCalendar::Ptr(new mKCal::ExtendedCalendar(KDateTime::Spec::LocalZone()));
+
+    mKCal::ExtendedStorage::Ptr calendarStorage =
+            mKCal::ExtendedStorage::Ptr(mKCal::ExtendedCalendar::defaultStorage(calendarBackend));
+    calendarStorage->open();
+    calendarStorage->load(startDateTime.date(), endDateTime.date());
+    calendarStorage->loadRecurringIncidences();
+
+    KCalCore::Incidence::List incidences = calendarBackend->incidences(startDateTime.date(), endDateTime.date());
+
+    mKCal::ExtendedCalendar::ExpandedIncidenceList
+            incidenceList = calendarBackend->expandRecurrences(&incidences,
+                                                                    KDateTime(startDateTime.date().addDays(-1)),
+                                                                    KDateTime(endDateTime.date()));
+
+    foreach(const mKCal::ExtendedCalendar::ExpandedIncidence &expandedIncident,
+            incidenceList) {
+        KCalCore::Incidence::Ptr incidence = expandedIncident.second;
+        if (incidence->type() != KCalCore::IncidenceBase::TypeEvent)
+            continue;
+        KCalCore::Event::Ptr event = incidence.staticCast<KCalCore::Event>();
+        correctStartDateTimes[event->uid()] << expandedIncident.first.dtStart;
+        allDaysFromKCal[event->uid()] = event->allDay();
+    }
+
+
 
     QList<QOrganizerItem> events = manager.items(startDateTime, endDateTime);
 
@@ -202,6 +236,21 @@ void CalendarFeedPlugin::updateFeed()
             isAllDay = eventTimeDetail.isAllDay();
             startDateTime = eventTimeDetail.startDateTime();
             QDateTime endDateTime = eventTimeDetail.endDateTime();
+
+            QString uid = event.guid();
+            if (correctStartDateTimes.contains(uid)) {
+                foreach (const QDateTime &dateTime, correctStartDateTimes[uid]) {
+                    if (dateTime.date() == startDateTime.date()) {
+                        if (dateTime.time() != startDateTime.time()) {
+                            startDateTime.setTime(dateTime.time());
+                            endDateTime = endDateTime.addSecs(startDateTime.time().secsTo(dateTime.time()));
+                        }
+                    }
+                }
+            }
+            if (!isAllDay && allDaysFromKCal.contains(uid))
+                isAllDay = allDaysFromKCal[uid];
+
             if (!isAllDay &&
                     startDateTime.time().hour() == 0 &&
                     startDateTime.time().minute() == 0 &&
