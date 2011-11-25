@@ -41,6 +41,7 @@
 #include <QDate>
 #include <QDBusConnection>
 #include <QDataStream>
+#include <MLocale>
 
 QTM_USE_NAMESPACE
 
@@ -130,6 +131,21 @@ void CalendarFeedPlugin::syncFailed()
 
 void CalendarFeedPlugin::updateFeed()
 {
+    MLocale locale;
+    locale.installTrCatalog("calendarfeed");
+
+    bool fillWithFuture = false;
+    GConfItem fillConfItem("/apps/ControlPanel/CalendarFeed/FillWithFuture");
+    QVariant fillVariant = fillConfItem.value();
+    if (fillVariant.isValid())
+        fillWithFuture = fillVariant.toBool();
+
+    bool showCalendarBar = false;
+    GConfItem calBarConfItem("/apps/ControlPanel/CalendarFeed/ShowCalendarBar");
+    QVariant calBarVariant = calBarConfItem.value();
+    if (calBarVariant.isValid())
+        showCalendarBar = calBarVariant.toBool();
+
     QString body;
     QString icon;
     QDate firstEventDate = QDate::currentDate();
@@ -140,11 +156,7 @@ void CalendarFeedPlugin::updateFeed()
     endDateTime.setTime(QTime(23, 59, 59));
 
     QList<QOrganizerItem> events = manager.items(startDateTime, endDateTime);
-    bool fillWithFuture = false;
-    GConfItem fillConfItem("/apps/ControlPanel/CalendarFeed/FillWithFuture");
-    QVariant fillVariant = fillConfItem.value();
-    if (fillVariant.isValid())
-        fillWithFuture = fillVariant.toBool();
+
     if (fillWithFuture || events.isEmpty()) {
         endDateTime = QDateTime();
         GConfItem limitFutureConfItem("/apps/ControlPanel/CalendarFeed/LimitFuture");
@@ -206,13 +218,27 @@ void CalendarFeedPlugin::updateFeed()
             isFirstDate = false;
             firstEventDate = startDate;
         }
+
         if (startDate != QDate::currentDate())
             eventDescription += QString("%1").arg(startDate.toString("MMM, d "));
         if (!isAllDay)
             eventDescription += QString("%1").arg(startDateTime.time().toString("hh:mm "));
         eventDescription += event.displayLabel();
+
         if (eventDescription.length() > 32)
-            eventDescription = eventDescription.left(29)+"...";
+            eventDescription = eventDescription.left(30-(showCalendarBar ? 1 : 0))+"&#x2026;";
+
+        eventDescription.replace(" ", "&nbsp;");
+
+        if (showCalendarBar) {
+            QString color = manager.collection(event.collectionId())
+                    .metaData(QOrganizerCollection::KeyColor).toString();
+            if (color.isEmpty())
+                color = "#000000";
+            eventDescription = QString("<font color='%1'>&#x2503;</font>%2")
+                    .arg(color)
+                    .arg(eventDescription);
+        }
 
         descriptions << eventDescription;
         if (icon.isEmpty()) {
@@ -221,7 +247,7 @@ void CalendarFeedPlugin::updateFeed()
     }
 
     if (descriptions.isEmpty())
-        body = "No events in your calendar.";
+        body = locale.translate("", "calendar_feed_item_no_events");
     else
         body = descriptions.join("<br />");
     if (icon.isEmpty())
@@ -235,12 +261,12 @@ void CalendarFeedPlugin::updateFeed()
 
     QList<QVariant> args;
     QVariantMap itemArgs;
-    itemArgs.insert("title", "Calendar");
+    itemArgs.insert("title", locale.translate("", "calendar_feed_item_title"));
     itemArgs.insert("icon", icon);
     itemArgs.insert("body", body);
     itemArgs.insert("timestamp", QDateTime::currentDateTime().addDays(1).toString("yyyy-MM-dd hh:mm:ss"));
     itemArgs.insert("sourceName", "SyncFW-calendarfeed");
-    itemArgs.insert("sourceDisplayName", "Calendar Feed");
+    itemArgs.insert("sourceDisplayName", locale.translate("", "calendar_feed_title"));
     itemArgs.insert("action", QString("com.nokia.Calendar / com.nokia.maemo.meegotouch.CalendarInterface showMonthView %1 %2 %3")
                     .arg(base64SerializedVariant(firstEventDate.year()))
                     .arg(base64SerializedVariant(firstEventDate.month()))

@@ -10,13 +10,13 @@ INCLUDEPATH += . \
 
 LIBS += -lsyncpluginmgr -lsyncprofile -lgq-gconf
 
-CONFIG += debug plugin meegotouchevents
+CONFIG += debug plugin meegotouchevents meegotouch
 
 CONFIG += mobility
 MOBILITY += organizer
 
 QT += dbus
-QT -= gui
+#QT -= gui
 
 #input
 SOURCES += \

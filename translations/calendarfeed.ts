@@ -31,6 +31,18 @@
         <source>Limit Size (days)</source>
         <translation type="unfinished"></translation>
     </message> 
+    <message id="calendar_feed_setting_show_calendar_bar">
+        <source>Show Calendar Color</source>
+        <translation type="unfinished"></translation>
+    </message> 
+    <message id="calendar_feed_item_title">
+        <source>Calendar</source>
+        <translation type="unfinished"></translation>
+    </message> 
+    <message id="calendar_feed_item_no_events">
+        <source>No events in your calendar.</source>
+        <translation type="unfinished"></translation>
+    </message> 
 </context>
 </TS>
 

@@ -4,4 +4,5 @@
     <boolean key="/apps/ControlPanel/CalendarFeed/FillWithFuture" title="calendar_feed_setting_fill_with_future"></boolean>
     <boolean key="/apps/ControlPanel/CalendarFeed/LimitFuture" title="calendar_feed_setting_limit_future"></boolean>
     <integer key="/apps/ControlPanel/CalendarFeed/LimitDaysSize" title="calendar_feed_setting_future_limit_size" min="1" max="31"></integer>
+    <boolean key="/apps/ControlPanel/CalendarFeed/ShowCalendarBar" title="calendar_feed_setting_show_calendar_bar"></boolean>
 </settings>
