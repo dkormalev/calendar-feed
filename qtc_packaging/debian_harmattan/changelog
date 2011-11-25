@@ -1,6 +1,9 @@
 calendarfeed (0.3.0) unstable; urgency=low
 
   * Settings are l10n-aware now
+  * Setting for date format
+  * Calendar color bar
+  * Bug with wrong time for cases with events from another timezone fixed
 
  -- Denis Kormalev <kormalev.denis@gmail.com>  Wed, 23 Nov 2011 23:00:00 +0400
 
