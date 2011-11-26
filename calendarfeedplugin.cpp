@@ -185,33 +185,6 @@ void CalendarFeedPlugin::updateFeed()
     QDateTime endDateTime = QDateTime::currentDateTime();
     endDateTime.setTime(QTime(23, 59, 59));
 
-    //TODO: need to think more about it. Maybe full switch to mkcal will work better here
-    mKCal::ExtendedCalendar::Ptr calendarBackend = mKCal::ExtendedCalendar::Ptr(new mKCal::ExtendedCalendar(KDateTime::Spec::LocalZone()));
-
-    mKCal::ExtendedStorage::Ptr calendarStorage =
-            mKCal::ExtendedStorage::Ptr(mKCal::ExtendedCalendar::defaultStorage(calendarBackend));
-    calendarStorage->open();
-    calendarStorage->load(startDateTime.date(), endDateTime.date());
-    calendarStorage->loadRecurringIncidences();
-
-    KCalCore::Incidence::List incidences = calendarBackend->incidences(startDateTime.date(), endDateTime.date());
-
-    mKCal::ExtendedCalendar::ExpandedIncidenceList
-            incidenceList = calendarBackend->expandRecurrences(&incidences,
-                                                                    KDateTime(startDateTime.date().addDays(-1)),
-                                                                    KDateTime(endDateTime.date()));
-
-    foreach(const mKCal::ExtendedCalendar::ExpandedIncidence &expandedIncident,
-            incidenceList) {
-        KCalCore::Incidence::Ptr incidence = expandedIncident.second;
-        if (incidence->type() != KCalCore::IncidenceBase::TypeEvent)
-            continue;
-        KCalCore::Event::Ptr event = incidence.staticCast<KCalCore::Event>();
-        correctStartDateTimes[event->uid()] << expandedIncident.first.dtStart;
-        allDaysFromKCal[event->uid()] = event->allDay();
-    }
-
-
 
     QList<QOrganizerItem> events = manager.items(startDateTime, endDateTime);
 
@@ -247,6 +220,49 @@ void CalendarFeedPlugin::updateFeed()
 
     for (int i = 0; i < displayableCount && i < events.size(); ++i)
         displayableEvents << events[i];
+
+    QDate startDateForMKCal = QDate::currentDate();
+    QDate endDateForMKCal = QDate::currentDate();
+
+    if (displayableEvents.size()) {
+        QOrganizerEventTime eventTimeDetail = displayableEvents[0].detail<QOrganizerEventTime>();
+        if (eventTimeDetail.startDateTime().isValid())
+            startDateForMKCal = eventTimeDetail.startDateTime().date().addDays(-2);
+        eventTimeDetail = displayableEvents[displayableEvents.size()-1].detail<QOrganizerEventTime>();
+        if (eventTimeDetail.endDateTime().isValid())
+            endDateForMKCal = eventTimeDetail.endDateTime().date().addDays(1);
+        else if (startDateForMKCal > QDate::currentDate())
+            endDateForMKCal = startDateForMKCal;
+    }
+
+    //TODO: need to think more about it. Maybe full switch to mkcal will work better here
+    mKCal::ExtendedCalendar::Ptr calendarBackend = mKCal::ExtendedCalendar::Ptr(new mKCal::ExtendedCalendar(KDateTime::Spec::LocalZone()));
+
+    mKCal::ExtendedStorage::Ptr calendarStorage =
+            mKCal::ExtendedStorage::Ptr(mKCal::ExtendedCalendar::defaultStorage(calendarBackend));
+    calendarStorage->open();
+    calendarStorage->load(startDateForMKCal, endDateForMKCal);
+    calendarStorage->loadRecurringIncidences();
+
+    KCalCore::Incidence::List incidences = calendarBackend->incidences(startDateForMKCal, endDateForMKCal);
+
+    mKCal::ExtendedCalendar::ExpandedIncidenceList
+            incidenceList = calendarBackend->expandRecurrences(&incidences,
+                                                                    KDateTime(startDateForMKCal),
+                                                                    KDateTime(endDateForMKCal));
+
+    foreach(const mKCal::ExtendedCalendar::ExpandedIncidence &expandedIncident,
+            incidenceList) {
+        KCalCore::Incidence::Ptr incidence = expandedIncident.second;
+        if (incidence->type() != KCalCore::IncidenceBase::TypeEvent)
+            continue;
+        KCalCore::Event::Ptr event = incidence.staticCast<KCalCore::Event>();
+        correctStartDateTimes[event->uid()] << expandedIncident.first.dtStart;
+        allDaysFromKCal[event->uid()] = event->allDay();
+    }
+
+
+
 
     QStringList descriptions;
     bool isFirstDate = true;
