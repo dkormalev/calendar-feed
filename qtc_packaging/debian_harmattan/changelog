@@ -1,6 +1,5 @@
 calendarfeed (0.3.0) unstable; urgency=low
 
-  * Settings are l10n-aware now
   * Russian localization
   * Setting for date format
   * Calendar color bar
