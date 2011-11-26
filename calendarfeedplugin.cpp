@@ -165,6 +165,14 @@ void CalendarFeedPlugin::updateFeed()
         dateFormatConfItem.set(dateFormat);
     dateFormat += " ";
 
+    bool highlightToday = false;
+    GConfItem highlightTodayConfItem("/apps/ControlPanel/CalendarFeed/HighlightToday");
+    QVariant highlightTodayVariant = highlightTodayConfItem.value();
+    if (highlightTodayVariant.isValid())
+        highlightToday = highlightTodayVariant.toBool();
+    else
+        highlightTodayConfItem.set(false);
+
     QString body;
     QString icon;
     QDate firstEventDate = QDate::currentDate();
@@ -288,8 +296,11 @@ void CalendarFeedPlugin::updateFeed()
             firstEventDate = startDate;
         }
 
-        if (startDate != QDate::currentDate())
+        bool greyOutThisEvent = false;
+        if (startDate != QDate::currentDate()) {
             eventDescription += QString("%1").arg(startDate.toString(dateFormat));
+            greyOutThisEvent = highlightToday;
+        }
         if (!isAllDay)
             eventDescription += QString("%1").arg(startDateTime.time().toString("hh:mm "));
         eventDescription += event.displayLabel();
@@ -298,6 +309,9 @@ void CalendarFeedPlugin::updateFeed()
             eventDescription = eventDescription.left(30-(showCalendarBar ? 1 : 0))+"&#x2026;";
 
         eventDescription.replace(" ", "&nbsp;");
+
+        if (greyOutThisEvent)
+            eventDescription = QString("<font color='#A0A0A0'>%1</font>").arg(eventDescription);
 
         if (showCalendarBar) {
             QString color = manager.collection(event.collectionId())

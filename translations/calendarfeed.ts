@@ -35,14 +35,6 @@
         <source>Show Calendar Color</source>
         <translation type="unfinished"></translation>
     </message> 
-    <message id="calendar_feed_item_title">
-        <source>Calendar</source>
-        <translation type="unfinished"></translation>
-    </message> 
-    <message id="calendar_feed_item_no_events">
-        <source>No events in your calendar.</source>
-        <translation type="unfinished"></translation>
-    </message> 
     <message id="calendar_feed_setting_group_behavior">
         <source>Behavior</source>
         <translation type="unfinished"></translation>
@@ -53,6 +45,19 @@
     </message> 
     <message id="calendar_feed_setting_date_format">
         <source>Date Format</source>
+        <translation type="unfinished"></translation>
+    </message> 
+    <message id="calendar_feed_setting_highlight_today">
+        <source>Highlight Today Events</source>
+        <translation type="unfinished"></translation>
+    </message> 
+
+    <message id="calendar_feed_item_title">
+        <source>Calendar</source>
+        <translation type="unfinished"></translation>
+    </message> 
+    <message id="calendar_feed_item_no_events">
+        <source>No events in your calendar.</source>
         <translation type="unfinished"></translation>
     </message> 
 </context>

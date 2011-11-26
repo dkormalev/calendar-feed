@@ -35,15 +35,7 @@
         <source>Show Calendar Color</source>
         <translation>Выводить цвет календаря</translation>
     </message> 
-    <message id="calendar_feed_item_title">
-        <source>Calendar</source>
-        <translation>Календарь</translation>
-    </message> 
-    <message id="calendar_feed_item_no_events">
-        <source>No events in your calendar.</source>
-        <translation>В календаре нет событий.</translation>
-    </message> 
-        <message id="calendar_feed_setting_group_behavior">
+    <message id="calendar_feed_setting_group_behavior">
         <source>Behavior</source>
         <translation>Поведение</translation>
     </message> 
@@ -54,6 +46,18 @@
     <message id="calendar_feed_setting_date_format">
         <source>Date Format</source>
         <translation>Формат даты</translation>
+    </message> 
+    <message id="calendar_feed_setting_highlight_today">
+        <source>Highlight Today Events</source>
+        <translation>Выделять события сегодня</translation>
+    </message> 
+    <message id="calendar_feed_item_title">
+        <source>Calendar</source>
+        <translation>Календарь</translation>
+    </message> 
+    <message id="calendar_feed_item_no_events">
+        <source>No events in your calendar.</source>
+        <translation>В календаре нет событий.</translation>
     </message> 
 </context>
 </TS>

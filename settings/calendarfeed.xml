@@ -9,5 +9,6 @@
         <integer key="/apps/ControlPanel/CalendarFeed/FeedSize" title="calendar_feed_setting_events_number" min="1" max="5"></integer>
         <boolean key="/apps/ControlPanel/CalendarFeed/ShowCalendarBar" title="calendar_feed_setting_show_calendar_bar"></boolean>
         <text key="/apps/ControlPanel/CalendarFeed/DateFormat" title="calendar_feed_setting_date_format">MMM, d</text>
+        <boolean key="/apps/ControlPanel/CalendarFeed/HighlightToday" title="calendar_feed_setting_highlight_today"></boolean>
     </group>
 </settings>
