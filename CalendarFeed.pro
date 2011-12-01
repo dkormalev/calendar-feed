@@ -18,7 +18,6 @@ CONFIG += mobility
 MOBILITY += organizer
 
 QT += dbus
-#QT -= gui
 
 #input
 SOURCES += \
