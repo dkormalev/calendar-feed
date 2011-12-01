@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>MainPage.qml</file>
+        <file>PageTitle.qml</file>
+        <file>UIConstants.js</file>
+        <file>SwitchSetting.qml</file>
+    </qresource>
+</RCC>

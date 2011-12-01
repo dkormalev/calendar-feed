@@ -1,21 +1,20 @@
 [Desktop Entry]
-Type=ControlPanelApplet
+Type=Application
 Name=Calendar Feed
 X-logical-id=calendar_feed_title
 X-translation-catalog=calendarfeed
 Icon=
+Exec=/usr/bin/invoker --type=d -s /opt/calendarfeed-ui/bin/calendarfeed-ui
+
 X-Maemo-Service=com.nokia.DuiControlPanel
 X-Maemo-Method=com.nokia.DuiControlPanelIf.appletPage
 X-Maemo-Object-Path=/
 # this has to be identical to the value in Name
 X-Maemo-Fixed-Args=Calendar Feed
 
-[DUI]
-X-DUIApplet-Applet=libdeclarative.so
-
 [DCP]
 Category=Events Feed
 Order=100
-Part=calendarfeed.xml
+WidgetType=Label
 Text2=Calendar events at Feed screen
 Text2-logical-id=calendar_feed_subtitle

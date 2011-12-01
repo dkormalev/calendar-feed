@@ -1,0 +1,15 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=0.3.0
+Type=Application
+Terminal=false
+Name=Calendar Feed
+X-MeeGo-logical-id=calendar_feed_title
+X-MeeGo-translation-catalog=calendarfeed
+Exec=/usr/bin/invoker --type=d -s /opt/calendarfeed-ui/bin/calendarfeed-ui
+X-Osso-Type=application/x-executable
+
+#Icon=
+#This is needed to prevent this action appearing in the launcher.
+NotShowIn=X-MeeGo;
+
