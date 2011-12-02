@@ -6,7 +6,7 @@ Terminal=false
 Name=Calendar Feed
 X-MeeGo-logical-id=calendar_feed_title
 X-MeeGo-translation-catalog=calendarfeed
-Exec=/usr/bin/invoker --type=d -s /opt/calendarfeed-ui/bin/calendarfeed-ui
+Exec=/usr/bin/invoker --type=d -s --splash /opt/calendarfeed-ui/resources/calendar-feed-splash.png /opt/calendarfeed-ui/bin/calendarfeed-ui
 X-Osso-Type=application/x-executable
 
 #Icon=

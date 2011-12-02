@@ -14,16 +14,11 @@ sync.files = xml/sync/calendarfeed.xml
 service.path = /etc/sync/profiles/service
 service.files = xml/service/calendarfeed.xml
 
-settingsdesktop.path = /usr/share/duicontrolpanel/desktops
-settingsdesktop.files = settings/calendarfeed.desktop
-
-settingsxml.path = /usr/share/duicontrolpanel/uidescriptions
-settingsxml.files = settings/calendarfeed.xml
-
 translations.path = /usr/share/l10n/meegotouch
 translations.files += translations/*qm
 
-INSTALLS += client sync service settingsdesktop settingsxml translations
+
+INSTALLS += client sync service translations
 
 OTHER_FILES += \
     qtc_packaging/debian_harmattan/rules \

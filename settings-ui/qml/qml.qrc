@@ -5,5 +5,9 @@
         <file>PageTitle.qml</file>
         <file>UIConstants.js</file>
         <file>SwitchSetting.qml</file>
+        <file>SliderSetting.qml</file>
+        <file>SettingsGroup.qml</file>
+        <file>SwitchableSliderSetting.qml</file>
+        <file>AboutPage.qml</file>
     </qresource>
 </RCC>

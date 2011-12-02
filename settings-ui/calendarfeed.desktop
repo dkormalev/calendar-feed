@@ -4,7 +4,7 @@ Name=Calendar Feed
 X-logical-id=calendar_feed_title
 X-translation-catalog=calendarfeed
 Icon=
-Exec=/usr/bin/invoker --type=d -s /opt/calendarfeed-ui/bin/calendarfeed-ui
+Exec=/usr/bin/invoker --type=d -s --splash /opt/calendarfeed-ui/resources/calendar-feed-splash.png /opt/calendarfeed-ui/bin/calendarfeed-ui
 
 X-Maemo-Service=com.nokia.DuiControlPanel
 X-Maemo-Method=com.nokia.DuiControlPanelIf.appletPage

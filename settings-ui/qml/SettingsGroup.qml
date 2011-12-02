@@ -22,42 +22,35 @@
 **
 **************************************************************************/
 
-#ifndef GCONFITEMQMLPROXY_H
-#define GCONFITEMQMLPROXY_H
+import QtQuick 1.1
+import com.nokia.meego 1.0
+import "UIConstants.js" as UIConstants
 
-#include <QObject>
-#include <QVariant>
-#include <QString>
-#include <gconfitem.h>
+Item {
+    property alias title: titleLabel.text
 
-class GConfItemQmlProxy : public QObject
-{
-   Q_OBJECT
-   Q_PROPERTY(QString key READ key WRITE setKey)
-   Q_PROPERTY(QVariant value READ value WRITE setValue NOTIFY valueChanged)
-   Q_PROPERTY(QVariant defaultValue READ defaultValue WRITE setDefaultValue)
+    height: titleLabel.height + 2*UIConstants.DEFAULT_MARGIN
 
-public:
-   explicit GConfItemQmlProxy(QObject *parent = 0);
+    Rectangle {
+        id: titleDivider
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.left: parent.left
+        anchors.right: titleLabel.left
+        anchors.rightMargin: 2*UIConstants.DEFAULT_MARGIN
+        height: 2
+        color: "#505050"
+    }
 
-   const QString &key();
-   void setKey(const QString &newKey);
-   const QVariant &value();
-   void setValue(const QVariant &newValue);
-   const QVariant &defaultValue();
-   void setDefaultValue(const QVariant &newValue);
+    Label {
+        id: titleLabel
+        anchors.right: parent.right
+        anchors.verticalCenter: parent.verticalCenter
 
-signals:
-   void valueChanged();
+        style: LabelStyle {
+            textColor: "#606060"
+            fontFamily: UIConstants.FONT_FAMILY
+            fontPixelSize: UIConstants.FONT_XSMALL
+        }
+    }
 
-public slots:
-   void updateValue();
-
-private:
-   GConfItem *m_gconfItem;
-   QString m_key;
-   QVariant m_value;
-   QVariant m_defaultValue;
-};
-
-#endif // GCONFITEMQMLPROXY_H
+}

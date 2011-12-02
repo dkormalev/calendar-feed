@@ -29,12 +29,15 @@ import CalendarFeed 1.0
 
 Item {
     property alias label: settingLabel.text
-    property alias checked: settingControl.checked
+    property alias value: settingControl.value
     property alias key: gconfItem.key
     property alias defaultValue: gconfItem.defaultValue
+    property alias maxValue: settingControl.maximumValue
+    property alias minValue: settingControl.minimumValue
 
     id: setting
-    height: UIConstants.LIST_ITEM_HEIGHT_DEFAULT
+    height: UIConstants.LIST_ITEM_HEIGHT_DEFAULT*1.5
+    clip: true
 
     GConfItem {
         id: gconfItem
@@ -42,13 +45,11 @@ Item {
 
     Label {
         id: settingLabel
-        anchors.verticalCenter: parent.verticalCenter
+        anchors.top: parent.top
         anchors.left: parent.left
-        anchors.right: settingControl.left
+        anchors.right: parent.right
         anchors.rightMargin: UIConstants.DEFAULT_MARGIN
-        wrapMode: Text.Wrap
         font.bold: true
-        height: (paintedHeight > parent.height) ? parent.height : paintedHeight
         clip: true
 
         style: LabelStyle {
@@ -56,15 +57,43 @@ Item {
             fontFamily: UIConstants.FONT_FAMILY
             fontPixelSize: UIConstants.FONT_SLARGE
         }
-
     }
 
-    Switch {
-        id: settingControl
-        anchors.verticalCenter: parent.verticalCenter
+    Label {
+        id: minValueLabel
+        anchors.left: parent.left
+        anchors.verticalCenter: settingControl.verticalCenter
+        text: minValue
+        style: LabelStyle {
+            textColor: "#505050"
+            fontFamily: UIConstants.FONT_FAMILY_LIGHT
+            fontPixelSize: UIConstants.FONT_LSMALL
+        }
+    }
+
+    Label {
+        id: maxValueLabel
         anchors.right: parent.right
-        onCheckedChanged: gconfItem.value = checked
-        checked: gconfItem.value
+        anchors.verticalCenter: settingControl.verticalCenter
+        text: maxValue
+        style: LabelStyle {
+            textColor: "#606060"
+            fontFamily: UIConstants.FONT_FAMILY_LIGHT
+            fontPixelSize: UIConstants.FONT_LSMALL
+        }
+    }
+
+    Slider {
+        id: settingControl
+        anchors.top: settingLabel.bottom
+        anchors.right: maxValueLabel.left
+        anchors.left: minValueLabel.right
+        anchors.margins: UIConstants.DEFAULT_MARGIN
+        value: gconfItem.value
+        onValueChanged: gconfItem.value = value
+        stepSize: 1
+        valueIndicatorVisible: true
         enabled: parent.enabled
     }
+
 }

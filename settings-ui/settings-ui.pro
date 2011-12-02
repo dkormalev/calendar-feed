@@ -18,14 +18,13 @@ target.path = /opt/calendarfeed-ui/bin
 settingsdesktop.path = /usr/share/duicontrolpanel/desktops
 settingsdesktop.files = calendarfeed.desktop
 
-settingsxml.path = /usr/share/duicontrolpanel/uidescriptions
-settingsxml.files = calendarfeed.xml
-
 desktopfile.path = /usr/share/applications
 desktopfile.files = calendarfeed-ui.desktop
 
+splash.files = resources/calendar-feed-splash.png
+splash.path = /opt/calendarfeed-ui/resources
 
-INSTALLS += target settingsxml settingsdesktop desktopfile
+INSTALLS += target settingsdesktop desktopfile splash
 
 SOURCES += \
     main.cpp \
@@ -35,13 +34,27 @@ OTHER_FILES += \
     qml/main.qml \
     qml/MainPage.qml \
     qml/PageTitle.qml \
-    qml/SwitchSetting.qml
+    qml/SwitchSetting.qml \
+    qml/SliderSetting.qml \
+    qml/UIConstants.js \
+    qml/SettingsGroup.qml \
+    qml/SwitchableSliderSetting.qml \
+    qml/AboutPage.qml
 
 RESOURCES += \
-    qml/qml.qrc
+    qml/qml.qrc \
+    resources/resources.qrc
 
 HEADERS += \
     gconfitemqmlproxy.h
+
+
+
+
+
+
+
+
 
 
 
