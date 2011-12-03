@@ -169,10 +169,13 @@ Page {
                 enabled: enableFeedSetting.checked
             }
 
-            Label {
+            TextFieldSetting {
                 width: parent.width
                 //% "Date Format"
-                text: qsTrId("calendar_feed_setting_date_format")
+                label: qsTrId("calendar_feed_setting_date_format")
+                key: "/apps/ControlPanel/CalendarFeed/DateFormat"
+                defaultValue: "MMM, d"
+                enabled: enableFeedSetting.checked
             }
 
         }

@@ -46,11 +46,11 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
     qmlRegisterType<GConfItemQmlProxy>("CalendarFeed", 1, 0, "GConfItem");
     view->rootContext()->setContextProperty("settingsHelper", new SettingsHelper(app.data()));
+    view->setResizeMode(QDeclarativeView::SizeRootObjectToView);
+    view->setAttribute(Qt::WA_LockPortraitOrientation, true);
 
     view->setSource(QUrl("qrc:/main.qml"));
     QObject::connect(view->engine(), SIGNAL(quit()), view.data(), SLOT(close()));
-    view->setResizeMode(QDeclarativeView::SizeRootObjectToView);
-    view->setAttribute(Qt::WA_LockPortraitOrientation, true);
     view->showFullScreen();
 
 
