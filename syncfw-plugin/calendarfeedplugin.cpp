@@ -346,6 +346,7 @@ void CalendarFeedPlugin::updateFeed()
     }
 
     if (descriptions.isEmpty())
+        //% "No events in your calendar."
         body = locale.translate("", "calendar_feed_item_no_events");
     else
         body = descriptions.join("<br />");

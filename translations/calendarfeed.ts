@@ -27,20 +27,8 @@
         <source>Limit Future Events</source>
         <translation type="unfinished"></translation>
     </message> 
-    <message id="calendar_feed_setting_future_limit_size">
-        <source>Limit Size (days)</source>
-        <translation type="unfinished"></translation>
-    </message> 
     <message id="calendar_feed_setting_show_calendar_bar">
         <source>Show Calendar Color</source>
-        <translation type="unfinished"></translation>
-    </message> 
-    <message id="calendar_feed_setting_group_behavior">
-        <source>Behavior</source>
-        <translation type="unfinished"></translation>
-    </message> 
-    <message id="calendar_feed_setting_group_display">
-        <source>Appearance</source>
         <translation type="unfinished"></translation>
     </message> 
     <message id="calendar_feed_setting_date_format">
@@ -51,6 +39,14 @@
         <source>Highlight Today Events</source>
         <translation type="unfinished"></translation>
     </message> 
+    <message id="calendar_feed_setting_group_behavior">
+        <source>Behavior</source>
+        <translation type="unfinished"></translation>
+    </message> 
+    <message id="calendar_feed_setting_group_display">
+        <source>Appearance</source>
+        <translation type="unfinished"></translation>
+    </message> 
 
     <message id="calendar_feed_item_title">
         <source>Calendar</source>
@@ -59,7 +55,21 @@
     <message id="calendar_feed_item_no_events">
         <source>No events in your calendar.</source>
         <translation type="unfinished"></translation>
+    </message>
+
+    <message id="calendar_feed_refresh_error">
+        <source>Internal OS error. Please, reboot your device.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="calendar_feed_about">
+        <source>About</source>
+        <translation type="unfinished"></translation>
     </message> 
+    <message id="calendar_feed_refresh">
+        <source>Refresh Feed Item</source>
+        <translation type="unfinished"></translation>
+    </message> 
+    
 </context>
 </TS>
 

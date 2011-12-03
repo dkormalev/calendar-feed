@@ -65,6 +65,7 @@ Page {
                 anchors.horizontalCenter: parent.horizontalCenter
             }
             Label{
+                //% "Calendar Feed"
                 text: qsTrId("calendar_feed_title")
                 anchors.horizontalCenter: parent.horizontalCenter
                 platformStyle: LabelStyle {
@@ -90,7 +91,8 @@ Page {
             }
 
             Label{
-                text: qsTrId("calendar_feed_about_thanks_to") + "Andrew Babkin, Bruno Calendreau, Milko Mati, Andri Óskarsson, Gerolf Reinwardt, Antti Siiskonen"
+                //% "Special thanks to"
+                text: qsTrId("calendar_feed_about_thanks_to") + ": Andrew Babkin, Bruno Calendreau, Milko Mati, Andri Óskarsson, Gerolf Reinwardt, Antti Siiskonen"
                 wrapMode: Text.WordWrap
                 width: parent.width
             }

@@ -29,6 +29,7 @@
 #include <QLocale>
 #include <QTranslator>
 #include "gconfitemqmlproxy.h"
+#include "settingshelper.h"
 
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
@@ -44,6 +45,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     }
 
     qmlRegisterType<GConfItemQmlProxy>("CalendarFeed", 1, 0, "GConfItem");
+    view->rootContext()->setContextProperty("settingsHelper", new SettingsHelper(app.data()));
 
     view->setSource(QUrl("qrc:/main.qml"));
     QObject::connect(view->engine(), SIGNAL(quit()), view.data(), SLOT(close()));

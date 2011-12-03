@@ -28,7 +28,8 @@ INSTALLS += target settingsdesktop desktopfile splash
 
 SOURCES += \
     main.cpp \
-    gconfitemqmlproxy.cpp
+    gconfitemqmlproxy.cpp \
+    settingshelper.cpp
 
 OTHER_FILES += \
     qml/main.qml \
@@ -46,7 +47,10 @@ RESOURCES += \
     resources/resources.qrc
 
 HEADERS += \
-    gconfitemqmlproxy.h
+    gconfitemqmlproxy.h \
+    settingshelper.h
+
+
 
 
 
