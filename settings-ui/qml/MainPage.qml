@@ -76,7 +76,6 @@ Page {
         }
     }
 
-
     anchors.fill: parent
 
     Flickable {

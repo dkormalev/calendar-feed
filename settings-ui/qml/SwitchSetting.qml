@@ -33,6 +33,10 @@ Item {
     property alias key: gconfItem.key
     property alias defaultValue: gconfItem.defaultValue
 
+    property bool loaded: false
+
+    Component.onCompleted: loaded = true
+
     id: setting
     height: UIConstants.LIST_ITEM_HEIGHT_DEFAULT
 
@@ -63,7 +67,10 @@ Item {
         id: settingControl
         anchors.verticalCenter: parent.verticalCenter
         anchors.right: parent.right
-        onCheckedChanged: gconfItem.value = checked
+        onCheckedChanged: {
+            if (loaded)
+                gconfItem.value = checked
+        }
         checked: gconfItem.value
         enabled: parent.enabled
     }

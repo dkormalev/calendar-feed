@@ -35,6 +35,10 @@ Item {
     property alias maxValue: settingControl.maximumValue
     property alias minValue: settingControl.minimumValue
 
+    property bool loaded: false
+
+    Component.onCompleted: loaded = true
+
     id: setting
     height: UIConstants.LIST_ITEM_HEIGHT_DEFAULT*1.5
     clip: true
@@ -90,7 +94,10 @@ Item {
         anchors.left: minValueLabel.right
         anchors.margins: UIConstants.DEFAULT_MARGIN
         value: gconfItem.value
-        onValueChanged: gconfItem.value = value
+        onValueChanged: {
+            if (loaded)
+                gconfItem.value = value
+        }
         stepSize: 1
         valueIndicatorVisible: true
         enabled: parent.enabled
