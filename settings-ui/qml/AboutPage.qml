@@ -64,9 +64,9 @@ Page {
                 source: "qrc:/calendar-feed-icon_256.png"
                 anchors.horizontalCenter: parent.horizontalCenter
             }
+
             Label{
-                //% "Calendar Feed"
-                text: qsTrId("calendar_feed_title")
+                text: "Calendar Feed"
                 anchors.horizontalCenter: parent.horizontalCenter
                 platformStyle: LabelStyle {
                     fontFamily: UIConstants.FONT_FAMILY
@@ -75,7 +75,22 @@ Page {
             }
 
             Label{
-                text: "Copyright © 2011 Denis Kormalev &lt;<font color='#7010cf'><a href='mailto:?kormalev.denis@gmail.com'>kormalev.denis@gmail.com</a></font>&gt;"
+                //% "Calendar events at Feed screen"
+                text: qsTrId("calendar_feed_subtitle")
+                anchors.horizontalCenter: parent.horizontalCenter
+                font.italic: true
+            }
+
+            Label{
+                text: "Copyright © 2011 Denis Kormalev"
+                anchors.horizontalCenter: parent.horizontalCenter
+                wrapMode: Text.WordWrap
+                width: parent.width
+            }
+
+            Label{
+                //% "Project page at Gitorious"
+                text: qsTrId("calendar_feed_about_gitorious_page") + ":<br /><a style='color:#a040ff' href='https://gitorious.org/calendar-feed/'>https://gitorious.org/calendar-feed/</a>"
                 anchors.horizontalCenter: parent.horizontalCenter
                 wrapMode: Text.WordWrap
                 width: parent.width
@@ -83,7 +98,17 @@ Page {
             }
 
             Label{
-                text: "<font color='#7010cf'><a href='https://gitorious.org/calendar-feed/'>Project page at Gitorious</a></font>"
+                //% "Contact e-mail"
+                text: qsTrId("calendar_feed_about_contact_email") + ":<br /><a style='color:#a040ff' href='mailto:kormalev.denis@gmail.com'>kormalev.denis@gmail.com</a>"
+                anchors.horizontalCenter: parent.horizontalCenter
+                wrapMode: Text.WordWrap
+                width: parent.width
+                onLinkActivated: Qt.openUrlExternally(link)
+            }
+
+            Label{
+                //% "Help page"
+                text: qsTrId("calendar_feed_about_help_page") + ": <a style='color:#a040ff' href='https://gitorious.org/calendar-feed/pages/Home'>Wiki</a>"
                 anchors.horizontalCenter: parent.horizontalCenter
                 wrapMode: Text.WordWrap
                 width: parent.width

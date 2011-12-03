@@ -43,8 +43,6 @@ void SettingsHelper::dbusErrorOccured(const QDBusError &error, const QDBusMessag
 }
 
 void dummyTr() {
-    //% "Calendar events at Feed screen"
-    qtTrId("calendar_feed_subtitle");
     //% "Calendar"
     qtTrId("calendar_feed_item_title");
     //% "No events in your calendar."

@@ -170,6 +170,12 @@ Page {
                 enabled: enableFeedSetting.checked
             }
 
+            Label {
+                width: parent.width
+                //% "Date Format"
+                text: qsTrId("calendar_feed_setting_date_format")
+            }
+
         }
 
     }
