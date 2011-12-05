@@ -35,6 +35,7 @@ Page {
     }
 
     id: mainPage
+    orientationLock: PageOrientation.LockPortrait
     tools: ToolBarLayout {
         id: fullToolBarLayout
         visible: true
