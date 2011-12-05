@@ -121,7 +121,7 @@ Page {
 
             Label{
                 //% "Special thanks to"
-                text: qsTrId("calendar_feed_about_thanks_to") + ": Andrew Babkin, Bruno Calendreau, Milko Mati, Andri Óskarsson, Gerolf Reinwardt, Marko Vertainen"
+                text: qsTrId("calendar_feed_about_thanks_to") + ": Andrew Babkin, Bruno Calendreau, Krzysztof Krzewniak, Gerolf Reinwardt, Marko Vertainen"
                 wrapMode: Text.WordWrap
                 width: parent.width
             }
