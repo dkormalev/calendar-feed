@@ -38,7 +38,10 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
     QTranslator translator;
     bool useTranslator = false;
-    if (translator.load("calendarfeed_" + QLocale::system().language(), "/usr/share/l10n/meegotouch/")) {
+    QString localePrefix = QLocale::system().name();
+    if (localePrefix.length() > 2)
+        localePrefix = localePrefix.left(2);
+    if (translator.load("calendarfeed_" + localePrefix, "/usr/share/l10n/meegotouch/")) {
         app->installTranslator(&translator);
     } else if (translator.load("calendarfeed", "/usr/share/l10n/meegotouch/")) {
         app->installTranslator(&translator);

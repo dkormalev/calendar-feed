@@ -123,7 +123,7 @@ Page {
 
             SwitchableSliderSetting {
                 width: parent.width
-                //% "Limit Future Events"
+                //% "Limit Future Events (days)"
                 label: qsTrId("calendar_feed_setting_limit_future")
                 switchKey: "/apps/ControlPanel/CalendarFeed/LimitFuture"
                 defaultSwitchValue: true
@@ -169,7 +169,7 @@ Page {
                 enabled: enableFeedSetting.checked
             }
 
-            SelectionSetting {
+            SelectionWithCustomSetting {
                 width: parent.width
                 //% "Date Format"
                 label: qsTrId("calendar_feed_setting_date_format")
@@ -177,17 +177,10 @@ Page {
                 key: "/apps/ControlPanel/CalendarFeed/DateFormat"
                 defaultValue: "MMM, d"
                 model: [{"name": settingsHelper.formatDate(new Date(), "MMM, d"), "value": "MMM, d"},
+                    {"name": settingsHelper.formatDate(new Date(), "dd MMM"), "value": "d MMM"},
                     {"name": settingsHelper.formatDate(new Date(), "dd-MM"), "value": "dd-MM"},
+                    {"name": settingsHelper.formatDate(new Date(), "MM/dd"), "value": "MM/dd"},
                     {"name": settingsHelper.formatDate(new Date(), "dd.MM"), "value": "dd.MM"}]
-                enabled: enableFeedSetting.checked
-            }
-
-            TextFieldSetting {
-                width: parent.width
-                //% "Date Format"
-                label: qsTrId("calendar_feed_setting_date_format")
-                key: "/apps/ControlPanel/CalendarFeed/DateFormat"
-                defaultValue: "MMM, d"
                 enabled: enableFeedSetting.checked
             }
 

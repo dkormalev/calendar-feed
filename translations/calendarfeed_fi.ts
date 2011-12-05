@@ -1,100 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="ru">
+<TS version="2.0" language="fi">
 <context>
     <name></name>
     <message id="calendar_feed_title">
         <source>Calendar Feed</source>
-        <translation>Календарь в Канале</translation>
+        <translation>Tapahtuma-näytön kalenteri</translation>
     </message>
     <message id="calendar_feed_subtitle">
         <source>Calendar events at Feed screen</source>
-        <translation>Вывод событий календаря в Канал</translation>
+        <translation>Kalenterimerkinnät tapahtumat-näkymään</translation>
     </message>
     <message id="calendar_feed_setting_publish_to_feed">
         <source>Publish to Feed</source>
-        <translation>Выводить в Канал</translation>
+        <translation>Julkaise tapahtumissa</translation>
     </message>
     <message id="calendar_feed_setting_events_number">
         <source>Events Shown</source>
-        <translation>Количество событий</translation>
+        <translation>Näytettävät merkinnät</translation>
     </message>
     <message id="calendar_feed_setting_fill_with_future">
         <source>Fill with Future Events</source>
-        <translation>Включить будущие события</translation>
+        <translation>Näytä tulevat merkinnät</translation>
     </message>
     <message id="calendar_feed_setting_limit_future">
         <source>Limit Future Events (days)</source>
         <oldsource>Limit Future Events</oldsource>
-        <translation>Ограничить днями</translation>
+        <translation type="unfinished">Rajoita tulevia merkintöjä</translation>
     </message>
     <message id="calendar_feed_setting_show_calendar_bar">
         <source>Show Calendar Color</source>
-        <translation>Выводить цвет календаря</translation>
+        <translation>Näytä kalenterin väri</translation>
     </message>
     <message id="calendar_feed_setting_group_behavior">
         <source>Behavior</source>
-        <translation>Поведение</translation>
+        <translation>Käyttäytyminen</translation>
     </message>
     <message id="calendar_feed_setting_group_display">
         <source>Appearance</source>
-        <translation>Внешний вид</translation>
+        <translation>Ulkoasu</translation>
     </message>
     <message id="calendar_feed_setting_date_format">
         <source>Date Format</source>
-        <translation>Формат даты</translation>
+        <translation>Päiväyksen muoto</translation>
     </message>
     <message id="calendar_feed_setting_highlight_today">
         <source>Highlight Today Events</source>
-        <translation>Выделять события сегодня</translation>
+        <translation>Korosta tämän päivät merkinnät</translation>
     </message>
     <message id="calendar_feed_item_title">
         <source>Calendar</source>
-        <translation>Календарь</translation>
+        <translation>Kalenteri</translation>
     </message>
     <message id="calendar_feed_item_no_events">
         <source>No events in your calendar.</source>
-        <translation>В календаре нет событий.</translation>
+        <translation>Kalenterissa ei ole merkintöjä.</translation>
     </message>
     <message id="calendar_feed_about_gitorious_page">
         <source>Project page at Gitorious</source>
-        <translation>Страница проекта на Gitorious</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message id="calendar_feed_about_contact_email">
         <source>Contact e-mail</source>
-        <translation>E-Mail</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message id="calendar_feed_about_help_page">
         <source>Help page</source>
-        <translation>Справка</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message id="calendar_feed_about_thanks_to">
         <source>Special thanks to</source>
-        <translation>Спасибо за помощь</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message id="calendar_feed_refresh">
         <source>Refresh Feed Item</source>
-        <translation>Обновить элемент Канала</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message id="calendar_feed_about">
         <source>About</source>
-        <translation>О программе</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message id="calendar_feed_setting_custom_selection">
         <source>Custom</source>
-        <translation>Свой</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message id="calendar_feed_refresh_error">
         <source>Internal OS error. Please, reboot your device.</source>
-        <translation>Внутренняя ошибка ОС. Пожалуста, перезагрузите устройство.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message id="calendar_feed_setting_calendars_shown">
         <source>Calendars Shown</source>
-        <translation>Показать календари</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message id="calendar_feed_setting_refresh_interval">
         <source>Refresh Interval</source>
-        <translation>Интервал обновления</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

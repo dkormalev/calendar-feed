@@ -37,6 +37,7 @@ Item {
 
     property bool loaded: false
     Component.onCompleted: {
+        gconfItem.updateValue()
         for (var i = 0; i < model.length; ++i) {
             selectionDialog.model.append(model[i])
             if (model[i].value == value) {

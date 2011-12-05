@@ -77,7 +77,10 @@ Page {
             Label{
                 //% "Calendar events at Feed screen"
                 text: qsTrId("calendar_feed_subtitle")
-                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.left: parent.left
+                anchors.right: parent.right
+                horizontalAlignment: Text.AlignHCenter
+                wrapMode: Text.Wrap
                 font.italic: true
             }
 
@@ -117,7 +120,7 @@ Page {
 
             Label{
                 //% "Special thanks to"
-                text: qsTrId("calendar_feed_about_thanks_to") + ": Andrew Babkin, Bruno Calendreau, Milko Mati, Andri Óskarsson, Gerolf Reinwardt, Antti Siiskonen"
+                text: qsTrId("calendar_feed_about_thanks_to") + ": Andrew Babkin, Bruno Calendreau, Milko Mati, Andri Óskarsson, Gerolf Reinwardt, Marko Vertainen"
                 wrapMode: Text.WordWrap
                 width: parent.width
             }

@@ -11,5 +11,6 @@
         <file>AboutPage.qml</file>
         <file>TextFieldSetting.qml</file>
         <file>SelectionSetting.qml</file>
+        <file>SelectionWithCustomSetting.qml</file>
     </qresource>
 </RCC>

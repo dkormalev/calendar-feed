@@ -24,12 +24,9 @@
         <translation>Evènements à venir</translation>
     </message>
     <message id="calendar_feed_setting_limit_future">
-        <source>Limit Future Events</source>
-        <translation>Limiter les évènements à venir</translation>
-    </message>
-    <message id="calendar_feed_setting_future_limit_size">
-        <source>Limit Size (days)</source>
-        <translation>Fixer la limite</translation>
+        <source>Limit Future Events (days)</source>
+        <oldsource>Limit Future Events</oldsource>
+        <translation type="unfinished">Limiter les évènements à venir</translation>
     </message>
     <message id="calendar_feed_setting_show_calendar_bar">
         <source>Show Calendar Color</source>
@@ -58,6 +55,46 @@
     <message id="calendar_feed_item_no_events">
         <source>No events in your calendar.</source>
         <translation>Pas d&apos;évènement.</translation>
+    </message>
+    <message id="calendar_feed_about_gitorious_page">
+        <source>Project page at Gitorious</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="calendar_feed_about_contact_email">
+        <source>Contact e-mail</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="calendar_feed_about_help_page">
+        <source>Help page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="calendar_feed_about_thanks_to">
+        <source>Special thanks to</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="calendar_feed_refresh">
+        <source>Refresh Feed Item</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="calendar_feed_about">
+        <source>About</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="calendar_feed_setting_custom_selection">
+        <source>Custom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="calendar_feed_refresh_error">
+        <source>Internal OS error. Please, reboot your device.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="calendar_feed_setting_calendars_shown">
+        <source>Calendars Shown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="calendar_feed_setting_refresh_interval">
+        <source>Refresh Interval</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

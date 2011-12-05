@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="en">
+<TS version="2.0" language="de">
 <context>
     <name></name>
     <message id="calendar_feed_subtitle">
@@ -90,6 +90,11 @@
         <source>Date Format</source>
         <translation type="unfinished"></translation>
     </message>
+    <message id="calendar_feed_setting_custom_selection">
+        <location filename="../settings-ui/qml/SelectionWithCustomSetting.qml" line="53"/>
+        <source>Custom</source>
+        <translation type="unfinished"></translation>
+    </message>
     <message id="calendar_feed_refresh_error">
         <location filename="../settings-ui/settingshelper.cpp" line="32"/>
         <location filename="../settings-ui/settingshelper.cpp" line="40"/>
@@ -115,11 +120,6 @@
     <message id="calendar_feed_setting_refresh_interval">
         <location filename="../settings-ui/settingshelper.cpp" line="59"/>
         <source>Refresh Interval</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message id="calendar_feed_setting_custom_selection">
-        <location filename="../settings-ui/qml/SelectionWithCustomSetting.qml" line="53"/>
-        <source>Custom</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -42,7 +42,8 @@ OTHER_FILES += \
     qml/SwitchableSliderSetting.qml \
     qml/AboutPage.qml \
     qml/TextFieldSetting.qml \
-    qml/SelectionSetting.qml
+    qml/SelectionSetting.qml \
+    qml/SelectionWithCustomSetting.qml
 
 RESOURCES += \
     qml/qml.qrc \
@@ -51,6 +52,7 @@ RESOURCES += \
 HEADERS += \
     gconfitemqmlproxy.h \
     settingshelper.h
+
 
 
 

@@ -53,4 +53,8 @@ void dummyTr() {
     qtTrId("calendar_feed_item_title");
     //% "No events in your calendar."
     qtTrId("calendar_feed_item_no_events");
+    //% "Calendars Shown"
+    qtTrId("calendar_feed_setting_calendars_shown");
+    //% "Refresh Interval"
+    qtTrId("calendar_feed_setting_refresh_interval");
 }
