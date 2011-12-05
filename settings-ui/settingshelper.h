@@ -3,12 +3,15 @@
 
 #include <QObject>
 #include <QDBusMessage>
+#include <QDateTime>
 
 class SettingsHelper : public QObject
 {
     Q_OBJECT
 public:
     explicit SettingsHelper(QObject *parent = 0);
+
+    Q_INVOKABLE QString formatDate(const QDateTime &date, const QString &format);
 
 signals:
     void errorOccured(const QString &message);

@@ -28,30 +28,58 @@ import "UIConstants.js" as UIConstants
 import CalendarFeed 1.0
 
 Item {
+    property variant model: []
     property alias label: settingLabel.text
-    property alias value: settingControl.value
+    property alias dialogTitle: selectionDialog.titleText
+    property alias value: gconfItem.value
     property alias key: gconfItem.key
     property alias defaultValue: gconfItem.defaultValue
-    property alias maxValue: settingControl.maximumValue
-    property alias minValue: settingControl.minimumValue
 
     property bool loaded: false
+    Component.onCompleted: {
+        for (var i = 0; i < model.length; ++i) {
+            selectionDialog.model.append(model[i])
+            if (model[i].value == value) {
+                selectionDialog.selectedIndex = i
+                valueLabel.text = model[i].name
+            }
+        }
 
-    Component.onCompleted: loaded = true
+        loaded = true
+    }
 
     id: setting
-    height: UIConstants.LIST_ITEM_HEIGHT_DEFAULT*1.5
-    clip: true
+    height: UIConstants.LIST_ITEM_HEIGHT_DEFAULT
+
+    SelectionDialog {
+        id: selectionDialog
+        model: ListModel {}
+        onSelectedIndexChanged: {
+            if (loaded) {
+                gconfItem.value = setting.model[selectedIndex].value
+                valueLabel.text = setting.model[selectedIndex].name
+            }
+        }
+    }
+
 
     GConfItem {
         id: gconfItem
     }
 
+    Rectangle {
+        id: background
+        anchors.fill: parent
+        color: "white"
+        opacity: mouseArea.pressed ? 0.25 : 0.0
+    }
+
     Label {
         id: settingLabel
-        anchors.top: parent.top
+        anchors.bottom: parent.verticalCenter
         anchors.left: parent.left
-        anchors.right: parent.right
+        anchors.right: selectionImage.left
+        anchors.rightMargin: UIConstants.DEFAULT_MARGIN
         font.bold: true
         clip: true
 
@@ -63,43 +91,32 @@ Item {
     }
 
     Label {
-        id: minValueLabel
+        id: valueLabel
+        anchors.top: parent.verticalCenter
         anchors.left: parent.left
-        anchors.verticalCenter: settingControl.verticalCenter
-        text: minValue
+        anchors.right: selectionImage.left
+        anchors.rightMargin: UIConstants.DEFAULT_MARGIN
+        clip: true
+
         style: LabelStyle {
-            textColor: "#505050"
-            fontFamily: UIConstants.FONT_FAMILY_LIGHT
-            fontPixelSize: UIConstants.FONT_LSMALL
+            textColor: UIConstants.COLOR_INVERTED_SECONDARY_FOREGROUND
+            fontFamily: UIConstants.FONT_FAMILY
+            fontPixelSize: UIConstants.FONT_SMALL
         }
     }
 
-    Label {
-        id: maxValueLabel
+    Image {
+        id: selectionImage
+        anchors.verticalCenter: parent.verticalCenter
         anchors.right: parent.right
-        anchors.verticalCenter: settingControl.verticalCenter
-        text: maxValue
-        style: LabelStyle {
-            textColor: "#606060"
-            fontFamily: UIConstants.FONT_FAMILY_LIGHT
-            fontPixelSize: UIConstants.FONT_LSMALL
-        }
+        source: "image://theme/icon-m-textinput-combobox-arrow"
     }
 
-    Slider {
-        id: settingControl
-        anchors.top: settingLabel.bottom
-        anchors.right: maxValueLabel.left
-        anchors.left: minValueLabel.right
-        anchors.margins: UIConstants.DEFAULT_MARGIN
-        value: gconfItem.value
-        onValueChanged: {
-            if (loaded)
-                gconfItem.value = value
-        }
-        stepSize: 1
-        valueIndicatorVisible: true
-        enabled: parent.enabled
+    MouseArea {
+        id: mouseArea
+        anchors.fill: parent
+        enabled: setting.enabled
+        onClicked: selectionDialog.open()
     }
 
 }

@@ -169,6 +169,19 @@ Page {
                 enabled: enableFeedSetting.checked
             }
 
+            SelectionSetting {
+                width: parent.width
+                //% "Date Format"
+                label: qsTrId("calendar_feed_setting_date_format")
+                dialogTitle: qsTrId("calendar_feed_setting_date_format")
+                key: "/apps/ControlPanel/CalendarFeed/DateFormat"
+                defaultValue: "MMM, d"
+                model: [{"name": settingsHelper.formatDate(new Date(), "MMM, d"), "value": "MMM, d"},
+                    {"name": settingsHelper.formatDate(new Date(), "dd-MM"), "value": "dd-MM"},
+                    {"name": settingsHelper.formatDate(new Date(), "dd.MM"), "value": "dd.MM"}]
+                enabled: enableFeedSetting.checked
+            }
+
             TextFieldSetting {
                 width: parent.width
                 //% "Date Format"

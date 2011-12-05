@@ -10,5 +10,6 @@
         <file>SwitchableSliderSetting.qml</file>
         <file>AboutPage.qml</file>
         <file>TextFieldSetting.qml</file>
+        <file>SelectionSetting.qml</file>
     </qresource>
 </RCC>

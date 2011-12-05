@@ -1,9 +1,15 @@
 #include "settingshelper.h"
 #include <QDBusConnection>
 
+
 SettingsHelper::SettingsHelper(QObject *parent) :
     QObject(parent)
 {
+}
+
+QString SettingsHelper::formatDate(const QDateTime &date, const QString &format)
+{
+    return date.toString(format);
 }
 
 void SettingsHelper::refreshFeedItem()
