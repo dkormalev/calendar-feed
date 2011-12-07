@@ -37,7 +37,6 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     QScopedPointer<QDeclarativeView> view(MDeclarativeCache::qDeclarativeView());
 
     QTranslator translator;
-    bool useTranslator = false;
     QString localePrefix = QLocale::system().name();
     if (localePrefix.length() > 2)
         localePrefix = localePrefix.left(2);
