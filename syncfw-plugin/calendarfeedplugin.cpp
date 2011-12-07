@@ -206,6 +206,20 @@ void CalendarFeedPlugin::updateFeed()
 
         events = manager.items(startDateTime, endDateTime);
     }
+    QDateTime todoStartTime = QDateTime::currentDateTime();
+    todoStartTime.setTime(QTime(0,0));
+    QList<QOrganizerItem> possibleToDos = manager.items(todoStartTime, startDateTime);
+
+    QString firstFetchedEventGuid = "";
+    if (!events.empty())
+        firstFetchedEventGuid = events[0].guid();
+    QList<QOrganizerItem> toDosToAdd;
+    foreach(QOrganizerItem event, possibleToDos) {
+        if (event.type().toLower() == "todo" && event.guid() != firstFetchedEventGuid)
+            toDosToAdd << event;
+    }
+    while (!toDosToAdd.empty())
+        events.prepend(toDosToAdd.takeLast());
 
     QList<QOrganizerItem> displayableEvents;
     int displayableCount = 3;

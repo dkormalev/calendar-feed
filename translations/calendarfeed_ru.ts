@@ -21,7 +21,7 @@
     </message>
     <message id="calendar_feed_setting_fill_with_future">
         <source>Fill with Future Events</source>
-        <translation>Включить будущие события</translation>
+        <translation>Добавлять будущие события</translation>
     </message>
     <message id="calendar_feed_setting_limit_future">
         <source>Limit Future Events (days)</source>
@@ -46,7 +46,7 @@
     </message>
     <message id="calendar_feed_setting_highlight_today">
         <source>Highlight Today Events</source>
-        <translation>Выделять события сегодня</translation>
+        <translation>Выделять сегодняшние события</translation>
     </message>
     <message id="calendar_feed_item_title">
         <source>Calendar</source>
