@@ -7,9 +7,8 @@ Name=Calendar Feed
 X-MeeGo-logical-id=calendar_feed_title
 X-MeeGo-translation-catalog=calendarfeed
 Exec=/usr/bin/invoker --type=d -s --splash /opt/calendarfeed-ui/resources/calendar-feed-splash.png /opt/calendarfeed-ui/bin/calendarfeed-ui
+Icon=/usr/share/icons/hicolor/80x80/apps/calendar-feed-icon_80.png
 X-Osso-Type=application/x-executable
 
-#Icon=
 #This is needed to prevent this action appearing in the launcher.
 NotShowIn=X-MeeGo;
-

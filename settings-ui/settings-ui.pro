@@ -24,7 +24,10 @@ desktopfile.files = calendarfeed-ui.desktop
 splash.files = resources/calendar-feed-splash.png
 splash.path = /opt/calendarfeed-ui/resources
 
-INSTALLS += target settingsdesktop desktopfile splash
+icon.files = resources/calendar-feed-icon_80.png
+icon.path = /usr/share/icons/hicolor/80x80/apps
+
+INSTALLS += target settingsdesktop desktopfile splash icon
 
 SOURCES += \
     main.cpp \
