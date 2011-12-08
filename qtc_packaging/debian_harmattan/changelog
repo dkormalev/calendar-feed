@@ -1,12 +1,13 @@
 calendarfeed (0.3.6) unstable; urgency=low
 
-  * Localizations added: German, Finnish, Icelandic
+  * Localizations added: German, Finnish, Icelandic, Slovenian, French
   * Refresh Item feture in Settings
   * QML-based Settings page
   * ToDo bug at pm time fixed
   * About page added
+  * Refresh interval setting
 
- -- Denis Kormalev <kormalev.denis@gmail.com>  Fri, 09 Nov 2011 23:00:00 +0400
+ -- Denis Kormalev <kormalev.denis@gmail.com>  Fri, 09 Dec 2011 23:00:00 +0400
 
 
 calendarfeed (0.3.0) unstable; urgency=low

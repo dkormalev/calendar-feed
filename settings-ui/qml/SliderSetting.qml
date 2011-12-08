@@ -68,7 +68,7 @@ Item {
         anchors.verticalCenter: settingControl.verticalCenter
         text: minValue
         style: LabelStyle {
-            textColor: "#505050"
+            textColor: "#606060"
             fontFamily: UIConstants.FONT_FAMILY_LIGHT
             fontPixelSize: UIConstants.FONT_LSMALL
         }

@@ -25,7 +25,6 @@
     </message>
     <message id="calendar_feed_setting_limit_future">
         <source>Limit Future Events (days)</source>
-        <oldsource>Limit Future Events</oldsource>
         <translation>Rajoita tulevia merkintöjä (päiviä)</translation>
     </message>
     <message id="calendar_feed_setting_show_calendar_bar">
@@ -93,7 +92,7 @@
         <translation>Näytettävät kalenterit</translation>
     </message>
     <message id="calendar_feed_setting_refresh_interval">
-        <source>Refresh Interval</source>
+        <source>Refresh Interval (minutes)</source>
         <translation>Päivitysväli (minuutteja)</translation>
     </message>
 </context>

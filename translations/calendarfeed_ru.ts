@@ -25,7 +25,6 @@
     </message>
     <message id="calendar_feed_setting_limit_future">
         <source>Limit Future Events (days)</source>
-        <oldsource>Limit Future Events</oldsource>
         <translation>Ограничить днями</translation>
     </message>
     <message id="calendar_feed_setting_show_calendar_bar">
@@ -93,8 +92,8 @@
         <translation>Показать календари</translation>
     </message>
     <message id="calendar_feed_setting_refresh_interval">
-        <source>Refresh Interval</source>
-        <translation>Интервал обновления</translation>
+        <source>Refresh Interval (minutes)</source>
+        <translation>Интервал обновления в минутах</translation>
     </message>
 </context>
 </TS>

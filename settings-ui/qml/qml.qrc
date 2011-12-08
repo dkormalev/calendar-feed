@@ -12,5 +12,6 @@
         <file>TextFieldSetting.qml</file>
         <file>SelectionSetting.qml</file>
         <file>SelectionWithCustomSetting.qml</file>
+        <file>SliderElement.qml</file>
     </qresource>
 </RCC>

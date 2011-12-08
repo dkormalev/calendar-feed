@@ -135,6 +135,17 @@ Page {
                 enabled: enableFeedSetting.checked
             }
 
+            SliderElement {
+                width: parent.width
+                //% "Refresh Interval (minutes)"
+                label: qsTrId("calendar_feed_setting_refresh_interval")
+                maxValue: 60
+                minValue: 1
+                value: settingsHelper.refreshInterval
+                onValueChanged: settingsHelper.refreshInterval = value
+                enabled: enableFeedSetting.checked
+            }
+
             SettingsGroup {
                 width: parent.width
                 //% "Appearance"
