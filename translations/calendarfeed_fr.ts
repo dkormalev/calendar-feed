@@ -6,7 +6,7 @@
     <message id="calendar_feed_subtitle">
         <location filename="../settings-ui/qml/AboutPage.qml" line="80"/>
         <source>Calendar events at Feed screen</source>
-        <translation>Evénements du calendrier sur l&apos;écran des flux</translation>
+        <translation>Evénements sur l&apos;écran des flux</translation>
     </message>
     <message id="calendar_feed_about_gitorious_page">
         <location filename="../settings-ui/qml/AboutPage.qml" line="97"/>
