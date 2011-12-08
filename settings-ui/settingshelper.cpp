@@ -2,21 +2,17 @@
 #include <QDBusConnection>
 #include <QFile>
 #include <QXmlStreamReader>
-#include <QDebug>
 
 SettingsHelper::SettingsHelper(QObject *parent) :
     QObject(parent)
 {
-    qDebug() << Q_FUNC_INFO;
     m_refreshInterval = 20;
     QString fileName = "/home/user/.sync/profiles/sync/calendarfeed.xml";
     if (!QFile::exists(fileName))
         return;
-    qDebug() << Q_FUNC_INFO << "Sync profile file exists";
     QFile file(fileName);
     if (!file.open(QIODevice::ReadOnly))
         return;
-    qDebug() << Q_FUNC_INFO << "Sync profile file opened ok";
 
     QXmlStreamReader reader(&file);
     while(!reader.atEnd()) {
@@ -32,7 +28,6 @@ SettingsHelper::SettingsHelper(QObject *parent) :
             break;
         }
     }
-    qDebug() << Q_FUNC_INFO << "Refresh interval=" << m_refreshInterval;
 }
 
 QString SettingsHelper::formatDate(const QDateTime &date, const QString &format)
@@ -42,13 +37,11 @@ QString SettingsHelper::formatDate(const QDateTime &date, const QString &format)
 
 int SettingsHelper::refreshInterval() const
 {
-    qDebug() << Q_FUNC_INFO << m_refreshInterval;
     return m_refreshInterval;
 }
 
 void SettingsHelper::setRefreshInterval(int arg)
 {
-    qDebug() << Q_FUNC_INFO << arg << m_refreshInterval;
     if (arg < 1)
         arg = 1;
     if (arg > 60)
