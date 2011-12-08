@@ -1,6 +1,6 @@
 TEMPLATE = app
 TARGET = calendarfeed-ui
-VERSION = 0.3.6
+VERSION = 0.4.1
 
 QT += declarative dbus
 

@@ -1,7 +1,7 @@
-calendarfeed (0.3.6) unstable; urgency=low
+calendarfeed (0.4.1) unstable; urgency=low
 
   * Localizations added: German, Finnish, Icelandic, Slovenian, French
-  * Refresh Item feture in Settings
+  * Refresh Item feature in Settings
   * QML-based Settings page
   * ToDo bug at pm time fixed
   * About page added
