@@ -1,6 +1,6 @@
 calendarfeed (0.4.1) unstable; urgency=low
 
-  * Localizations added: German, Finnish, Icelandic, Slovenian, French
+  * Localizations added: German, Finnish, Icelandic, Slovenian, French, Turkish
   * Refresh Item feature in Settings
   * QML-based Settings page
   * ToDo bug at pm time fixed

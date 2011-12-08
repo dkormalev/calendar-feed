@@ -121,7 +121,7 @@ Page {
 
             Label{
                 //% "Special thanks to"
-                text: qsTrId("calendar_feed_about_thanks_to") + ": Andrew Babkin, Valentin Brault, Krzysztof Krzewniak, Milko Mati, Andri Oskarsson, Gerolf Reinwardt, Marko Vertainen"
+                text: qsTrId("calendar_feed_about_thanks_to") + ": Andrew Babkin, Valentin Brault, Krzysztof Krzewniak, Milko Mati, Andri Oskarsson, Gerolf Reinwardt, Marko Vertainen, MeeGo Turkey community"
                 wrapMode: Text.WordWrap
                 width: parent.width
             }
