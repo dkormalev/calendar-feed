@@ -24,32 +24,23 @@
 
 import QtQuick 1.1
 import com.nokia.meego 1.0
-import "pages"
+import "../logic/UIConstants.js" as UIConstants
 
-PageStackWindow {
-    id: appWindow
-    initialPage: mainPage
-    Component.onCompleted: theme.inverted = true
+Item {
+    property alias text: button.text
 
-    MainPage {
-        id: mainPage
-    }
+    signal clicked()
 
-    function toolBarReturnBack() {
-        if (pageStack.depth == 1)
-            Qt.quit()
-        else
-            pageStack.pop()
-    }
+    id: buttonElement
+    height: UIConstants.BUTTON_HEIGHT + 2*UIConstants.DEFAULT_MARGIN
 
-
-    ToolBarLayout {
-        id: backOnlyToolBarLayout
-        visible: true
-
-        ToolIcon {
-            iconId: "toolbar-back"
-            onClicked: toolBarReturnBack()
-        }
+    Button {
+        id: button
+        width: UIConstants.BUTTON_WIDTH + 2*UIConstants.DEFAULT_MARGIN
+        height: UIConstants.BUTTON_HEIGHT
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.verticalCenter: parent.verticalCenter
+        onClicked: buttonElement.clicked()
+        enabled: buttonElement.enabled
     }
 }

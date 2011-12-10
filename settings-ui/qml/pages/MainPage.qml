@@ -28,47 +28,9 @@ import "../logic/UIConstants.js" as UIConstants
 import "../elements"
 
 Page {
-    function toolBarReturnBack() {
-        if (pageStack.depth == 1)
-            Qt.quit()
-        else
-            pageStack.pop()
-    }
-
     id: mainPage
     orientationLock: PageOrientation.LockPortrait
-    tools: ToolBarLayout {
-        id: fullToolBarLayout
-        visible: true
-
-        ToolIcon {
-            iconId: "toolbar-back"
-            onClicked: toolBarReturnBack()
-        }
-
-        ToolIcon {
-            platformIconId: "toolbar-view-menu"
-            anchors.right: (parent === undefined) ? undefined : parent.right
-            onClicked: (toolBarMenu.status == DialogStatus.Closed) ? toolBarMenu.open() : toolBarMenu.close()
-        }
-    }
-
-    Menu {
-        id: toolBarMenu
-        visualParent: pageStack
-        MenuLayout {
-            MenuItem {
-                //% "Refresh Feed Item"
-                text: qsTrId("calendar_feed_refresh")
-                onClicked: settingsHelper.refreshFeedItem()
-            }
-            MenuItem {
-                //% "About"
-                text: qsTrId("calendar_feed_about")
-                onClicked: pageStack.push(Qt.resolvedUrl("AboutPage.qml"))
-            }
-        }
-    }
+    tools: backOnlyToolBarLayout
 
     Connections {
         target: settingsHelper
@@ -99,12 +61,6 @@ Page {
                 title: qsTrId("calendar_feed_title")
             }
 
-            SettingsGroup {
-                width: parent.width
-                //% "Behavior"
-                title: qsTrId("calendar_feed_setting_group_behavior")
-            }
-
             SwitchSetting {
                 id: enableFeedSetting
                 width: parent.width
@@ -114,88 +70,37 @@ Page {
                 defaultValue: true
             }
 
-            SwitchSetting {
+            LabelPageActivator {
                 width: parent.width
-                //% "Fill with Future Events"
-                label: qsTrId("calendar_feed_setting_fill_with_future")
-                key: "/apps/ControlPanel/CalendarFeed/FillWithFuture"
-                defaultValue: false
+                //% "Behavior"
+                label: qsTrId("calendar_feed_setting_group_behavior")
+                onActivated: pageStack.push(Qt.resolvedUrl("BehaviorPage.qml"))
                 enabled: enableFeedSetting.checked
             }
 
-            SwitchableSliderSetting {
-                width: parent.width
-                //% "Limit Future Events (days)"
-                label: qsTrId("calendar_feed_setting_limit_future")
-                switchKey: "/apps/ControlPanel/CalendarFeed/LimitFuture"
-                defaultSwitchValue: true
-                key: "/apps/ControlPanel/CalendarFeed/LimitDaysSize"
-                defaultValue: 7
-                maxValue: 31
-                minValue: 1
-                enabled: enableFeedSetting.checked
-            }
-
-            SliderElement {
-                width: parent.width
-                //% "Refresh Interval (minutes)"
-                label: qsTrId("calendar_feed_setting_refresh_interval")
-                maxValue: 60
-                minValue: 1
-                value: settingsHelper.refreshInterval
-                onValueChanged: settingsHelper.refreshInterval = value
-                enabled: enableFeedSetting.checked
-            }
-
-            SettingsGroup {
+            LabelPageActivator {
                 width: parent.width
                 //% "Appearance"
-                title: qsTrId("calendar_feed_setting_group_display")
-            }
-
-            SliderSetting {
-                width: parent.width
-                //% "Events Shown"
-                label: qsTrId("calendar_feed_setting_events_number")
-                key: "/apps/ControlPanel/CalendarFeed/FeedSize"
-                defaultValue: 3
-                maxValue: 5
-                minValue: 1
+                label: qsTrId("calendar_feed_setting_group_display")
+                onActivated: pageStack.push(Qt.resolvedUrl("AppearancePage.qml"))
                 enabled: enableFeedSetting.checked
             }
 
-            SwitchSetting {
+            ButtonElement {
                 width: parent.width
-                //% "Show Calendar Color"
-                label: qsTrId("calendar_feed_setting_show_calendar_bar")
-                key: "/apps/ControlPanel/CalendarFeed/ShowCalendarBar"
-                defaultValue: false
+                //% "Refresh Feed Item"
+                text: qsTrId("calendar_feed_refresh")
+                onClicked: settingsHelper.refreshFeedItem()
                 enabled: enableFeedSetting.checked
             }
 
-            SwitchSetting {
+            LabelPageActivator {
                 width: parent.width
-                //% "Highlight Today Events"
-                label: qsTrId("calendar_feed_setting_highlight_today")
-                key: "/apps/ControlPanel/CalendarFeed/HighlightToday"
-                defaultValue: false
-                enabled: enableFeedSetting.checked
+                //% "About"
+                label: qsTrId("calendar_feed_about")
+                onActivated: pageStack.push(Qt.resolvedUrl("AboutPage.qml"))
             }
 
-            SelectionWithCustomSetting {
-                width: parent.width
-                //% "Date Format"
-                label: qsTrId("calendar_feed_setting_date_format")
-                dialogTitle: qsTrId("calendar_feed_setting_date_format")
-                key: "/apps/ControlPanel/CalendarFeed/DateFormat"
-                defaultValue: "MMM, d"
-                model: [{"name": settingsHelper.formatDate(new Date(), "MMM, d"), "value": "MMM, d"},
-                    {"name": settingsHelper.formatDate(new Date(), "dd MMM"), "value": "d MMM"},
-                    {"name": settingsHelper.formatDate(new Date(), "dd-MM"), "value": "dd-MM"},
-                    {"name": settingsHelper.formatDate(new Date(), "MM/dd"), "value": "MM/dd"},
-                    {"name": settingsHelper.formatDate(new Date(), "dd.MM"), "value": "dd.MM"}]
-                enabled: enableFeedSetting.checked
-            }
 
         }
 

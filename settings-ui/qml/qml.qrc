@@ -13,5 +13,9 @@
         <file>elements/SelectionSetting.qml</file>
         <file>elements/SelectionWithCustomSetting.qml</file>
         <file>elements/SliderElement.qml</file>
+        <file>elements/LabelPageActivator.qml</file>
+        <file>pages/BehaviorPage.qml</file>
+        <file>pages/AppearancePage.qml</file>
+        <file>elements/ButtonElement.qml</file>
     </qresource>
 </RCC>

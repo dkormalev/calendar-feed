@@ -27,24 +27,9 @@ import com.nokia.meego 1.0
 import "../logic/UIConstants.js" as UIConstants
 
 Page {
-    function toolBarReturnBack() {
-        if (pageStack.depth == 1)
-            Qt.quit()
-        else
-            pageStack.pop()
-    }
-
     id: aboutPage
     orientationLock: PageOrientation.LockPortrait
-    tools: ToolBarLayout {
-        id: backOnlyToolBarLayout
-        visible: true
-
-        ToolIcon {
-            iconId: "toolbar-back"
-            onClicked: toolBarReturnBack()
-        }
-    }
+    tools: backOnlyToolBarLayout
 
     anchors.fill: parent
 
