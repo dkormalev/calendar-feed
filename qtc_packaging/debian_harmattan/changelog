@@ -1,4 +1,4 @@
-calendarfeed (0.4.1) unstable; urgency=low
+calendarfeed (0.4.3) unstable; urgency=low
 
   * Localizations added: German, Finnish, Icelandic, Slovenian, French, Turkish, Polish
   * Refresh Item feature in Settings
@@ -6,6 +6,7 @@ calendarfeed (0.4.1) unstable; urgency=low
   * ToDo bug at pm time fixed
   * About page added
   * Refresh interval setting
+  * Settings divided into pages
 
  -- Denis Kormalev <kormalev.denis@gmail.com>  Fri, 09 Dec 2011 23:00:00 +0400
 
