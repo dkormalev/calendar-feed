@@ -24,7 +24,7 @@
 
 import QtQuick 1.1
 import com.nokia.meego 1.0
-import "UIConstants.js" as UIConstants
+import "../logic/UIConstants.js" as UIConstants
 import CalendarFeed 1.0
 
 Item {

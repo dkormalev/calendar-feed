@@ -24,28 +24,29 @@
 
 import QtQuick 1.1
 import com.nokia.meego 1.0
-import "UIConstants.js" as UIConstants
+import "../logic/UIConstants.js" as UIConstants
 import CalendarFeed 1.0
 
 Item {
     property alias label: settingLabel.text
-    property alias value: settingControl.value
-    property alias key: gconfItem.key
-    property alias defaultValue: gconfItem.defaultValue
+    property int value: 0
     property alias maxValue: settingControl.maximumValue
     property alias minValue: settingControl.minimumValue
 
     property bool loaded: false
 
-    Component.onCompleted: loaded = true
+    Component.onCompleted: {
+        if (value < minValue)
+            value = minValue
+        if (value > maxValue)
+            value = maxValue
+        settingControl.value = value
+        loaded = true
+    }
 
     id: setting
     height: UIConstants.LIST_ITEM_HEIGHT_DEFAULT*1.5
     clip: true
-
-    GConfItem {
-        id: gconfItem
-    }
 
     Label {
         id: settingLabel
@@ -92,10 +93,10 @@ Item {
         anchors.right: maxValueLabel.left
         anchors.left: minValueLabel.right
         anchors.margins: UIConstants.DEFAULT_MARGIN
-        value: gconfItem.value
-        onValueChanged: {
-            if (loaded)
-                gconfItem.value = value
+        onPressedChanged: {
+            if (loaded && !pressed && value != setting.value)
+                setting.value = value
+
         }
         stepSize: 1
         valueIndicatorVisible: true

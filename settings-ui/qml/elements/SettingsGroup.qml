@@ -24,53 +24,33 @@
 
 import QtQuick 1.1
 import com.nokia.meego 1.0
-import "UIConstants.js" as UIConstants
-import CalendarFeed 1.0
+import "../logic/UIConstants.js" as UIConstants
 
 Item {
-    property alias label: settingLabel.text
-    property alias value: settingControl.text
-    property alias key: gconfItem.key
-    property alias defaultValue: gconfItem.defaultValue
+    property alias title: titleLabel.text
 
-    property bool loaded: false
+    height: titleLabel.height + 2*UIConstants.DEFAULT_MARGIN
 
-    Component.onCompleted: loaded = true
-
-    id: setting
-    height: UIConstants.LIST_ITEM_HEIGHT_DEFAULT*1.2
-
-    GConfItem {
-        id: gconfItem
+    Rectangle {
+        id: titleDivider
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.left: parent.left
+        anchors.right: titleLabel.left
+        anchors.rightMargin: 2*UIConstants.DEFAULT_MARGIN
+        height: 2
+        color: "#505050"
     }
 
     Label {
-        id: settingLabel
-        anchors.top: parent.top
-        anchors.left: parent.left
+        id: titleLabel
         anchors.right: parent.right
-        font.bold: true
-        clip: true
+        anchors.verticalCenter: parent.verticalCenter
 
         style: LabelStyle {
-            textColor: (setting.enabled) ? UIConstants.COLOR_INVERTED_FOREGROUND : UIConstants.COLOR_INVERTED_SECONDARY_FOREGROUND
+            textColor: "#606060"
             fontFamily: UIConstants.FONT_FAMILY
-            fontPixelSize: UIConstants.FONT_SLARGE
+            fontPixelSize: UIConstants.FONT_XSMALL
         }
-
     }
 
-    TextField {
-        id: settingControl
-        anchors.top: settingLabel.bottom
-        anchors.topMargin: UIConstants.DEFAULT_MARGIN/2
-        anchors.left: parent.left
-        anchors.right: parent.right
-        onTextChanged: {
-            if (loaded)
-                gconfItem.value = text
-        }
-        text: gconfItem.value
-        enabled: parent.enabled
-    }
 }

@@ -24,64 +24,35 @@
 
 import QtQuick 1.1
 import com.nokia.meego 1.0
-import "UIConstants.js" as UIConstants
+import "../logic/UIConstants.js" as UIConstants
 import CalendarFeed 1.0
 
 Item {
-    property variant model: []
     property alias label: settingLabel.text
-    property alias dialogTitle: selectionDialog.titleText
-    property alias value: gconfItem.value
+    property alias checked: settingControl.checked
     property alias key: gconfItem.key
     property alias defaultValue: gconfItem.defaultValue
 
     property bool loaded: false
-    Component.onCompleted: {
-        gconfItem.updateValue()
-        for (var i = 0; i < model.length; ++i) {
-            selectionDialog.model.append(model[i])
-            if (model[i].value == value) {
-                selectionDialog.selectedIndex = i
-                valueLabel.text = model[i].name
-            }
-        }
 
-        loaded = true
-    }
+    Component.onCompleted: loaded = true
 
     id: setting
     height: UIConstants.LIST_ITEM_HEIGHT_DEFAULT
-
-    SelectionDialog {
-        id: selectionDialog
-        model: ListModel {}
-        onSelectedIndexChanged: {
-            if (loaded) {
-                gconfItem.value = setting.model[selectedIndex].value
-                valueLabel.text = setting.model[selectedIndex].name
-            }
-        }
-    }
-
 
     GConfItem {
         id: gconfItem
     }
 
-    Rectangle {
-        id: background
-        anchors.fill: parent
-        color: "white"
-        opacity: mouseArea.pressed ? 0.25 : 0.0
-    }
-
     Label {
         id: settingLabel
-        anchors.bottom: parent.verticalCenter
+        anchors.verticalCenter: parent.verticalCenter
         anchors.left: parent.left
-        anchors.right: selectionImage.left
+        anchors.right: settingControl.left
         anchors.rightMargin: UIConstants.DEFAULT_MARGIN
+        wrapMode: Text.Wrap
         font.bold: true
+        height: (paintedHeight > parent.height) ? parent.height : paintedHeight
         clip: true
 
         style: LabelStyle {
@@ -89,35 +60,18 @@ Item {
             fontFamily: UIConstants.FONT_FAMILY
             fontPixelSize: UIConstants.FONT_SLARGE
         }
+
     }
 
-    Label {
-        id: valueLabel
-        anchors.top: parent.verticalCenter
-        anchors.left: parent.left
-        anchors.right: selectionImage.left
-        anchors.rightMargin: UIConstants.DEFAULT_MARGIN
-        clip: true
-
-        style: LabelStyle {
-            textColor: UIConstants.COLOR_INVERTED_SECONDARY_FOREGROUND
-            fontFamily: UIConstants.FONT_FAMILY
-            fontPixelSize: UIConstants.FONT_SMALL
-        }
-    }
-
-    Image {
-        id: selectionImage
+    Switch {
+        id: settingControl
         anchors.verticalCenter: parent.verticalCenter
         anchors.right: parent.right
-        source: "image://theme/icon-m-textinput-combobox-arrow"
+        onCheckedChanged: {
+            if (loaded)
+                gconfItem.value = checked
+        }
+        checked: gconfItem.value
+        enabled: parent.enabled
     }
-
-    MouseArea {
-        id: mouseArea
-        anchors.fill: parent
-        enabled: setting.enabled
-        onClicked: selectionDialog.open()
-    }
-
 }

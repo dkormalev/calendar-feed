@@ -24,21 +24,24 @@
 
 import QtQuick 1.1
 import com.nokia.meego 1.0
-import "UIConstants.js" as UIConstants
+import "../logic/UIConstants.js" as UIConstants
 import CalendarFeed 1.0
 
 Item {
     property alias label: settingLabel.text
-    property alias checked: settingControl.checked
+    property alias value: settingControl.value
     property alias key: gconfItem.key
     property alias defaultValue: gconfItem.defaultValue
+    property alias maxValue: settingControl.maximumValue
+    property alias minValue: settingControl.minimumValue
 
     property bool loaded: false
 
     Component.onCompleted: loaded = true
 
     id: setting
-    height: UIConstants.LIST_ITEM_HEIGHT_DEFAULT
+    height: UIConstants.LIST_ITEM_HEIGHT_DEFAULT*1.5
+    clip: true
 
     GConfItem {
         id: gconfItem
@@ -46,13 +49,10 @@ Item {
 
     Label {
         id: settingLabel
-        anchors.verticalCenter: parent.verticalCenter
+        anchors.top: parent.top
         anchors.left: parent.left
-        anchors.right: settingControl.left
-        anchors.rightMargin: UIConstants.DEFAULT_MARGIN
-        wrapMode: Text.Wrap
+        anchors.right: parent.right
         font.bold: true
-        height: (paintedHeight > parent.height) ? parent.height : paintedHeight
         clip: true
 
         style: LabelStyle {
@@ -60,18 +60,46 @@ Item {
             fontFamily: UIConstants.FONT_FAMILY
             fontPixelSize: UIConstants.FONT_SLARGE
         }
-
     }
 
-    Switch {
-        id: settingControl
-        anchors.verticalCenter: parent.verticalCenter
-        anchors.right: parent.right
-        onCheckedChanged: {
-            if (loaded)
-                gconfItem.value = checked
+    Label {
+        id: minValueLabel
+        anchors.left: parent.left
+        anchors.verticalCenter: settingControl.verticalCenter
+        text: minValue
+        style: LabelStyle {
+            textColor: "#606060"
+            fontFamily: UIConstants.FONT_FAMILY_LIGHT
+            fontPixelSize: UIConstants.FONT_LSMALL
         }
-        checked: gconfItem.value
+    }
+
+    Label {
+        id: maxValueLabel
+        anchors.right: parent.right
+        anchors.verticalCenter: settingControl.verticalCenter
+        text: maxValue
+        style: LabelStyle {
+            textColor: "#606060"
+            fontFamily: UIConstants.FONT_FAMILY_LIGHT
+            fontPixelSize: UIConstants.FONT_LSMALL
+        }
+    }
+
+    Slider {
+        id: settingControl
+        anchors.top: settingLabel.bottom
+        anchors.right: maxValueLabel.left
+        anchors.left: minValueLabel.right
+        anchors.margins: UIConstants.DEFAULT_MARGIN
+        value: gconfItem.value
+        onValueChanged: {
+            if (loaded)
+                gconfItem.value = value
+        }
+        stepSize: 1
+        valueIndicatorVisible: true
         enabled: parent.enabled
     }
+
 }

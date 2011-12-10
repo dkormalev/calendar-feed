@@ -24,36 +24,45 @@
 
 import QtQuick 1.1
 import com.nokia.meego 1.0
-import "UIConstants.js" as UIConstants
+import "../logic/UIConstants.js" as UIConstants
 import CalendarFeed 1.0
 
 Item {
     property alias label: settingLabel.text
-    property int value: 0
+    property alias value: settingControl.value
+    property alias checked: settingControl.value
+    property alias key: gconfItem.key
+    property alias switchKey: switchGConfItem.key
+    property alias defaultValue: gconfItem.defaultValue
+    property alias defaultSwitchValue: switchGConfItem.defaultValue
     property alias maxValue: settingControl.maximumValue
     property alias minValue: settingControl.minimumValue
 
     property bool loaded: false
 
-    Component.onCompleted: {
-        if (value < minValue)
-            value = minValue
-        if (value > maxValue)
-            value = maxValue
-        settingControl.value = value
-        loaded = true
-    }
+    Component.onCompleted: loaded = true
 
     id: setting
-    height: UIConstants.LIST_ITEM_HEIGHT_DEFAULT*1.5
+    height: UIConstants.LIST_ITEM_HEIGHT_DEFAULT*1.8
     clip: true
+
+    GConfItem {
+        id: gconfItem
+    }
+
+    GConfItem {
+        id: switchGConfItem
+    }
 
     Label {
         id: settingLabel
-        anchors.top: parent.top
+        anchors.verticalCenter: switchSettingControl.verticalCenter
         anchors.left: parent.left
-        anchors.right: parent.right
+        anchors.right: switchSettingControl.left
+        anchors.rightMargin: UIConstants.DEFAULT_MARGIN
+        wrapMode: Text.Wrap
         font.bold: true
+        height: (paintedHeight > UIConstants.LIST_ITEM_HEIGHT_DEFAULT) ? UIConstants.LIST_ITEM_HEIGHT_DEFAULT : paintedHeight
         clip: true
 
         style: LabelStyle {
@@ -61,7 +70,22 @@ Item {
             fontFamily: UIConstants.FONT_FAMILY
             fontPixelSize: UIConstants.FONT_SLARGE
         }
+
     }
+
+    Switch {
+        id: switchSettingControl
+        anchors.top: parent.top
+        anchors.topMargin: UIConstants.DEFAULT_MARGIN
+        anchors.right: parent.right
+        onCheckedChanged: {
+            if (loaded)
+                switchGConfItem.value = checked
+        }
+        checked: switchGConfItem.value
+        enabled: parent.enabled
+    }
+
 
     Label {
         id: minValueLabel
@@ -89,18 +113,18 @@ Item {
 
     Slider {
         id: settingControl
-        anchors.top: settingLabel.bottom
+        anchors.top: switchSettingControl.bottom
         anchors.right: maxValueLabel.left
         anchors.left: minValueLabel.right
         anchors.margins: UIConstants.DEFAULT_MARGIN
-        onPressedChanged: {
-            if (loaded && !pressed && value != setting.value)
-                setting.value = value
-
+        value: gconfItem.value
+        onValueChanged: {
+            if (loaded)
+                gconfItem.value = value
         }
         stepSize: 1
         valueIndicatorVisible: true
-        enabled: parent.enabled
+        enabled: parent.enabled && switchSettingControl.checked
     }
 
 }

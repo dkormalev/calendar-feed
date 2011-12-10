@@ -1,17 +1,17 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>MainPage.qml</file>
-        <file>PageTitle.qml</file>
-        <file>UIConstants.js</file>
-        <file>SwitchSetting.qml</file>
-        <file>SliderSetting.qml</file>
-        <file>SettingsGroup.qml</file>
-        <file>SwitchableSliderSetting.qml</file>
-        <file>AboutPage.qml</file>
-        <file>TextFieldSetting.qml</file>
-        <file>SelectionSetting.qml</file>
-        <file>SelectionWithCustomSetting.qml</file>
-        <file>SliderElement.qml</file>
+        <file>pages/MainPage.qml</file>
+        <file>elements/PageTitle.qml</file>
+        <file>logic/UIConstants.js</file>
+        <file>elements/SwitchSetting.qml</file>
+        <file>elements/SliderSetting.qml</file>
+        <file>elements/SettingsGroup.qml</file>
+        <file>elements/SwitchableSliderSetting.qml</file>
+        <file>pages/AboutPage.qml</file>
+        <file>elements/TextFieldSetting.qml</file>
+        <file>elements/SelectionSetting.qml</file>
+        <file>elements/SelectionWithCustomSetting.qml</file>
+        <file>elements/SliderElement.qml</file>
     </qresource>
 </RCC>

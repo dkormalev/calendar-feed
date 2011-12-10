@@ -36,18 +36,18 @@ SOURCES += \
 
 OTHER_FILES += \
     qml/main.qml \
-    qml/MainPage.qml \
-    qml/PageTitle.qml \
-    qml/SwitchSetting.qml \
-    qml/SliderSetting.qml \
-    qml/UIConstants.js \
-    qml/SettingsGroup.qml \
-    qml/SwitchableSliderSetting.qml \
-    qml/AboutPage.qml \
-    qml/TextFieldSetting.qml \
-    qml/SelectionSetting.qml \
-    qml/SelectionWithCustomSetting.qml \
-    qml/SliderElement.qml
+    qml/pages/MainPage.qml \
+    qml/elements/PageTitle.qml \
+    qml/elements/SwitchSetting.qml \
+    qml/elements/SliderSetting.qml \
+    qml/logic/UIConstants.js \
+    qml/elements/SettingsGroup.qml \
+    qml/elements/SwitchableSliderSetting.qml \
+    qml/pages/AboutPage.qml \
+    qml/elements/TextFieldSetting.qml \
+    qml/elements/SelectionSetting.qml \
+    qml/elements/SelectionWithCustomSetting.qml \
+    qml/elements/SliderElement.qml
 
 RESOURCES += \
     qml/qml.qrc \
