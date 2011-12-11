@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <profile  name="calendarfeed" type="service">
-   <key name="destinationtype" value="offline"/>
+   <key name="destinationtype" value="device"/>
    <profile name="calendarfeed" type="client" >
    </profile>
 </profile>
