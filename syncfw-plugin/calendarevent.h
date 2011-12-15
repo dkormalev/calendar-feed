@@ -9,7 +9,7 @@ class CalendarEvent
 public:
     explicit CalendarEvent();
 
-    QDateTime startDate() const;
+    QDateTime startDateTime() const;
     QString summary() const;
     QString calendarColor() const;
     bool isAllDay() const;
@@ -19,6 +19,7 @@ public:
     void setAllDay(bool arg);
 
 private:
+    Q_DISABLE_COPY(CalendarEvent)
     QDateTime m_startDate;
     QString m_summary;
     QString m_calendarColor;

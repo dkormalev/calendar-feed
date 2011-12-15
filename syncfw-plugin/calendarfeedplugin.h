@@ -62,6 +62,7 @@ protected slots:
 
 private:
     void updateResults(const Buteo::SyncResults &results);
+    void fillFeed(const QList<CalendarEvent *> &events);
     QString base64SerializedVariant(const QVariant &value) const;
 
     Buteo::SyncResults m_results;

@@ -1,10 +1,11 @@
 #include "calendarevent.h"
 
-CalendarEvent::CalendarEvent()
+CalendarEvent::CalendarEvent() :
+    m_startDate(QDateTime::currentDateTime()), m_calendarColor("#000000"), m_allDay(false)
 {
 }
 
-QDateTime CalendarEvent::startDate() const
+QDateTime CalendarEvent::startDateTime() const
 {
     return m_startDate;
 }

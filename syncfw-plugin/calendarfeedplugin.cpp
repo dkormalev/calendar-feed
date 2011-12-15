@@ -138,13 +138,6 @@ void CalendarFeedPlugin::updateFeed()
     locale.installTrCatalog("calendarfeed");
 
     bool fillWithFuture = m_settings->isFilledWithFuture();
-    bool showCalendarBar = m_settings->isCalendarColorShown();
-    QString dateFormat = m_settings->dateFormat() + " ";
-    bool highlightToday = m_settings->isTodayHighlighted();
-
-    QString body;
-    QString icon;
-    QDate firstEventDate = QDate::currentDate();
 
     QHash<QString, QList<QDateTime> > correctStartDateTimes;
     QHash<QString, bool> allDaysFromKCal;
@@ -226,50 +219,93 @@ void CalendarFeedPlugin::updateFeed()
         allDaysFromKCal[event->uid()] = event->allDay();
     }
 
-
-
-
-    QStringList descriptions;
-    bool isFirstDate = true;
+    QList<CalendarEvent *> eventsToShow;
     foreach (QOrganizerItem event, displayableEvents) {
-        QString eventDescription;
-        bool isAllDay = false;
-        QDateTime startDateTime = QDateTime::currentDateTime();
+        CalendarEvent *toAdd = new CalendarEvent;
 
         if (event.type().toLower() == "todo") {
             QOrganizerTodoTime todoTimeDetail = event.detail<QOrganizerTodoTime>();
-            startDateTime = todoTimeDetail.dueDateTime();
-            isAllDay = true;
+            toAdd->setStartDate(todoTimeDetail.dueDateTime());
+            toAdd->setAllDay(true);
         } else {
             QOrganizerEventTime eventTimeDetail = event.detail<QOrganizerEventTime>();
-            isAllDay = eventTimeDetail.isAllDay();
-            startDateTime = eventTimeDetail.startDateTime();
-            QDateTime endDateTime = eventTimeDetail.endDateTime();
+            toAdd->setAllDay(eventTimeDetail.isAllDay());
+            QDateTime eventStartDateTime = eventTimeDetail.startDateTime();
+            QDateTime eventEndDateTime = eventTimeDetail.endDateTime();
 
             QString uid = event.guid();
             if (correctStartDateTimes.contains(uid)) {
                 foreach (const QDateTime &dateTime, correctStartDateTimes[uid]) {
-                    if (dateTime.date() == startDateTime.date()) {
-                        if (dateTime.time() != startDateTime.time()) {
-                            startDateTime.setTime(dateTime.time());
-                            endDateTime = endDateTime.addSecs(startDateTime.time().secsTo(dateTime.time()));
+                    if (dateTime.date() == eventStartDateTime.date()) {
+                        if (dateTime.time() != eventStartDateTime.time()) {
+                            eventStartDateTime.setTime(dateTime.time());
+                            eventEndDateTime = eventEndDateTime.addSecs(eventStartDateTime.time().secsTo(dateTime.time()));
                         }
                     }
                 }
             }
-            if (!isAllDay && allDaysFromKCal.contains(uid))
-                isAllDay = allDaysFromKCal[uid];
+            if (!toAdd->isAllDay() && allDaysFromKCal.contains(uid))
+                toAdd->setAllDay(allDaysFromKCal[uid]);
 
-            if (!isAllDay &&
-                    startDateTime.time().hour() == 0 &&
-                    startDateTime.time().minute() == 0 &&
-                    endDateTime.time().hour() == 0 &&
-                    endDateTime.time().minute() == 0 &&
-                    startDateTime.date().addDays(1) == endDateTime.date())
-                isAllDay = true;
+            if (!toAdd->isAllDay() &&
+                    eventStartDateTime.time().hour() == 0 &&
+                    eventStartDateTime.time().minute() == 0 &&
+                    eventEndDateTime.time().hour() == 0 &&
+                    eventEndDateTime.time().minute() == 0 &&
+                    eventStartDateTime.date().addDays(1) == eventEndDateTime.date())
+                toAdd->setAllDay(true);
+            toAdd->setStartDate(eventStartDateTime);
         }
+        toAdd->setSummary(event.displayLabel());
+        toAdd->setCalendarColor(manager.collection(event.collectionId())
+                               .metaData(QOrganizerCollection::KeyColor).toString());
+        eventsToShow << toAdd;
+    }
 
-        QDate startDate = startDateTime.date();
+    fillFeed(eventsToShow);
+    qDeleteAll(eventsToShow);
+}
+
+void CalendarFeedPlugin::dbusRequestCompleted(const QDBusMessage &reply)
+{
+    int replyId = reply.arguments().first().toInt();
+    if(replyId < 0)
+        syncFailed();
+    else
+        syncSuccess();
+}
+
+void CalendarFeedPlugin::dbusErrorOccured(const QDBusError &error, const QDBusMessage &message)
+{
+    Q_UNUSED(error);
+    Q_UNUSED(message);
+    syncFailed();
+}
+
+void CalendarFeedPlugin::updateResults(const Buteo::SyncResults &results)
+{
+    m_results = results;
+    m_results.setScheduled(true);
+}
+
+void CalendarFeedPlugin::fillFeed(const QList<CalendarEvent *> &events)
+{
+    MLocale locale;
+    locale.installTrCatalog("calendarfeed");
+    bool showCalendarBar = m_settings->isCalendarColorShown();
+    QString dateFormat = m_settings->dateFormat() + " ";
+    bool highlightToday = m_settings->isTodayHighlighted();
+
+    QString body;
+    QString icon;
+    QDate firstEventDate = QDate::currentDate();
+
+    QStringList descriptions;
+    bool isFirstDate = true;
+    foreach (CalendarEvent *event, events) {
+        QString eventDescription;
+
+        QDate startDate = event->startDateTime().date();
         if (startDate.isNull())
             startDate = QDate::currentDate();
         if (isFirstDate) {
@@ -282,9 +318,9 @@ void CalendarFeedPlugin::updateFeed()
             eventDescription += QString("%1").arg(startDate.toString(dateFormat));
             greyOutThisEvent = highlightToday;
         }
-        if (!isAllDay)
-            eventDescription += QString("%1").arg(startDateTime.time().toString("hh:mm "));
-        eventDescription += event.displayLabel();
+        if (!event->isAllDay())
+            eventDescription += QString("%1").arg(event->startDateTime().time().toString("hh:mm "));
+        eventDescription += event->summary();
 
         if (eventDescription.length() > 32)
             eventDescription = eventDescription.left(30-(showCalendarBar ? 1 : 0))+"&#x2026;";
@@ -295,12 +331,8 @@ void CalendarFeedPlugin::updateFeed()
             eventDescription = QString("<font color='#A0A0A0'>%1</font>").arg(eventDescription);
 
         if (showCalendarBar) {
-            QString color = manager.collection(event.collectionId())
-                    .metaData(QOrganizerCollection::KeyColor).toString();
-            if (color.isEmpty())
-                color = "#000000";
             eventDescription = QString("<font color='%1'>&#x2503;</font>%2")
-                    .arg(color)
+                    .arg(event->calendarColor())
                     .arg(eventDescription);
         }
 
@@ -343,28 +375,6 @@ void CalendarFeedPlugin::updateFeed()
     message.setArguments(args);
     MEventFeed::instance()->removeItemsBySourceName("SyncFW-calendarfeed");
     bus.callWithCallback(message, this, SLOT(dbusRequestCompleted(QDBusMessage)), SLOT(dbusErrorOccured(QDBusError,QDBusMessage)));
-}
-
-void CalendarFeedPlugin::dbusRequestCompleted(const QDBusMessage &reply)
-{
-    int replyId = reply.arguments().first().toInt();
-    if(replyId < 0)
-        syncFailed();
-    else
-        syncSuccess();
-}
-
-void CalendarFeedPlugin::dbusErrorOccured(const QDBusError &error, const QDBusMessage &message)
-{
-    Q_UNUSED(error);
-    Q_UNUSED(message);
-    syncFailed();
-}
-
-void CalendarFeedPlugin::updateResults(const Buteo::SyncResults &results)
-{
-    m_results = results;
-    m_results.setScheduled(true);
 }
 
 QString CalendarFeedPlugin::base64SerializedVariant(const QVariant &value) const
