@@ -21,10 +21,14 @@ QT += dbus
 
 #input
 SOURCES += \
-    calendarfeedplugin.cpp
+    calendarfeedplugin.cpp \
+    calendarevent.cpp \
+    settings.cpp
 
 HEADERS +=\
-    calendarfeedplugin.h
+    calendarfeedplugin.h \
+    calendarevent.h \
+    settings.h
 
 QMAKE_CXXFLAGS = -Wall \
     -g \
@@ -35,4 +39,8 @@ QMAKE_CXXFLAGS = -Wall \
 target.path = /usr/lib/sync/
 
 INSTALLS += target
+
+
+
+
 

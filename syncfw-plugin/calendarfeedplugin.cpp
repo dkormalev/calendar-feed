@@ -31,7 +31,6 @@
 #include <QMap>
 #include <QUrl>
 #include <meventfeed.h>
-#include <gconfitem.h>
 #include <QVariant>
 #include <QOrganizerManager>
 #include <QOrganizerItem>
@@ -46,6 +45,9 @@
 #include <mkcal/extendedstorage.h>
 #include <kcalcoren/ksystemtimezone.h>
 #include <kcalcoren/event.h>
+
+#include "settings.h"
+#include "calendarevent.h"
 
 QTM_USE_NAMESPACE
 
@@ -84,20 +86,14 @@ bool CalendarFeedPlugin::uninit()
 
 bool CalendarFeedPlugin::startSync()
 {
-    GConfItem enabledConfItem("/apps/ControlPanel/CalendarFeed/EnableFeed");
-    QVariant enabledVariant = enabledConfItem.value();
-    if (enabledVariant.isValid()) {
-        bool enabled = enabledVariant.toBool();
-        if (!enabled) {
-            MEventFeed::instance()->removeItemsBySourceName("SyncFW-calendarfeed");
-            return false;
-        }
+    m_settings = new Settings();
+    if (m_settings->isEnabled()) {
+        QTimer::singleShot(1, this, SLOT(updateFeed()));
+        return true;
     } else {
-        enabledConfItem.set(true);
+        MEventFeed::instance()->removeItemsBySourceName("SyncFW-calendarfeed");
+        return false;
     }
-    QTimer::singleShot(1, this, SLOT(updateFeed()));
-
-    return true;
 }
 
 void CalendarFeedPlugin::abortSync(Sync::SyncStatus status)
@@ -107,6 +103,7 @@ void CalendarFeedPlugin::abortSync(Sync::SyncStatus status)
 
 bool CalendarFeedPlugin::cleanUp()
 {
+    delete m_settings;
     return true;
 }
 
@@ -140,38 +137,10 @@ void CalendarFeedPlugin::updateFeed()
     MLocale locale;
     locale.installTrCatalog("calendarfeed");
 
-    bool fillWithFuture = false;
-    GConfItem fillConfItem("/apps/ControlPanel/CalendarFeed/FillWithFuture");
-    QVariant fillVariant = fillConfItem.value();
-    if (fillVariant.isValid())
-        fillWithFuture = fillVariant.toBool();
-    else
-        fillConfItem.set(false);
-
-    bool showCalendarBar = false;
-    GConfItem calBarConfItem("/apps/ControlPanel/CalendarFeed/ShowCalendarBar");
-    QVariant calBarVariant = calBarConfItem.value();
-    if (calBarVariant.isValid())
-        showCalendarBar = calBarVariant.toBool();
-    else
-        calBarConfItem.set(false);
-
-    QString dateFormat = "MMM, d";
-    GConfItem dateFormatConfItem("/apps/ControlPanel/CalendarFeed/DateFormat");
-    QVariant dateFormatVariant = dateFormatConfItem.value();
-    if (dateFormatVariant.isValid())
-        dateFormat = dateFormatVariant.toString();
-    else
-        dateFormatConfItem.set(dateFormat);
-    dateFormat += " ";
-
-    bool highlightToday = false;
-    GConfItem highlightTodayConfItem("/apps/ControlPanel/CalendarFeed/HighlightToday");
-    QVariant highlightTodayVariant = highlightTodayConfItem.value();
-    if (highlightTodayVariant.isValid())
-        highlightToday = highlightTodayVariant.toBool();
-    else
-        highlightTodayConfItem.set(false);
+    bool fillWithFuture = m_settings->isFilledWithFuture();
+    bool showCalendarBar = m_settings->isCalendarColorShown();
+    QString dateFormat = m_settings->dateFormat() + " ";
+    bool highlightToday = m_settings->isTodayHighlighted();
 
     QString body;
     QString icon;
@@ -190,20 +159,10 @@ void CalendarFeedPlugin::updateFeed()
 
     if (fillWithFuture || events.isEmpty()) {
         endDateTime = QDateTime();
-        GConfItem limitFutureConfItem("/apps/ControlPanel/CalendarFeed/LimitFuture");
-        QVariant limitFutureVariant = limitFutureConfItem.value();
-        if (limitFutureVariant.isValid() && limitFutureVariant.toBool()) {
-            GConfItem limitSizeConfItem("/apps/ControlPanel/CalendarFeed/LimitDaysSize");
-            QVariant limitSizeVariant = limitSizeConfItem.value();
-            int limitSize = (limitSizeVariant.isValid()) ? limitSizeVariant.toInt() : 7;
-            if (limitSize < 1)
-                limitSize = 7;
-            endDateTime = QDateTime::currentDateTime().addDays(limitSize);
+        if (m_settings->isFutureLimited()) {
+            endDateTime = QDateTime::currentDateTime().addDays(m_settings->futureLimit());
             endDateTime.setTime(QTime(23, 59, 59));
-        } else {
-            limitFutureConfItem.set(false);
         }
-
         events = manager.items(startDateTime, endDateTime);
     }
     QDateTime todoStartTime = QDateTime::currentDateTime();
@@ -222,15 +181,7 @@ void CalendarFeedPlugin::updateFeed()
         events.prepend(toDosToAdd.takeLast());
 
     QList<QOrganizerItem> displayableEvents;
-    int displayableCount = 3;
-    GConfItem displayableConfItem("/apps/ControlPanel/CalendarFeed/FeedSize");
-    QVariant displayableVariant = displayableConfItem.value();
-    if (displayableVariant.isValid())
-        displayableCount = displayableVariant.toInt();
-    else
-        displayableConfItem.set(3);
-    if (displayableCount < 1)
-        displayableCount = 3;
+    int displayableCount = m_settings->eventsShown();
 
     for (int i = 0; i < displayableCount && i < events.size(); ++i)
         displayableEvents << events[i];

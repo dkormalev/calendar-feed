@@ -28,6 +28,10 @@
 #include <libsyncpluginmgr/ClientPlugin.h>
 #include <libsyncprofile/SyncResults.h>
 #include <QDBusMessage>
+#include <QList>
+
+class Settings;
+class CalendarEvent;
 
 class CalendarFeedPlugin : public Buteo::ClientPlugin
 {
@@ -61,6 +65,7 @@ private:
     QString base64SerializedVariant(const QVariant &value) const;
 
     Buteo::SyncResults m_results;
+    Settings *m_settings;
 };
 
 extern "C" CalendarFeedPlugin* createPlugin( const QString& pluginName,
