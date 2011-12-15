@@ -1,8 +1,8 @@
 Source: calendarfeed
-Section: user/other
+Section: user/utilities
 Priority: optional
 Maintainer: Denis Kormalev <kormalev.denis@gmail.com>
-Build-Depends: debhelper (>= 5), libqt4-dev
+Build-Depends: debhelper (>= 5), libqt4-dev, aegis-builder (>= 1.6), sync-fw, libmkcal, libgq-gconf0, libqtm-organizer, libmeegotouchevents0, applauncherd-launcher
 Standards-Version: 3.7.3
 Homepage: https://gitorious.org/calendar-feed
 
