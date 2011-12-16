@@ -39,8 +39,3 @@ QMAKE_CXXFLAGS = -Wall \
 target.path = /usr/lib/sync/
 
 INSTALLS += target
-
-
-
-
-

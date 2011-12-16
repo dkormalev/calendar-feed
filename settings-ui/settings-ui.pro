@@ -60,32 +60,3 @@ RESOURCES += \
 HEADERS += \
     gconfitemqmlproxy.h \
     settingshelper.h
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
