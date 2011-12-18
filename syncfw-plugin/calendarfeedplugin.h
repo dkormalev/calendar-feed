@@ -27,6 +27,9 @@
 
 #include <libsyncpluginmgr/ClientPlugin.h>
 #include <libsyncprofile/SyncResults.h>
+#include <mkcal/extendedcalendar.h>
+#include <mkcal/extendedstorage.h>
+#include <MLocale>
 #include <QDBusMessage>
 #include <QList>
 
@@ -62,11 +65,16 @@ protected slots:
 
 private:
     void updateResults(const Buteo::SyncResults &results);
-    void fillFeed(const QList<CalendarEvent *> &events);
+    void addItemsToFeed(const QList<CalendarEvent *> &events, const QList<CalendarEvent *> &todos);
+    QDBusMessage createAddItemMessage(const QList<CalendarEvent *> &events, const QString &title, const QString &action);
+    mKCal::ExtendedCalendar::ExpandedIncidenceList expandedIncidences(QDate startDate, QDate endDate);
     QString base64SerializedVariant(const QVariant &value) const;
 
+    MLocale m_locale;
     Buteo::SyncResults m_results;
     Settings *m_settings;
+    mKCal::ExtendedCalendar::Ptr m_calendarBackend;
+    mKCal::ExtendedStorage::Ptr m_calendarStorage;
 };
 
 extern "C" CalendarFeedPlugin* createPlugin( const QString& pluginName,

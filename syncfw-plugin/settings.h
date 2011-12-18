@@ -9,9 +9,9 @@ class Settings
 {
 public:
     enum TodosMode {
-        ShownInSameItem,
-        ShownInSeparateItem,
-        NotShown
+        ShowTodosInSameItem,
+        ShowTodosInSeparateItem,
+        DontShowTodos
     };
 
     Settings();

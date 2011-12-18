@@ -74,17 +74,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message id="calendar_feed_setting_show_started_events">
-        <location filename="../settings-ui/qml/pages/BehaviorPage.qml" line="95"/>
+        <location filename="../settings-ui/qml/pages/BehaviorPage.qml" line="85"/>
         <source>Show Started Events</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="calendar_feed_setting_filter_calendars">
-        <location filename="../settings-ui/qml/pages/BehaviorPage.qml" line="104"/>
+        <location filename="../settings-ui/qml/pages/BehaviorPage.qml" line="94"/>
         <source>Filter Calendars</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="calendar_feed_setting_calendars_shown_dialog_title">
-        <location filename="../settings-ui/qml/pages/BehaviorPage.qml" line="114"/>
+        <location filename="../settings-ui/qml/pages/BehaviorPage.qml" line="104"/>
         <source>Select Calendars</source>
         <translation type="unfinished"></translation>
     </message>
@@ -128,18 +128,23 @@
         <source>Calendar</source>
         <translation type="unfinished"></translation>
     </message>
-    <message id="calendar_feed_item_no_events">
+    <message id="calendar_feed_todos_item_title">
         <location filename="../settings-ui/settingshelper.cpp" line="161"/>
+        <source>To-dos</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="calendar_feed_item_no_events">
+        <location filename="../settings-ui/settingshelper.cpp" line="163"/>
         <source>No events in your calendar.</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="calendar_feed_setting_calendars_shown">
-        <location filename="../settings-ui/qml/pages/BehaviorPage.qml" line="112"/>
+        <location filename="../settings-ui/qml/pages/BehaviorPage.qml" line="102"/>
         <source>Calendars Shown</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="calendar_feed_setting_refresh_interval">
-        <location filename="../settings-ui/qml/pages/BehaviorPage.qml" line="85"/>
+        <location filename="../settings-ui/qml/pages/BehaviorPage.qml" line="114"/>
         <source>Refresh Interval (minutes)</source>
         <translation type="unfinished"></translation>
     </message>

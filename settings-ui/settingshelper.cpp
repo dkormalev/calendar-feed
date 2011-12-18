@@ -157,6 +157,8 @@ void SettingsHelper::dbusErrorOccured(const QDBusError &error, const QDBusMessag
 void dummyTr() {
     //% "Calendar"
     qtTrId("calendar_feed_item_title");
+    //% "To-dos"
+    qtTrId("calendar_feed_todos_item_title");
     //% "No events in your calendar."
     qtTrId("calendar_feed_item_no_events");
 }

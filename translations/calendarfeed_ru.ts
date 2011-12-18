@@ -139,5 +139,9 @@
         <source>Show To-dos Without Due Date</source>
         <translation type="unfinished"></translation>
     </message>
+    <message id="calendar_feed_todos_item_title">
+        <source>To-dos</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 </TS>

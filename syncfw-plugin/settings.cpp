@@ -15,7 +15,7 @@ Settings::Settings()
     m_calendarFilterUsed = readConfItem("/apps/ControlPanel/CalendarFeed/FilterCalendars", false).toBool();
     m_shownCalendars = readConfItem("/apps/ControlPanel/CalendarFeed/CalendarsShown", "").toString().split(";");
     m_startedEventsShown = readConfItem("/apps/ControlPanel/CalendarFeed/ShowStartedEvents", true).toBool();
-    m_todosMode = (TodosMode) readConfItem("/apps/ControlPanel/CalendarFeed/TodosMode", ShownInSameItem).toInt();
+    m_todosMode = (TodosMode) readConfItem("/apps/ControlPanel/CalendarFeed/TodosMode", ShowTodosInSameItem).toInt();
     m_nonDatedTodosShown = readConfItem("/apps/ControlPanel/CalendarFeed/ShowNonDatedTodos", false).toBool();
     m_overdueTodosShown = readConfItem("/apps/ControlPanel/CalendarFeed/ShowOverdueTodos", false).toBool();
 }
