@@ -75,7 +75,7 @@ bool Settings::areStartedEventsShown() const
     return m_startedEventsShown;
 }
 
-TodosMode Settings::todosMode() const
+Settings::TodosMode Settings::todosMode() const
 {
     return m_todosMode;
 }

@@ -79,16 +79,6 @@ Page {
                 minValue: 1
             }
 
-            SliderElement {
-                width: parent.width
-                //% "Refresh Interval (minutes)"
-                label: qsTrId("calendar_feed_setting_refresh_interval")
-                maxValue: 60
-                minValue: 1
-                value: settingsHelper.refreshInterval
-                onValueChanged: settingsHelper.refreshInterval = value
-            }
-
             SwitchSetting {
                 width: parent.width
                 //% "Show Started Events"
@@ -116,6 +106,16 @@ Page {
                 defaultValue: ""
                 model: settingsHelper.calendars()
                 enabled: filterCalendarsSetting.checked
+            }
+
+            SliderElement {
+                width: parent.width
+                //% "Refresh Interval (minutes)"
+                label: qsTrId("calendar_feed_setting_refresh_interval")
+                maxValue: 60
+                minValue: 1
+                value: settingsHelper.refreshInterval
+                onValueChanged: settingsHelper.refreshInterval = value
             }
 
         }
