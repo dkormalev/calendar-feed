@@ -66,7 +66,7 @@ protected slots:
 private:
     void updateResults(const Buteo::SyncResults &results);
     void addItemsToFeed(const QList<CalendarEvent *> &events, const QList<CalendarEvent *> &todos);
-    QDBusMessage createAddItemMessage(const QList<CalendarEvent *> &events, const QString &title, const QString &action);
+    QDBusMessage createAddItemMessage(const QList<CalendarEvent *> &events, const QString &title, bool showTodos);
     mKCal::ExtendedCalendar::ExpandedIncidenceList expandedIncidences(QDate startDate, QDate endDate);
     QString base64SerializedVariant(const QVariant &value) const;
 

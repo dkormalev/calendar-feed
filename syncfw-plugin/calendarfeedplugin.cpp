@@ -436,25 +436,30 @@ void CalendarFeedPlugin::addItemsToFeed(const QList<CalendarEvent *> &events, co
 
     QDBusMessage eventsMessage =
             createAddItemMessage(events,
-                                 m_locale.translate("", "calendar_feed_item_title"),
-                                 QString("com.nokia.Calendar / com.nokia.maemo.meegotouch.CalendarInterface showMonthView %1 %2 %3")
-                                 .arg(base64SerializedVariant(firstEventDate.year()))
-                                 .arg(base64SerializedVariant(firstEventDate.month()))
-                                 .arg(base64SerializedVariant(firstEventDate.day())));
+                                 m_locale.translate("", "calendar_feed_item_title"), false);
     bus.callWithCallback(eventsMessage, this, SLOT(dbusRequestCompleted(QDBusMessage)), SLOT(dbusErrorOccured(QDBusError,QDBusMessage)));
 
     if (todos.count()) {
         QDBusMessage todosMessage =
                 createAddItemMessage(todos,
-                                     m_locale.translate("", "calendar_feed_todos_item_title"),
-                                     QString("com.nokia.Calendar / com.nokia.maemo.meegotouch.CalendarInterface showTodoListView"));
+                                     m_locale.translate("", "calendar_feed_todos_item_title"), true);
         bus.callWithCallback(todosMessage, this, SLOT(dbusRequestCompleted(QDBusMessage)), SLOT(dbusErrorOccured(QDBusError,QDBusMessage)));
     }
 
 }
 
-QDBusMessage CalendarFeedPlugin::createAddItemMessage(const QList<CalendarEvent *> &events, const QString &title, const QString &action)
+QDBusMessage CalendarFeedPlugin::createAddItemMessage(const QList<CalendarEvent *> &events, const QString &title, bool showTodos)
 {
+    QFile file("/home/user/calendarfeed.log");
+    file.open(QIODevice::WriteOnly|QIODevice::Append);
+    file.write(Q_FUNC_INFO);
+    file.write("\n");
+    foreach (CalendarEvent *event, events) {
+        file.write(QString("\tevent: %1 %2").arg(event->startDateTime().date().toString("dd.MM.yy"), event->summary()).toUtf8());
+    }
+
+    file.close();
+
     bool showCalendarBar = m_settings->isCalendarColorShown();
     QString dateFormat = m_settings->dateFormat() + " ";
     bool highlightToday = m_settings->isTodayHighlighted();
@@ -527,6 +532,15 @@ QDBusMessage CalendarFeedPlugin::createAddItemMessage(const QList<CalendarEvent 
     itemArgs.insert("timestamp", QDateTime::currentDateTime().addDays(1).toString("yyyy-MM-dd hh:mm:ss"));
     itemArgs.insert("sourceName", "SyncFW-calendarfeed");
     itemArgs.insert("sourceDisplayName", m_locale.translate("", "calendar_feed_title"));
+    QString action;
+    if (showTodos) {
+        action = QString("com.nokia.Calendar / com.nokia.maemo.meegotouch.CalendarInterface showTodoListView");
+    } else {
+        action = QString("com.nokia.Calendar / com.nokia.maemo.meegotouch.CalendarInterface showMonthView %1 %2 %3")
+        .arg(base64SerializedVariant(firstEventDate.year()))
+        .arg(base64SerializedVariant(firstEventDate.month()))
+        .arg(base64SerializedVariant(firstEventDate.day()));
+    }
     itemArgs.insert("action", action);
     args.append(itemArgs);
     message.setArguments(args);
