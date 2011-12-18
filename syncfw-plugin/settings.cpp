@@ -11,6 +11,13 @@ Settings::Settings()
     m_calendarColorShown = readConfItem("/apps/ControlPanel/CalendarFeed/ShowCalendarBar", false).toBool();
     m_todayHighlighted = readConfItem("/apps/ControlPanel/CalendarFeed/HighlightToday", false).toBool();
     m_dateFormat = readConfItem("/apps/ControlPanel/CalendarFeed/DateFormat", "MMM, d").toString();
+
+    m_calendarFilterUsed = readConfItem("/apps/ControlPanel/CalendarFeed/FilterCalendars", false).toBool();
+    m_shownCalendars = readConfItem("/apps/ControlPanel/CalendarFeed/CalendarsShown", "").toString().split(";");
+    m_startedEventsShown = readConfItem("/apps/ControlPanel/CalendarFeed/ShowStartedEvents", true).toBool();
+    m_todosMode = (TodosMode) readConfItem("/apps/ControlPanel/CalendarFeed/TodosMode", ShownInSameItem).toInt();
+    m_nonDatedTodosShown = readConfItem("/apps/ControlPanel/CalendarFeed/ShowNonDatedTodos", false).toBool();
+    m_overdueTodosShown = readConfItem("/apps/ControlPanel/CalendarFeed/ShowOverdueTodos", false).toBool();
 }
 
 bool Settings::isEnabled() const
@@ -52,6 +59,37 @@ QString Settings::dateFormat() const
 {
     return m_dateFormat;
 }
+
+bool Settings::isCalendarFilterUsed() const
+{
+    return m_calendarFilterUsed;
+}
+
+QStringList Settings::shownCalendars() const
+{
+    return m_shownCalendars;
+}
+
+bool Settings::areStartedEventsShown() const
+{
+    return m_startedEventsShown;
+}
+
+TodosMode Settings::todosMode() const
+{
+    return m_todosMode;
+}
+
+bool Settings::areNonDatedTodosShown() const
+{
+    return m_nonDatedTodosShown;
+}
+
+bool Settings::areOverdueTodosShown() const
+{
+    return m_overdueTodosShown;
+}
+
 
 void Settings::setEnabled(bool arg)
 {
@@ -101,6 +139,49 @@ void Settings::setDateFormat(const QString &arg)
     setConfItem("/apps/ControlPanel/CalendarFeed/DateFormat", m_dateFormat);
 }
 
+void Settings::setCalendarFilterUsed(bool arg)
+{
+    m_calendarFilterUsed = arg;
+    setConfItem("/apps/ControlPanel/CalendarFeed/FilterCalendars", m_calendarFilterUsed);
+}
+
+void Settings::setShownCalendars(const QStringList &arg)
+{
+    m_shownCalendars = arg;
+    setConfItem("/apps/ControlPanel/CalendarFeed/CalendarsShown", m_shownCalendars.join(";"));
+}
+
+void Settings::setStartedEventsShown(bool arg)
+{
+    m_startedEventsShown = arg;
+    setConfItem("/apps/ControlPanel/CalendarFeed/ShowStartedEvents", m_startedEventsShown);
+}
+
+void Settings::setTodosMode(TodosMode arg)
+{
+    m_todosMode = arg;
+    setConfItem("/apps/ControlPanel/CalendarFeed/TodosMode", m_todosMode);
+}
+
+void Settings::setNonDatedTodosShown(bool arg)
+{
+    m_nonDatedTodosShown = arg;
+    setConfItem("/apps/ControlPanel/CalendarFeed/ShowNonDatedTodos", m_nonDatedTodosShown);
+}
+
+void Settings::setOverdueTodosShown(bool arg)
+{
+    m_overdueTodosShown = arg;
+    setConfItem("/apps/ControlPanel/CalendarFeed/ShowOverdueTodos", m_overdueTodosShown);
+}
+
+
+void Settings::setConfItem(const QString &key, const QVariant &value)
+{
+    GConfItem confItem(key);
+    confItem.set(value);
+}
+
 QVariant Settings::readConfItem(const QString &key, const QVariant &defaultValue)
 {
     GConfItem confItem(key);
@@ -109,10 +190,4 @@ QVariant Settings::readConfItem(const QString &key, const QVariant &defaultValue
         return variant;
     confItem.set(defaultValue);
     return defaultValue;
-}
-
-void Settings::setConfItem(const QString &key, const QVariant &value)
-{
-    GConfItem confItem(key);
-    confItem.set(value);
 }

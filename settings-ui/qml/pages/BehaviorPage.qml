@@ -94,7 +94,7 @@ Page {
                 //% "Show Started Events"
                 label: qsTrId("calendar_feed_setting_show_started_events")
                 key: "/apps/ControlPanel/CalendarFeed/ShowStartedEvents"
-                defaultValue: false
+                defaultValue: true
             }
 
             SwitchSetting {
