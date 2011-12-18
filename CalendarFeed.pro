@@ -1,6 +1,6 @@
 TEMPLATE = subdirs
 SUBDIRS = syncfw-plugin settings-ui
-VERSION = 0.4.6
+VERSION = 0.6.0
 
 #install
 system ("cd translations && lrelease -markuntranslated '' -idbased *.ts")

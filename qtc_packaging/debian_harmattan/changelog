@@ -1,8 +1,14 @@
-calendarfeed (0.4.6) unstable; urgency=low
+calendarfeed (0.6.0) unstable; urgency=low
 
   * Refactoring
+  * Plugin moved to mkcal from Mobility
+  * Support for overdue todos and todos without dates
+  * Todos in separate item
+  * Calendars filter
+  * Setting for showing already started events
+  * Bug fixes
 
- -- Denis Kormalev <kormalev.denis@gmail.com>  Fri, 09 Dec 2011 23:00:00 +0400
+ -- Denis Kormalev <kormalev.denis@gmail.com>  Mon, 19 Dec 2011 23:00:00 +0400
 
 
 

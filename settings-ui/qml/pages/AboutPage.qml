@@ -52,7 +52,7 @@ Page {
             }
 
             Label{
-                text: "Calendar Feed v0.4.6"
+                text: "Calendar Feed v0.6.0"
                 anchors.horizontalCenter: parent.horizontalCenter
                 platformStyle: LabelStyle {
                     fontFamily: UIConstants.FONT_FAMILY
