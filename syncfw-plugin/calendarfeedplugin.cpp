@@ -47,30 +47,17 @@
 #include "settings.h"
 #include "calendarevent.h"
 
-#include <QFile>
-
-
 QTM_USE_NAMESPACE
 
 extern "C" CalendarFeedPlugin *createPlugin(const QString& pluginName,
                                             const Buteo::SyncProfile &profile,
                                             Buteo::PluginCbInterface *cbInterface)
 {
-    QFile file("/home/user/calendarfeed.log");
-    file.open(QIODevice::WriteOnly|QIODevice::Append);
-    file.write(Q_FUNC_INFO);
-    file.write("\n");
-    file.close();
     return new CalendarFeedPlugin(pluginName, profile, cbInterface);
 }
 
 extern "C" void destroyPlugin(CalendarFeedPlugin *client)
 {
-    QFile file("/home/user/calendarfeed.log");
-    file.open(QIODevice::WriteOnly|QIODevice::Append);
-    file.write(Q_FUNC_INFO);
-    file.write("\n");
-    file.close();
     delete client;
 }
 
@@ -79,29 +66,14 @@ CalendarFeedPlugin::CalendarFeedPlugin(const QString &pluginName,
                                        Buteo::PluginCbInterface *cbInterface) :
     ClientPlugin(pluginName, profile, cbInterface)
 {
-    QFile file("/home/user/calendarfeed.log");
-    file.open(QIODevice::WriteOnly|QIODevice::Append);
-    file.write(Q_FUNC_INFO);
-    file.write("\n");
-    file.close();
 }
 
 CalendarFeedPlugin::~CalendarFeedPlugin()
 {
-    QFile file("/home/user/calendarfeed.log");
-    file.open(QIODevice::WriteOnly|QIODevice::Append);
-    file.write(Q_FUNC_INFO);
-    file.write("\n");
-    file.close();
 }
 
 bool CalendarFeedPlugin::init()
 {
-    QFile file("/home/user/calendarfeed.log");
-    file.open(QIODevice::WriteOnly|QIODevice::Append);
-    file.write(Q_FUNC_INFO);
-    file.write("\n");
-    file.close();
     m_locale.installTrCatalog("calendarfeed");
     m_settings = new Settings();
     return true;
@@ -109,22 +81,12 @@ bool CalendarFeedPlugin::init()
 
 bool CalendarFeedPlugin::uninit()
 {
-    QFile file("/home/user/calendarfeed.log");
-    file.open(QIODevice::WriteOnly|QIODevice::Append);
-    file.write(Q_FUNC_INFO);
-    file.write("\n");
-    file.close();
     delete m_settings;
     return true;
 }
 
 bool CalendarFeedPlugin::startSync()
 {
-    QFile file("/home/user/calendarfeed.log");
-    file.open(QIODevice::WriteOnly|QIODevice::Append);
-    file.write(Q_FUNC_INFO);
-    file.write("\n");
-    file.close();
     if (m_settings->isEnabled()) {
         QTimer::singleShot(1, this, SLOT(updateFeed()));
         return true;
@@ -136,64 +98,34 @@ bool CalendarFeedPlugin::startSync()
 
 void CalendarFeedPlugin::abortSync(Sync::SyncStatus status)
 {
-    QFile file("/home/user/calendarfeed.log");
-    file.open(QIODevice::WriteOnly|QIODevice::Append);
-    file.write(Q_FUNC_INFO);
-    file.write("\n");
-    file.close();
     Q_UNUSED(status);
 }
 
 bool CalendarFeedPlugin::cleanUp()
 {
-    QFile file("/home/user/calendarfeed.log");
-    file.open(QIODevice::WriteOnly|QIODevice::Append);
-    file.write(Q_FUNC_INFO);
-    file.write("\n");
-    file.close();
     return true;
 }
 
 Buteo::SyncResults CalendarFeedPlugin::getSyncResults() const
 {
-    QFile file("/home/user/calendarfeed.log");
-    file.open(QIODevice::WriteOnly|QIODevice::Append);
-    file.write(Q_FUNC_INFO);
-    file.write("\n");
-    file.close();
     return m_results;
 }
 
 void CalendarFeedPlugin::connectivityStateChanged(Sync::ConnectivityType type,
                                                   bool state)
 {
-    QFile file("/home/user/calendarfeed.log");
-    file.open(QIODevice::WriteOnly|QIODevice::Append);
-    file.write(Q_FUNC_INFO);
-    file.write("\n");
-    file.close();
     Q_UNUSED(type);
     Q_UNUSED(state);
 }
 
 void CalendarFeedPlugin::syncSuccess()
 {
-    QFile file("/home/user/calendarfeed.log");
-    file.open(QIODevice::WriteOnly|QIODevice::Append);
-    file.write(Q_FUNC_INFO);
-    file.write("\n");
-    file.close();
     updateResults(Buteo::SyncResults(QDateTime::currentDateTime(), Buteo::SyncResults::SYNC_RESULT_SUCCESS, Buteo::SyncResults::NO_ERROR));
     emit success(getProfileName(), "Success!!");
 }
 
 void CalendarFeedPlugin::syncFailed()
 {
-    QFile file("/home/user/calendarfeed.log");
-    file.open(QIODevice::WriteOnly|QIODevice::Append);
-    file.write(Q_FUNC_INFO);
-    file.write("\n");
-    file.close();
     updateResults(Buteo::SyncResults(QDateTime::currentDateTime(),
                                      Buteo::SyncResults::SYNC_RESULT_FAILED, Buteo::SyncResults::ABORTED));
     emit error(getProfileName(), "Error!!", Buteo::SyncResults::SYNC_RESULT_FAILED);
@@ -201,11 +133,6 @@ void CalendarFeedPlugin::syncFailed()
 
 void CalendarFeedPlugin::updateFeed()
 {
-    QFile file("/home/user/calendarfeed.log");
-    file.open(QIODevice::WriteOnly|QIODevice::Append);
-    file.write(Q_FUNC_INFO);
-    file.write("\n");
-    file.close();
     bool fillWithFuture = m_settings->isFilledWithFuture();
     bool futureLimited = m_settings->isFutureLimited();
     int futureLimit = m_settings->futureLimit();
@@ -218,7 +145,6 @@ void CalendarFeedPlugin::updateFeed()
     Settings::TodosMode todosMode = m_settings->todosMode();
     bool showNonDatedTodos = m_settings->areNonDatedTodosShown();
     bool showOverdueTodos = m_settings->areOverdueTodosShown();
-
 
     QList<CalendarEvent *> eventsToShow;
     QList<CalendarEvent *> todosToShow;
@@ -267,12 +193,12 @@ void CalendarFeedPlugin::updateFeed()
                     continue;
                 if (todosMode == Settings::ShowTodosInSameItem) {
                     if (todo->dtDue().date() >= startDateTime.date())
-                        break;
+                        continue;
                 } else {
                     if (!fillWithFuture && todosToShow.count() && todo->dtDue().date() > startDateTime.date())
-                        break;
+                        continue;
                     if (futureLimited && todo->dtDue().date() > endTodoDate)
-                        break;
+                        continue;
                 }
                 QString calendarUid = m_calendarBackend->notebook(todo->uid());
                 mKCal::Notebook::Ptr eventCalendar = m_calendarStorage->notebook(calendarUid);
@@ -392,11 +318,6 @@ void CalendarFeedPlugin::updateFeed()
 
 void CalendarFeedPlugin::dbusRequestCompleted(const QDBusMessage &reply)
 {
-    QFile file("/home/user/calendarfeed.log");
-    file.open(QIODevice::WriteOnly|QIODevice::Append);
-    file.write(Q_FUNC_INFO);
-    file.write("\n");
-    file.close();
     int replyId = reply.arguments().first().toInt();
     if(replyId < 0)
         syncFailed();
@@ -406,11 +327,6 @@ void CalendarFeedPlugin::dbusRequestCompleted(const QDBusMessage &reply)
 
 void CalendarFeedPlugin::dbusErrorOccured(const QDBusError &error, const QDBusMessage &message)
 {
-    QFile file("/home/user/calendarfeed.log");
-    file.open(QIODevice::WriteOnly|QIODevice::Append);
-    file.write(Q_FUNC_INFO);
-    file.write("\n");
-    file.close();
     Q_UNUSED(error);
     Q_UNUSED(message);
     syncFailed();
@@ -418,11 +334,6 @@ void CalendarFeedPlugin::dbusErrorOccured(const QDBusError &error, const QDBusMe
 
 void CalendarFeedPlugin::updateResults(const Buteo::SyncResults &results)
 {
-    QFile file("/home/user/calendarfeed.log");
-    file.open(QIODevice::WriteOnly|QIODevice::Append);
-    file.write(Q_FUNC_INFO);
-    file.write("\n");
-    file.close();
     m_results = results;
     m_results.setScheduled(true);
 }
@@ -450,16 +361,6 @@ void CalendarFeedPlugin::addItemsToFeed(const QList<CalendarEvent *> &events, co
 
 QDBusMessage CalendarFeedPlugin::createAddItemMessage(const QList<CalendarEvent *> &events, const QString &title, bool showTodos)
 {
-    QFile file("/home/user/calendarfeed.log");
-    file.open(QIODevice::WriteOnly|QIODevice::Append);
-    file.write(Q_FUNC_INFO);
-    file.write("\n");
-    foreach (CalendarEvent *event, events) {
-        file.write(QString("\tevent: %1 %2").arg(event->startDateTime().date().toString("dd.MM.yy"), event->summary()).toUtf8());
-    }
-
-    file.close();
-
     bool showCalendarBar = m_settings->isCalendarColorShown();
     QString dateFormat = m_settings->dateFormat() + " ";
     bool highlightToday = m_settings->isTodayHighlighted();
