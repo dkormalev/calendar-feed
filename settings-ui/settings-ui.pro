@@ -4,13 +4,17 @@ VERSION = 0.4.6
 
 QT += declarative dbus
 
+CONFIG += link_pkgconfig
+PKGCONFIG += libmkcal
+
 CONFIG += qdeclarative-boostable
 
 INCLUDEPATH += . \
-                /usr/include/gq
+                /usr/include/gq \
+                /usr/include/mkcal \
+                /usr/include/kcalcoren
 
-LIBS += -lgq-gconf
-
+LIBS += -lgq-gconf -lmkcal
 
 #install
 target.path = /opt/calendarfeed-ui/bin
@@ -32,7 +36,8 @@ INSTALLS += target settingsdesktop desktopfile splash icon
 SOURCES += \
     main.cpp \
     gconfitemqmlproxy.cpp \
-    settingshelper.cpp
+    settingshelper.cpp \
+    calendar.cpp
 
 OTHER_FILES += \
     qml/main.qml \
@@ -51,7 +56,9 @@ OTHER_FILES += \
     qml/pages/BehaviorPage.qml \
     qml/pages/AppearancePage.qml \
     qml/elements/LabelPageActivator.qml \
-    qml/elements/ButtonElement.qml
+    qml/elements/ButtonElement.qml \
+    qml/elements/MultiSelectionSetting.qml \
+    qml/pages/TodosPage.qml
 
 RESOURCES += \
     qml/qml.qrc \
@@ -59,4 +66,9 @@ RESOURCES += \
 
 HEADERS += \
     gconfitemqmlproxy.h \
-    settingshelper.h
+    settingshelper.h \
+    calendar.h
+
+
+
+

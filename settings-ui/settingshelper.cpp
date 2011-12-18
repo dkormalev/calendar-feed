@@ -26,30 +26,46 @@
 #include <QDBusConnection>
 #include <QFile>
 #include <QXmlStreamReader>
+#include <extendedcalendar.h>
+#include <extendedstorage.h>
+#include <kcalcoren/ksystemtimezone.h>
+#include "calendar.h"
+#include <QDebug>
 
 SettingsHelper::SettingsHelper(QObject *parent) :
     QObject(parent)
 {
+    mKCal::ExtendedCalendar::Ptr m_calendarBackend = mKCal::ExtendedCalendar::Ptr(new mKCal::ExtendedCalendar(KDateTime::Spec::LocalZone()));
+
+    mKCal::ExtendedStorage::Ptr m_calendarStorage =
+            mKCal::ExtendedStorage::Ptr(mKCal::ExtendedCalendar::defaultStorage(m_calendarBackend));
+    m_calendarStorage->open();
+
+    mKCal::Notebook::List calendars = m_calendarStorage->notebooks();
+    foreach(mKCal::Notebook::Ptr calendar, calendars) {
+        if (calendar->isVisible() && (calendar->eventsAllowed() || calendar->todosAllowed()))
+            m_calendars << new Calendar(calendar->uid(), calendar->name(), this);
+    }
+
     m_refreshInterval = 20;
     QString fileName = "/home/user/.sync/profiles/sync/calendarfeed.xml";
-    if (!QFile::exists(fileName))
-        return;
-    QFile file(fileName);
-    if (!file.open(QIODevice::ReadOnly))
-        return;
-
-    QXmlStreamReader reader(&file);
-    while(!reader.atEnd()) {
-        reader.readNext();
-        if (reader.isStartElement() && reader.name() == "schedule") {
-            m_refreshInterval = reader.attributes().value("interval").toString().toInt();
-            //We don't set 1 here, because in most cases 0 here means error in parsing,
-            //so we simply falling back to default
-            if (m_refreshInterval < 1)
-                m_refreshInterval = 20;
-            if (m_refreshInterval > 60)
-                m_refreshInterval = 60;
-            break;
+    if (QFile::exists(fileName)) {
+        QFile file(fileName);
+        if (file.open(QIODevice::ReadOnly)) {
+            QXmlStreamReader reader(&file);
+            while(!reader.atEnd()) {
+                reader.readNext();
+                if (reader.isStartElement() && reader.name() == "schedule") {
+                    m_refreshInterval = reader.attributes().value("interval").toString().toInt();
+                    //We don't set 1 here, because in most cases 0 here means error in parsing,
+                    //so we simply falling back to default
+                    if (m_refreshInterval < 1)
+                        m_refreshInterval = 20;
+                    if (m_refreshInterval > 60)
+                        m_refreshInterval = 60;
+                    break;
+                }
+            }
         }
     }
 }
@@ -96,6 +112,11 @@ void SettingsHelper::setRefreshInterval(int arg)
     }
 }
 
+QList<QObject *> SettingsHelper::calendars()
+{
+    return m_calendars;
+}
+
 
 void SettingsHelper::refreshFeedItem()
 {
@@ -138,6 +159,4 @@ void dummyTr() {
     qtTrId("calendar_feed_item_title");
     //% "No events in your calendar."
     qtTrId("calendar_feed_item_no_events");
-    //% "Calendars Shown"
-    qtTrId("calendar_feed_setting_calendars_shown");
 }

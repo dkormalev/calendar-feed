@@ -22,42 +22,19 @@
 **
 **************************************************************************/
 
-#ifndef SETTINGSHELPER_H
-#define SETTINGSHELPER_H
+#include "calendar.h"
 
-#include <QObject>
-#include <QDBusMessage>
-#include <QDateTime>
-
-class SettingsHelper : public QObject
+Calendar::Calendar(const QString &uid, const QString &name, QObject *parent) :
+    QObject(parent), m_value(uid), m_name(name)
 {
-    Q_OBJECT
-    Q_PROPERTY(int refreshInterval READ refreshInterval WRITE setRefreshInterval NOTIFY refreshIntervalChanged)
-public:
-    explicit SettingsHelper(QObject *parent = 0);
+}
 
-    Q_INVOKABLE QString formatDate(const QDateTime &date, const QString &format);
+QString Calendar::value() const
+{
+    return m_value;
+}
 
-    int refreshInterval() const;
-    void setRefreshInterval(int arg);
-
-    Q_INVOKABLE QList<QObject *> calendars();
-
-signals:
-    void errorOccured(const QString &message);
-
-    void refreshIntervalChanged(int arg);
-
-public slots:
-    void refreshFeedItem();
-
-protected slots:
-    void dbusRequestCompleted(const QDBusMessage &reply);
-    void dbusErrorOccured(const QDBusError &error, const QDBusMessage &message);
-
-private:
-    int m_refreshInterval;
-    QList<QObject *> m_calendars;
-};
-
-#endif // SETTINGSHELPER_H
+QString Calendar::name() const
+{
+    return m_name;
+}

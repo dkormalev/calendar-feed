@@ -134,9 +134,6 @@ void CalendarFeedPlugin::syncFailed()
 
 void CalendarFeedPlugin::updateFeed()
 {
-    MLocale locale;
-    locale.installTrCatalog("calendarfeed");
-
     bool fillWithFuture = m_settings->isFilledWithFuture();
 
     QHash<QString, QList<QDateTime> > correctStartDateTimes;
@@ -384,3 +381,142 @@ QString CalendarFeedPlugin::base64SerializedVariant(const QVariant &value) const
     stream << value;
     return ba.toBase64();
 }
+
+
+
+
+/*
+  There are some rumors about mkcal problems at PR1.2 so let old code be here for easy access
+  TODO: remove after PR1.2 release
+
+void CalendarFeedPlugin::updateFeed()
+{
+    bool fillWithFuture = m_settings->isFilledWithFuture();
+
+    QHash<QString, QList<QDateTime> > correctStartDateTimes;
+    QHash<QString, bool> allDaysFromKCal;
+
+    QOrganizerManager manager;
+    QDateTime startDateTime = QDateTime::currentDateTime();
+    QDateTime endDateTime = QDateTime::currentDateTime();
+    endDateTime.setTime(QTime(23, 59, 59));
+
+    QList<QOrganizerItem> events = manager.items(startDateTime, endDateTime);
+
+    if (fillWithFuture || events.isEmpty()) {
+        endDateTime = QDateTime();
+        if (m_settings->isFutureLimited()) {
+            endDateTime = QDateTime::currentDateTime().addDays(m_settings->futureLimit());
+            endDateTime.setTime(QTime(23, 59, 59));
+        }
+        events = manager.items(startDateTime, endDateTime);
+    }
+    QDateTime todoStartTime = QDateTime::currentDateTime();
+    todoStartTime.setTime(QTime(0,0));
+    QList<QOrganizerItem> possibleToDos = manager.items(todoStartTime, startDateTime);
+
+    QString firstFetchedEventGuid = "";
+    if (!events.empty())
+        firstFetchedEventGuid = events[0].guid();
+    QList<QOrganizerItem> toDosToAdd;
+    foreach(QOrganizerItem event, possibleToDos) {
+        if (event.type().toLower() == "todo" && event.guid() != firstFetchedEventGuid)
+            toDosToAdd << event;
+    }
+    while (!toDosToAdd.empty())
+        events.prepend(toDosToAdd.takeLast());
+
+    QList<QOrganizerItem> displayableEvents;
+    int displayableCount = m_settings->eventsShown();
+
+    for (int i = 0; i < displayableCount && i < events.size(); ++i)
+        displayableEvents << events[i];
+
+    QDate startDateForMKCal = QDate::currentDate();
+    QDate endDateForMKCal = QDate::currentDate();
+
+    if (displayableEvents.size()) {
+        QOrganizerEventTime eventTimeDetail = displayableEvents[0].detail<QOrganizerEventTime>();
+        if (eventTimeDetail.startDateTime().isValid())
+            startDateForMKCal = eventTimeDetail.startDateTime().date().addDays(-2);
+        eventTimeDetail = displayableEvents[displayableEvents.size()-1].detail<QOrganizerEventTime>();
+        if (eventTimeDetail.endDateTime().isValid())
+            endDateForMKCal = eventTimeDetail.endDateTime().date().addDays(1);
+        else if (startDateForMKCal > QDate::currentDate())
+            endDateForMKCal = startDateForMKCal;
+    }
+
+    //TODO: need to think more about it. Maybe full switch to mkcal will work better here
+    mKCal::ExtendedCalendar::Ptr calendarBackend = mKCal::ExtendedCalendar::Ptr(new mKCal::ExtendedCalendar(KDateTime::Spec::LocalZone()));
+
+    mKCal::ExtendedStorage::Ptr calendarStorage =
+            mKCal::ExtendedStorage::Ptr(mKCal::ExtendedCalendar::defaultStorage(calendarBackend));
+    calendarStorage->open();
+    calendarStorage->load(startDateForMKCal, endDateForMKCal);
+    calendarStorage->loadRecurringIncidences();
+
+    KCalCore::Incidence::List incidences = calendarBackend->incidences(startDateForMKCal, endDateForMKCal);
+
+    mKCal::ExtendedCalendar::ExpandedIncidenceList
+            incidenceList = calendarBackend->expandRecurrences(&incidences,
+                                                                    KDateTime(startDateForMKCal),
+                                                                    KDateTime(endDateForMKCal));
+
+    foreach(const mKCal::ExtendedCalendar::ExpandedIncidence &expandedIncident,
+            incidenceList) {
+        KCalCore::Incidence::Ptr incidence = expandedIncident.second;
+        if (incidence->type() != KCalCore::IncidenceBase::TypeEvent)
+            continue;
+        KCalCore::Event::Ptr event = incidence.staticCast<KCalCore::Event>();
+        correctStartDateTimes[event->uid()] << expandedIncident.first.dtStart;
+        allDaysFromKCal[event->uid()] = event->allDay();
+    }
+
+    QList<CalendarEvent *> eventsToShow;
+    foreach (QOrganizerItem event, displayableEvents) {
+        CalendarEvent *toAdd = new CalendarEvent;
+
+        if (event.type().toLower() == "todo") {
+            QOrganizerTodoTime todoTimeDetail = event.detail<QOrganizerTodoTime>();
+            toAdd->setStartDate(todoTimeDetail.dueDateTime());
+            toAdd->setAllDay(true);
+        } else {
+            QOrganizerEventTime eventTimeDetail = event.detail<QOrganizerEventTime>();
+            toAdd->setAllDay(eventTimeDetail.isAllDay());
+            QDateTime eventStartDateTime = eventTimeDetail.startDateTime();
+            QDateTime eventEndDateTime = eventTimeDetail.endDateTime();
+
+            QString uid = event.guid();
+            if (correctStartDateTimes.contains(uid)) {
+                foreach (const QDateTime &dateTime, correctStartDateTimes[uid]) {
+                    if (dateTime.date() == eventStartDateTime.date()) {
+                        if (dateTime.time() != eventStartDateTime.time()) {
+                            eventStartDateTime.setTime(dateTime.time());
+                            eventEndDateTime = eventEndDateTime.addSecs(eventStartDateTime.time().secsTo(dateTime.time()));
+                        }
+                    }
+                }
+            }
+            if (!toAdd->isAllDay() && allDaysFromKCal.contains(uid))
+                toAdd->setAllDay(allDaysFromKCal[uid]);
+
+            if (!toAdd->isAllDay() &&
+                    eventStartDateTime.time().hour() == 0 &&
+                    eventStartDateTime.time().minute() == 0 &&
+                    eventEndDateTime.time().hour() == 0 &&
+                    eventEndDateTime.time().minute() == 0 &&
+                    eventStartDateTime.date().addDays(1) == eventEndDateTime.date())
+                toAdd->setAllDay(true);
+            toAdd->setStartDate(eventStartDateTime);
+        }
+        toAdd->setSummary(event.displayLabel());
+        toAdd->setCalendarColor(manager.collection(event.collectionId())
+                               .metaData(QOrganizerCollection::KeyColor).toString());
+        eventsToShow << toAdd;
+    }
+
+    fillFeed(eventsToShow);
+    qDeleteAll(eventsToShow);
+}
+
+*/

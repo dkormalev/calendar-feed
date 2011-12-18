@@ -86,6 +86,14 @@ Page {
                 enabled: enableFeedSetting.checked
             }
 
+            LabelPageActivator {
+                width: parent.width
+                //% "To-dos"
+                label: qsTrId("calendar_feed_setting_group_todos")
+                onActivated: pageStack.push(Qt.resolvedUrl("TodosPage.qml"))
+                enabled: enableFeedSetting.checked
+            }
+
             ButtonElement {
                 width: parent.width
                 //% "Refresh Feed Item"

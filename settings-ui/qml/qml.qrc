@@ -17,5 +17,7 @@
         <file>pages/BehaviorPage.qml</file>
         <file>pages/AppearancePage.qml</file>
         <file>elements/ButtonElement.qml</file>
+        <file>elements/MultiSelectionSetting.qml</file>
+        <file>pages/TodosPage.qml</file>
     </qresource>
 </RCC>

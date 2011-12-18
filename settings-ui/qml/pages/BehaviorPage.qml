@@ -88,6 +88,36 @@ Page {
                 value: settingsHelper.refreshInterval
                 onValueChanged: settingsHelper.refreshInterval = value
             }
+
+            SwitchSetting {
+                width: parent.width
+                //% "Show Started Events"
+                label: qsTrId("calendar_feed_setting_show_started_events")
+                key: "/apps/ControlPanel/CalendarFeed/ShowStartedEvents"
+                defaultValue: false
+            }
+
+            SwitchSetting {
+                id: filterCalendarsSetting
+                width: parent.width
+                //% "Filter Calendars"
+                label: qsTrId("calendar_feed_setting_filter_calendars")
+                key: "/apps/ControlPanel/CalendarFeed/FilterCalendars"
+                defaultValue: false
+            }
+
+            MultiSelectionSetting {
+                width: parent.width
+                //% "Calendars Shown"
+                label: qsTrId("calendar_feed_setting_calendars_shown")
+                //% "Select Calendars"
+                dialogTitle: qsTrId("calendar_feed_setting_calendars_shown_dialog_title")
+                key: "/apps/ControlPanel/CalendarFeed/CalendarsShown"
+                defaultValue: ""
+                model: settingsHelper.calendars()
+                enabled: filterCalendarsSetting.checked
+            }
+
         }
 
     }
