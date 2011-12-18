@@ -28,13 +28,19 @@
         <source>Special thanks to</source>
         <translation>Besonderer Dank geht an</translation>
     </message>
-    <message id="calendar_feed_refresh">
+    <message id="calendar_feed_setting_group_todos">
         <location filename="../settings-ui/qml/pages/MainPage.qml" line="92"/>
+        <location filename="../settings-ui/qml/pages/TodosPage.qml" line="53"/>
+        <source>To-dos</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="calendar_feed_refresh">
+        <location filename="../settings-ui/qml/pages/MainPage.qml" line="100"/>
         <source>Refresh Feed Item</source>
         <translation>Feedelement aktualisieren</translation>
     </message>
     <message id="calendar_feed_about">
-        <location filename="../settings-ui/qml/pages/MainPage.qml" line="100"/>
+        <location filename="../settings-ui/qml/pages/MainPage.qml" line="108"/>
         <source>About</source>
         <translation>Über</translation>
     </message>
@@ -42,6 +48,7 @@
         <location filename="../settings-ui/qml/pages/AppearancePage.qml" line="59"/>
         <location filename="../settings-ui/qml/pages/BehaviorPage.qml" line="59"/>
         <location filename="../settings-ui/qml/pages/MainPage.qml" line="61"/>
+        <location filename="../settings-ui/qml/pages/TodosPage.qml" line="59"/>
         <source>Calendar Feed</source>
         <translation>Kalender Feed</translation>
     </message>
@@ -65,6 +72,16 @@
         <location filename="../settings-ui/qml/pages/BehaviorPage.qml" line="73"/>
         <source>Limit Future Events (days)</source>
         <translation>Begrenzung für zukünftige Ereignisse (in Tagen)</translation>
+    </message>
+    <message id="calendar_feed_setting_show_started_events">
+        <location filename="../settings-ui/qml/pages/BehaviorPage.qml" line="85"/>
+        <source>Show Started Events</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="calendar_feed_setting_filter_calendars">
+        <location filename="../settings-ui/qml/pages/BehaviorPage.qml" line="94"/>
+        <source>Filter Calendars</source>
+        <translation type="unfinished"></translation>
     </message>
     <message id="calendar_feed_setting_group_display">
         <location filename="../settings-ui/qml/pages/AppearancePage.qml" line="53"/>
@@ -99,32 +116,78 @@
         <translation>Benutzerdefiniert</translation>
     </message>
     <message id="calendar_feed_refresh_error">
-        <location filename="../settings-ui/settingshelper.cpp" line="92"/>
-        <location filename="../settings-ui/settingshelper.cpp" line="117"/>
-        <location filename="../settings-ui/settingshelper.cpp" line="125"/>
-        <location filename="../settings-ui/settingshelper.cpp" line="133"/>
+        <location filename="../settings-ui/settingshelper.cpp" line="108"/>
+        <location filename="../settings-ui/settingshelper.cpp" line="138"/>
+        <location filename="../settings-ui/settingshelper.cpp" line="146"/>
+        <location filename="../settings-ui/settingshelper.cpp" line="154"/>
         <source>Internal OS error. Please, reboot your device.</source>
         <translation>Interner System Fehler. Bitte starten sie das Gerät neu.</translation>
     </message>
     <message id="calendar_feed_item_title">
-        <location filename="../settings-ui/settingshelper.cpp" line="138"/>
+        <location filename="../settings-ui/settingshelper.cpp" line="159"/>
         <source>Calendar</source>
         <translation>Kalender</translation>
     </message>
+    <message id="calendar_feed_todos_item_title">
+        <location filename="../settings-ui/settingshelper.cpp" line="161"/>
+        <source>To-dos</source>
+        <translation type="unfinished"></translation>
+    </message>
     <message id="calendar_feed_item_no_events">
-        <location filename="../settings-ui/settingshelper.cpp" line="140"/>
+        <location filename="../settings-ui/settingshelper.cpp" line="163"/>
         <source>No events in your calendar.</source>
         <translation>Im Kalender sind keine Einträge vorhanden.</translation>
     </message>
     <message id="calendar_feed_setting_calendars_shown">
-        <location filename="../settings-ui/settingshelper.cpp" line="142"/>
+        <location filename="../settings-ui/qml/pages/BehaviorPage.qml" line="102"/>
         <source>Calendars Shown</source>
         <translation>Angezeigte Kalender</translation>
     </message>
+    <message id="calendar_feed_setting_calendars_shown_dialog_title">
+        <location filename="../settings-ui/qml/pages/BehaviorPage.qml" line="104"/>
+        <source>Select Calendars</source>
+        <translation type="unfinished"></translation>
+    </message>
     <message id="calendar_feed_setting_refresh_interval">
-        <location filename="../settings-ui/qml/pages/BehaviorPage.qml" line="85"/>
+        <location filename="../settings-ui/qml/pages/BehaviorPage.qml" line="114"/>
         <source>Refresh Interval (minutes)</source>
         <translation>Aktualisierungszeit (in Minuten)</translation>
+    </message>
+    <message id="calendar_feed_setting_multiselect_done">
+        <location filename="../settings-ui/qml/elements/MultiSelectionSetting.qml" line="65"/>
+        <source>Done</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="calendar_feed_setting_todos_display_mode">
+        <location filename="../settings-ui/qml/pages/TodosPage.qml" line="66"/>
+        <location filename="../settings-ui/qml/pages/TodosPage.qml" line="67"/>
+        <source>To-dos Display Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="calendar_feed_setting_todos_display_mode_same_item">
+        <location filename="../settings-ui/qml/pages/TodosPage.qml" line="72"/>
+        <source>Show in same item</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="calendar_feed_setting_todos_display_mode_separate_item">
+        <location filename="../settings-ui/qml/pages/TodosPage.qml" line="74"/>
+        <source>Show in separate item</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="calendar_feed_setting_todos_display_mode_nothing">
+        <location filename="../settings-ui/qml/pages/TodosPage.qml" line="76"/>
+        <source>Don&apos;t show</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="calendar_feed_setting_show_overdue_todos">
+        <location filename="../settings-ui/qml/pages/TodosPage.qml" line="82"/>
+        <source>Show Overdue To-dos</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="calendar_feed_setting_show_nondated_todos">
+        <location filename="../settings-ui/qml/pages/TodosPage.qml" line="91"/>
+        <source>Show To-dos Without Due Date</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>
