@@ -89,7 +89,7 @@
     </message>
     <message id="calendar_feed_setting_calendars_shown">
         <source>Calendars Shown</source>
-        <translation>Показать календари</translation>
+        <translation>Отображаемые календари</translation>
     </message>
     <message id="calendar_feed_setting_refresh_interval">
         <source>Refresh Interval (minutes)</source>
@@ -97,53 +97,53 @@
     </message>
     <message id="calendar_feed_setting_show_started_events">
         <source>Show Started Events</source>
-        <translation type="unfinished"></translation>
+        <translation>Показывать начавшиеся события</translation>
     </message>
     <message id="calendar_feed_setting_filter_calendars">
         <source>Filter Calendars</source>
-        <translation type="unfinished"></translation>
+        <translation>Включить фильтрацию по календарям</translation>
     </message>
     <message id="calendar_feed_setting_calendars_shown_dialog_title">
         <source>Select Calendars</source>
-        <translation type="unfinished"></translation>
+        <translation>Выберите календари</translation>
     </message>
     <message id="calendar_feed_setting_multiselect_done">
         <source>Done</source>
-        <translation type="unfinished"></translation>
+        <translation>Готово</translation>
     </message>
     <message id="calendar_feed_setting_group_todos">
         <source>To-dos</source>
         <extracomment>This is page name in Settings</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Дела</translation>
     </message>
     <message id="calendar_feed_setting_todos_display_mode">
         <source>To-dos Display Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Режим отображения дел</translation>
     </message>
     <message id="calendar_feed_setting_todos_display_mode_same_item">
         <source>Show in same item</source>
-        <translation type="unfinished"></translation>
+        <translation>В том же элементе Канала</translation>
     </message>
     <message id="calendar_feed_setting_todos_display_mode_separate_item">
         <source>Show in separate item</source>
-        <translation type="unfinished"></translation>
+        <translation>В другом элементе Канала</translation>
     </message>
     <message id="calendar_feed_setting_todos_display_mode_nothing">
         <source>Don&apos;t show</source>
-        <translation type="unfinished"></translation>
+        <translation>Не отображать</translation>
     </message>
     <message id="calendar_feed_setting_show_overdue_todos">
         <source>Show Overdue To-dos</source>
-        <translation type="unfinished"></translation>
+        <translation>Выводить просроченные дела</translation>
     </message>
     <message id="calendar_feed_setting_show_nondated_todos">
         <source>Show To-dos Without Due Date</source>
-        <translation type="unfinished"></translation>
+        <translation>Выводить дела без даты выполнения</translation>
     </message>
     <message id="calendar_feed_todos_item_title">
         <source>To-dos</source>
         <extracomment>This is Item with Todos title</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Дела</translation>
     </message>
 </context>
 </TS>
