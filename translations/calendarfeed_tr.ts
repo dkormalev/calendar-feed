@@ -33,7 +33,7 @@
         <location filename="../settings-ui/qml/pages/TodosPage.qml" line="53"/>
         <source>To-dos</source>
         <extracomment>This is page name in Settings</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Yapılacaklar</translation>
     </message>
     <message id="calendar_feed_refresh">
         <location filename="../settings-ui/qml/pages/MainPage.qml" line="101"/>
@@ -77,12 +77,12 @@
     <message id="calendar_feed_setting_show_started_events">
         <location filename="../settings-ui/qml/pages/BehaviorPage.qml" line="85"/>
         <source>Show Started Events</source>
-        <translation type="unfinished"></translation>
+        <translation>Başlayan Etkinlikleri Göster</translation>
     </message>
     <message id="calendar_feed_setting_filter_calendars">
         <location filename="../settings-ui/qml/pages/BehaviorPage.qml" line="94"/>
         <source>Filter Calendars</source>
-        <translation type="unfinished"></translation>
+        <translation>Takvimleri Filtre</translation>
     </message>
     <message id="calendar_feed_setting_group_display">
         <location filename="../settings-ui/qml/pages/AppearancePage.qml" line="53"/>
@@ -128,7 +128,7 @@
         <location filename="../settings-ui/settingshelper.cpp" line="162"/>
         <source>To-dos</source>
         <extracomment>This is Item with Todos title</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Yapılacaklar</translation>
     </message>
     <message id="calendar_feed_item_no_events">
         <location filename="../settings-ui/settingshelper.cpp" line="164"/>
@@ -143,7 +143,7 @@
     <message id="calendar_feed_setting_calendars_shown_dialog_title">
         <location filename="../settings-ui/qml/pages/BehaviorPage.qml" line="104"/>
         <source>Select Calendars</source>
-        <translation type="unfinished"></translation>
+        <translation>Takvimi Seç</translation>
     </message>
     <message id="calendar_feed_setting_refresh_interval">
         <location filename="../settings-ui/qml/pages/BehaviorPage.qml" line="114"/>
@@ -158,38 +158,38 @@
     <message id="calendar_feed_setting_multiselect_done">
         <location filename="../settings-ui/qml/elements/MultiSelectionSetting.qml" line="65"/>
         <source>Done</source>
-        <translation type="unfinished"></translation>
+        <translation>Tamam</translation>
     </message>
     <message id="calendar_feed_setting_todos_display_mode">
         <location filename="../settings-ui/qml/pages/TodosPage.qml" line="66"/>
         <location filename="../settings-ui/qml/pages/TodosPage.qml" line="67"/>
         <source>To-dos Display Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Yapılacakları Görüntüle</translation>
     </message>
     <message id="calendar_feed_setting_todos_display_mode_same_item">
         <location filename="../settings-ui/qml/pages/TodosPage.qml" line="72"/>
         <source>Show in same item</source>
-        <translation type="unfinished"></translation>
+        <translation>Aynı öğede göster</translation>
     </message>
     <message id="calendar_feed_setting_todos_display_mode_separate_item">
         <location filename="../settings-ui/qml/pages/TodosPage.qml" line="74"/>
         <source>Show in separate item</source>
-        <translation type="unfinished"></translation>
+        <translation>Ayrı öğelerde göster</translation>
     </message>
     <message id="calendar_feed_setting_todos_display_mode_nothing">
         <location filename="../settings-ui/qml/pages/TodosPage.qml" line="76"/>
         <source>Don&apos;t show</source>
-        <translation type="unfinished"></translation>
+        <translation>Gösterme</translation>
     </message>
     <message id="calendar_feed_setting_show_overdue_todos">
         <location filename="../settings-ui/qml/pages/TodosPage.qml" line="82"/>
         <source>Show Overdue To-dos</source>
-        <translation type="unfinished"></translation>
+        <translation>Geçmiş Yapılacakları Göster</translation>
     </message>
     <message id="calendar_feed_setting_show_nondated_todos">
         <location filename="../settings-ui/qml/pages/TodosPage.qml" line="91"/>
         <source>Show To-dos Without Due Date</source>
-        <translation type="unfinished"></translation>
+        <translation>Güncel Yapılacakları Göster</translation>
     </message>
 </context>
 </TS>
