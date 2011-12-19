@@ -113,6 +113,7 @@
     </message>
     <message id="calendar_feed_setting_group_todos">
         <source>To-dos</source>
+        <extracomment>This is page name in Settings</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message id="calendar_feed_setting_todos_display_mode">
@@ -141,6 +142,7 @@
     </message>
     <message id="calendar_feed_todos_item_title">
         <source>To-dos</source>
+        <extracomment>This is Item with Todos title</extracomment>
         <translation type="unfinished"></translation>
     </message>
 </context>

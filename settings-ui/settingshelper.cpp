@@ -158,6 +158,7 @@ void dummyTr() {
     //% "Calendar"
     qtTrId("calendar_feed_item_title");
     //% "To-dos"
+    //: This is Item with Todos title
     qtTrId("calendar_feed_todos_item_title");
     //% "No events in your calendar."
     qtTrId("calendar_feed_item_no_events");

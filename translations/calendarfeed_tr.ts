@@ -29,18 +29,19 @@
         <translation>Özellikle teşekkürler</translation>
     </message>
     <message id="calendar_feed_setting_group_todos">
-        <location filename="../settings-ui/qml/pages/MainPage.qml" line="92"/>
+        <location filename="../settings-ui/qml/pages/MainPage.qml" line="93"/>
         <location filename="../settings-ui/qml/pages/TodosPage.qml" line="53"/>
         <source>To-dos</source>
+        <extracomment>This is page name in Settings</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message id="calendar_feed_refresh">
-        <location filename="../settings-ui/qml/pages/MainPage.qml" line="100"/>
+        <location filename="../settings-ui/qml/pages/MainPage.qml" line="101"/>
         <source>Refresh Feed Item</source>
         <translation>Beslemeleri Yenile</translation>
     </message>
     <message id="calendar_feed_about">
-        <location filename="../settings-ui/qml/pages/MainPage.qml" line="108"/>
+        <location filename="../settings-ui/qml/pages/MainPage.qml" line="109"/>
         <source>About</source>
         <translation>Hakkında</translation>
     </message>
@@ -124,12 +125,13 @@
         <translation>Takvim</translation>
     </message>
     <message id="calendar_feed_todos_item_title">
-        <location filename="../settings-ui/settingshelper.cpp" line="161"/>
+        <location filename="../settings-ui/settingshelper.cpp" line="162"/>
         <source>To-dos</source>
+        <extracomment>This is Item with Todos title</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message id="calendar_feed_item_no_events">
-        <location filename="../settings-ui/settingshelper.cpp" line="163"/>
+        <location filename="../settings-ui/settingshelper.cpp" line="164"/>
         <source>No events in your calendar.</source>
         <translation>Takviminizde herhangi bir etkinlik yok.</translation>
     </message>
