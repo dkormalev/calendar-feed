@@ -1,4 +1,4 @@
-calendarfeed (0.6.0) unstable; urgency=low
+calendarfeed (0.6.1) unstable; urgency=low
 
   * Refactoring
   * Plugin moved to mkcal from Mobility

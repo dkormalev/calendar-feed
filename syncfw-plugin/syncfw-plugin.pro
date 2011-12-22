@@ -1,6 +1,6 @@
 TEMPLATE = lib
 TARGET = calendarfeed-client
-VERSION = 0.6.0
+VERSION = 0.6.1
 
 DEPENDPATH += .
 INCLUDEPATH += . \

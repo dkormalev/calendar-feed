@@ -269,16 +269,31 @@ void CalendarFeedPlugin::updateFeed()
 
             if (incidence->type() == KCalCore::IncidenceBase::TypeEvent) {
                 KCalCore::Event::Ptr event = incidence.staticCast<KCalCore::Event>();
-                QDateTime checkableDateTime = (showAlreadyStarted || event->allDay()) ?
-                            expandedIncident.first.dtEnd :
-                            expandedIncident.first.dtStart;
 
-                if (expandedIncident.first.dtStart.isValid() &&
-                        expandedIncident.first.dtEnd >= expandedIncident.first.dtStart &&
+                QDateTime dtStart = expandedIncident.first.dtStart;
+                QDateTime dtEnd = expandedIncident.first.dtEnd;
+
+                if (event->allDay()) {
+                    QTime neededEndTime(0,0,0);
+                    //mkcal return some strange values in dates for allDay events,
+                    //so let's do some dark heuristic magic with them
+                    if (dtEnd.time() != neededEndTime) {
+                        dtEnd.setTime(neededEndTime);
+                        if (dtEnd.date() == dtStart.date())
+                            dtEnd.setDate(dtStart.date().addDays(1));
+                    }
+                }
+
+                QDateTime checkableDateTime = (showAlreadyStarted || event->allDay()) ?
+                            dtEnd :
+                            dtStart;
+
+                if (dtStart.isValid() &&
+                        dtEnd >= dtStart &&
                         checkableDateTime > currentStartDateTime) {
                     CalendarEvent *toAdd = new CalendarEvent;
                     toAdd->setSummary(event->summary());
-                    toAdd->setStartDate(expandedIncident.first.dtStart);
+                    toAdd->setStartDate(dtStart);
                     toAdd->setAllDay(event->allDay());
                     toAdd->setCalendarColor(calendarColor);
                     eventsToShow << toAdd;
@@ -394,7 +409,7 @@ QDBusMessage CalendarFeedPlugin::createAddItemMessage(const QList<CalendarEvent 
         if (eventDescription.length() > 32)
             eventDescription = eventDescription.left(30-(showCalendarBar ? 1 : 0))+"&#x2026;";
 
-        eventDescription.replace(" ", "&nbsp;");
+        eventDescription.replace(" ", QChar(160));
 
         if (greyOutThisEvent)
             eventDescription = QString("<font color='#A0A0A0'>%1</font>").arg(eventDescription);
