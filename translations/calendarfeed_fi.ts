@@ -97,53 +97,53 @@
     </message>
     <message id="calendar_feed_setting_multiselect_done">
         <source>Done</source>
-        <translation type="unfinished"></translation>
+        <translation>Valmis</translation>
     </message>
     <message id="calendar_feed_setting_show_started_events">
         <source>Show Started Events</source>
-        <translation type="unfinished"></translation>
+        <translation>Näytä aloitetut tapahtumat</translation>
     </message>
     <message id="calendar_feed_setting_filter_calendars">
         <source>Filter Calendars</source>
-        <translation type="unfinished"></translation>
+        <translation>Suodata kalentereita</translation>
     </message>
     <message id="calendar_feed_setting_calendars_shown_dialog_title">
         <source>Select Calendars</source>
-        <translation type="unfinished"></translation>
+        <translation>Valitse kalenterit</translation>
     </message>
     <message id="calendar_feed_setting_group_todos">
         <source>To-dos</source>
         <extracomment>This is page name in Settings</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Tehtävät</translation>
     </message>
     <message id="calendar_feed_setting_todos_display_mode">
         <source>To-dos Display Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Tehtävien näyttötapa</translation>
     </message>
     <message id="calendar_feed_setting_todos_display_mode_same_item">
         <source>Show in same item</source>
-        <translation type="unfinished"></translation>
+        <translation>Näytä samassa osiossa</translation>
     </message>
     <message id="calendar_feed_setting_todos_display_mode_separate_item">
         <source>Show in separate item</source>
-        <translation type="unfinished"></translation>
+        <translation>Näytä erillisessä osiossa</translation>
     </message>
     <message id="calendar_feed_setting_todos_display_mode_nothing">
         <source>Don&apos;t show</source>
-        <translation type="unfinished"></translation>
+        <translation>Älä näytä</translation>
     </message>
     <message id="calendar_feed_setting_show_overdue_todos">
         <source>Show Overdue To-dos</source>
-        <translation type="unfinished"></translation>
+        <translation>Näytä myöhässä olevat tehtävät</translation>
     </message>
     <message id="calendar_feed_setting_show_nondated_todos">
         <source>Show To-dos Without Due Date</source>
-        <translation type="unfinished"></translation>
+        <translation>Näytä ilman määräpäivää olevat tehtävät</translation>
     </message>
     <message id="calendar_feed_todos_item_title">
         <source>To-dos</source>
         <extracomment>This is Item with Todos title</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Tehtävät</translation>
     </message>
 </context>
 </TS>
