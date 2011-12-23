@@ -33,7 +33,7 @@
         <location filename="../settings-ui/qml/pages/TodosPage.qml" line="53"/>
         <source>To-dos</source>
         <extracomment>This is page name in Settings</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Zadania</translation>
     </message>
     <message id="calendar_feed_refresh">
         <location filename="../settings-ui/qml/pages/MainPage.qml" line="101"/>
@@ -62,7 +62,7 @@
     <message id="calendar_feed_setting_publish_to_feed">
         <location filename="../settings-ui/qml/pages/MainPage.qml" line="68"/>
         <source>Publish to Feed</source>
-        <translation type="unfinished">Opublikuj na kanale</translation>
+        <translation>Opublikuj na kanale</translation>
     </message>
     <message id="calendar_feed_setting_fill_with_future">
         <location filename="../settings-ui/qml/pages/BehaviorPage.qml" line="65"/>
@@ -77,12 +77,12 @@
     <message id="calendar_feed_setting_show_started_events">
         <location filename="../settings-ui/qml/pages/BehaviorPage.qml" line="85"/>
         <source>Show Started Events</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokaż rozpoczęte zdarzenia</translation>
     </message>
     <message id="calendar_feed_setting_filter_calendars">
         <location filename="../settings-ui/qml/pages/BehaviorPage.qml" line="94"/>
         <source>Filter Calendars</source>
-        <translation type="unfinished"></translation>
+        <translation>Filtruj kalendarze</translation>
     </message>
     <message id="calendar_feed_setting_group_display">
         <location filename="../settings-ui/qml/pages/AppearancePage.qml" line="53"/>
@@ -98,7 +98,7 @@
     <message id="calendar_feed_setting_show_calendar_bar">
         <location filename="../settings-ui/qml/pages/AppearancePage.qml" line="76"/>
         <source>Show Calendar Color</source>
-        <translation>Pokarz kolor kalendarza</translation>
+        <translation>Pokaż kolor kalendarza</translation>
     </message>
     <message id="calendar_feed_setting_highlight_today">
         <location filename="../settings-ui/qml/pages/AppearancePage.qml" line="84"/>
@@ -128,7 +128,7 @@
         <location filename="../settings-ui/settingshelper.cpp" line="162"/>
         <source>To-dos</source>
         <extracomment>This is Item with Todos title</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Zadania</translation>
     </message>
     <message id="calendar_feed_item_no_events">
         <location filename="../settings-ui/settingshelper.cpp" line="164"/>
@@ -143,7 +143,7 @@
     <message id="calendar_feed_setting_calendars_shown_dialog_title">
         <location filename="../settings-ui/qml/pages/BehaviorPage.qml" line="104"/>
         <source>Select Calendars</source>
-        <translation type="unfinished"></translation>
+        <translation>Wybierz kalendarz</translation>
     </message>
     <message id="calendar_feed_setting_refresh_interval">
         <location filename="../settings-ui/qml/pages/BehaviorPage.qml" line="114"/>
@@ -158,38 +158,38 @@
     <message id="calendar_feed_setting_multiselect_done">
         <location filename="../settings-ui/qml/elements/MultiSelectionSetting.qml" line="65"/>
         <source>Done</source>
-        <translation type="unfinished"></translation>
+        <translation>Gotowe</translation>
     </message>
     <message id="calendar_feed_setting_todos_display_mode">
         <location filename="../settings-ui/qml/pages/TodosPage.qml" line="66"/>
         <location filename="../settings-ui/qml/pages/TodosPage.qml" line="67"/>
         <source>To-dos Display Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Sposób wyświetlania zadań</translation>
     </message>
     <message id="calendar_feed_setting_todos_display_mode_same_item">
         <location filename="../settings-ui/qml/pages/TodosPage.qml" line="72"/>
         <source>Show in same item</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokaż w tym samym elemencie</translation>
     </message>
     <message id="calendar_feed_setting_todos_display_mode_separate_item">
         <location filename="../settings-ui/qml/pages/TodosPage.qml" line="74"/>
         <source>Show in separate item</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokaż w osobnym elemencie</translation>
     </message>
     <message id="calendar_feed_setting_todos_display_mode_nothing">
         <location filename="../settings-ui/qml/pages/TodosPage.qml" line="76"/>
         <source>Don&apos;t show</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie pokazuj</translation>
     </message>
     <message id="calendar_feed_setting_show_overdue_todos">
         <location filename="../settings-ui/qml/pages/TodosPage.qml" line="82"/>
         <source>Show Overdue To-dos</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokaż zaległe zadania</translation>
     </message>
     <message id="calendar_feed_setting_show_nondated_todos">
         <location filename="../settings-ui/qml/pages/TodosPage.qml" line="91"/>
         <source>Show To-dos Without Due Date</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokazuj zadania bez terminu</translation>
     </message>
 </context>
 </TS>
